@@ -41,7 +41,8 @@
 
 ;; Work in progress
 (use-package my-still-in-dev
-  :init
+  :defer t
+  :config
   (message "See my-still-in-dev.el.")
 )
 
