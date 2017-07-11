@@ -1,0 +1,42 @@
+
+* Invoke Info: C-h etc.
+  - read a local info file: C-u C-h i
+  - switch between plain-info text and Info-view: M-x Info-on-current-buffer
+
+* artist-mode keys (from HELP	: C-h m)
+  - rectangle	: C-c C-a r RET move RET
+  - line	: C-c C-a l RET move RET
+  - circle	: C-c C-a c RET move RET
+  - ellipse	: C-c C-a e RET move RET
+  - poly-line	: C-c C-a p RET move RET move RET ..
+  - copy a line and paste it below	: S-C-j
+
+* pense-bete for bookmarks
+  - C-x r m : set a bookmark at the current location (e.g. in a file)
+  - C-x r b : jump to a bookmark
+  - C-x r l : list your bookmarks
+  - M-x bookmark-delete : delete a bookmark by name
+
+* after the def of a saved macro
+  - ie, the sequence is 2 steps
+    - C-x ( blabla C-x )
+    - M-x name-last-kdb-maco [ou insert-kdb-macro]
+  - this macro can be used in a region with the simple sequence
+    C-u N M-x nom_macro
+
+* completion
+  - C-M i runs completion-at-point
+  - M-/ runs dabbrev-expand
+    - bla M-/ expands with words in the file
+
+* Move around balanced expr. {}()[]
+  - C-M-n C-M-p C-M-u
+  - C-M-f C-M-b C-M-k C-M-t
+
+* narrow
+ - C-x n n
+ - C-x n w
+ - M-x clone-indirect-buffer-other-window
+* Clean
+  - clean.sh allows to remove non-necessary files
+    Useful when move configuration between several machines
