@@ -421,6 +421,11 @@
   :ensure t
   :init
   :defines ess-indent-offset
+  :mode (
+         ("\\.R\\'" . R-mode)
+         ("\\.r\\'" . R-mode)
+         ("\\.jl\\'" . ess-julia-mode)
+         )
   :config
   (require 'ess-site)
   (require 'ess-utils)
