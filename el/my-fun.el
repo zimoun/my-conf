@@ -372,3 +372,30 @@ the keybinding `=' through UNIVERSAL argument.
 
           (ediff-files file1 file2))
         ))))
+
+
+(defun my/cut-here (beg end)
+  "Box the selected region, by scissor and cut here.
+
+For example,
+
+--8<---------------cut here---------------start------------->8---
+Here, we are.
+Bye.
+--8<---------------cut here---------------stop-------------->8---
+
+Note: BEG and END are provided by (`interactive' \"r\")."
+
+  (interactive "r")
+  (let ((string "--8<---------------cut here---------------%s------------->8---"))
+    (goto-char beg)
+    (insert (format string "start"))
+    ;;(electric-newline-and-maybe-indent)
+    (newline)
+    (goto-char (+ end
+                  (1- (length string))
+                  (length "start")))
+    (insert (format string "stop-"))
+    (newline)
+    ;;(electric-newline-and-maybe-indent)
+    ))
