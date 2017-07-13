@@ -422,25 +422,24 @@
   :init
   :defines ess-indent-offset
   :mode (
-         ("\\.R\\'" . R-mode)
-         ("\\.r\\'" . R-mode)
+         ("\\.[r|R]\\'" . R-mode)
          ("\\.jl\\'" . ess-julia-mode)
          )
   :config
   (require 'ess-site)
   (require 'ess-utils)
+  (require 'ess-rutils)
   (add-hook 'R-mode-hook
             (lambda ()
-              (setq ess-indent-offset tab-width)))
-  (require 'ess-rutils)
+              (ess-set-style 'RStudio)
+              (setq ess-indent-offset tab-width)
+              ;; remap (default) "_" to "<-" by "=" to "<-"
+              (setq ess-smart-S-assign-key "=")
+              ;; needs to double `(ess-toggle-S-assign nil)'
+              (ess-toggle-S-assign nil)
+              (ess-toggle-S-assign nil)
+              ))
   (setq ess-eval-visibly-p nil)
-  ;; change "_" to "<-" by "=" to "<-"
-  ;; the double `(ess-toggle-S-assign nil)'
-  (setq ess-smart-S-assign-key "=")
-  ;(ess-toggle-S-assign nil)
-  ;;(setq ess-indent-level 2)
-  (ess-set-style 'RStudio)
-  ;;(setq ess-use-eldoc t)
   (setq ess-use-eldoc'script-only)
   )
 
