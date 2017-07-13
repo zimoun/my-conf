@@ -187,7 +187,7 @@
   )
 
 ;; ELisp
-(use-package elisp
+(use-package elisp-mode
   :defer t
   :config
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
