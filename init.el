@@ -31,7 +31,7 @@
 ;; more or less useful functions
 (use-package my-fun
   :init
-  (message "Try (shell): emacs -q -batch -f batch-byte-compile ~/.emacs.d/**/*.el")
+  (message "(shell) See local file update.sh")
   (message "      or  M-x my/byte-compile-el-init")
 )
 
@@ -59,7 +59,7 @@
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (geiser ess pyvenv yasnippet magit julia-mode graphviz-dot-mode pandoc-mode markdown-mode lua-mode tuareg utop python-mode use-package))))
+    (haskell-mode geiser ess pyvenv yasnippet magit julia-mode graphviz-dot-mode pandoc-mode markdown-mode lua-mode tuareg utop python-mode use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

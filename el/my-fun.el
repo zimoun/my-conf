@@ -6,8 +6,9 @@
 (defun my/byte-compile-el-init ()
  "Byte-compile all lisp in `user-emacs-directory' (~/.emacs.d/).
 
+  See local file update.sh to full compilation
+    Doing: package-refresh-contents then re-compile if needed.
 
-   emacs -q -batch -f batch-byte-compile ~/.emacs.d/**/*.el
 then check:
    time emacs -l .emacs.d/init.el -batch --eval '(message \"hi\")'
    time emacs -l .emacs.d/init.elc -batch --eval '(message \"hi\")'
@@ -26,7 +27,6 @@ then check:
             nil
             t)
 )
-
 
 ;; not sure this is useful
 (defun my/return-newline-with-indent ()
