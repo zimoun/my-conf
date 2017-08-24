@@ -502,3 +502,17 @@
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "<backtab>") 'helm-select-action)
   )
+
+
+(use-package haskell-mode
+  :ensure t
+  :defer t
+  :config
+  (require 'haskell-interactive-mode)
+  (require 'haskell-process)
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+
+  (add-hook 'haskell-mode-hook 'haskell-doc-mode)
+
+  (define-key haskell-mode-map (kbd "C-c C-p") 'haskell-interactive-bring)
+  )

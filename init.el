@@ -15,6 +15,11 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
+;; ;; Do not forget to refresh the contents, time to time.
+;; ;; Otherwise, the locally listed package should be not installable,
+;; ;; since the remotely available package should be updated.
+;; (package-refresh-contents)
+
 ;; Boostrap `use-package' by John Wiegley
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
