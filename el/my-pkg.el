@@ -187,6 +187,26 @@
   (diminish 'eldoc-mode)
   )
 
+;; ;;
+;; ;; Hum? not sure it works as I want.
+;; ;; And it adds possibly long stuff in the (short) mode line.
+;; ;;
+;; ;; display the current function in mode line
+;; (use-package which-func
+;;   ;; which-func-mode is deprecated
+;;   ;; but which-function-mode is defined in which-func.el
+;;   :init
+;;   (which-function-mode t)
+;;   (setq which-func-unknown ".")
+;;   (setq which-func-modes
+;;         '(python-mode
+;;           lisp-mode
+;;           julia-mode
+;;           ess-mode
+;;           cc-mode
+;;           ))
+;; )
+
 ;; ELisp
 (use-package lisp-mode
   :defer t
