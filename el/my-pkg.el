@@ -535,5 +535,15 @@
 
   (add-hook 'haskell-mode-hook 'haskell-doc-mode)
 
+  ;; allow to cycle by TAB
+  (add-hook 'haskell-mode-hook 'haskell-indentation-mode)
+  ;; not sure if it is useful?
+  (setq haskell-indentation-electric-flag t)
+  ;; apparently not really maintained.
+  ;; however useful haskell-indent-align-guards-and-rhs etc.
+  (add-hook 'haskell-mode-hook 'haskell-indent-mode)
+  ;; provide e.g., nice beginning-of-defun binded to C-M-a
+  (add-hook 'haskell-mode-hook 'haskell-decl-scan-mode)
+
   (define-key haskell-mode-map (kbd "C-c C-p") 'haskell-interactive-bring)
   )
