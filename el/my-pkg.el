@@ -249,7 +249,7 @@
 
 
 ;; LaTeX
-(use-package tex
+(use-package tex-mode
   :defer t
   :config
   (add-hook 'latex-mode-hook 'my/return-newline-with-indent)
