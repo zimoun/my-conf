@@ -179,6 +179,7 @@
   :defer t
   )
 
+;; show function signature in Mini-Buffer
 (use-package eldoc
   :defer t
   :diminish t
