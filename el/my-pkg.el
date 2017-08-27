@@ -264,7 +264,6 @@
   ;; Should run etags even in the imported lib
   ;; workon foo
   ;; find ${$(which python)/\/bin\/python/} -type f -name '*.py' | xargs etags
-  (setq python-indent-offset 4)
 )
 
 
