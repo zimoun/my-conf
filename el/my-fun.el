@@ -273,6 +273,9 @@ Then `comment-region' from `back-to-indentation' to `line-end-position'."
 )
 
 (defun my/paredit-kill (&optional argument)
+  "Unused!
+
+Since I am not using `paredit', yet."
   (interactive "P")
   (my/move-beginning-of-line nil)
   (paredit-kill argument)
