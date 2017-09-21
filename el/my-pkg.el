@@ -284,6 +284,10 @@
   ;; the so nice RefTeX package...
   (add-hook 'latex-mode-hook 'turn-on-reftex)
   (setq reftex-ref-macro-prompt nil)
+
+  ;; replace internal DocView-mode by external MuPDF
+  ;; (see package openwith somewhere there)
+  (openwith-mode t)
 )
 
 ;; mispell corrector using dictionary
@@ -539,6 +543,7 @@
   ;; (setq bibtex-completion-pdf-field "File")
 
   ;; replace internal DocView-mode by external MuPDF
+  ;; (see package openwith somewhere there)
   (openwith-mode t)
 
   ;; useful for `helm-find-file': tab does completion
