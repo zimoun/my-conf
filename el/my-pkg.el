@@ -503,6 +503,14 @@
   (setq geiser-active-implementations '(guile))
 )
 
+(use-package openwith
+  :ensure t
+  :defer t
+  :config
+  ;; because Doc-View mode is not efficient enough for large PDF documents
+  (setq openwith-associations '(("\\.pdf\\'" "mupdf" (file))))
+)
+
 ;; (use-package bibtex-completion
 ;;   :ensure t
 ;;   :defer t
@@ -525,11 +533,19 @@
                 "conf/"
                 "report/"
                 "TH/")))
+  ;; the special JabRef field File is not working
+  ;; because File stores relative path and helm-bibtex looks for full path
+  ;; even if bibtex-completion-library-path is set to "~/bib/pdf/"
+  ;; (setq bibtex-completion-pdf-field "File")
+
+  ;; replace internal DocView-mode by external MuPDF
+  (openwith-mode t)
+
   ;; useful for `helm-find-file': tab does completion
   ;; but not for `helm-M-x': tab open stuff and does not complete
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "<backtab>") 'helm-select-action)
-  )
+)
 
 
 (use-package haskell-mode
