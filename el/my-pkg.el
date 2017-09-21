@@ -501,7 +501,7 @@
   ;; (setq geiser-default-implementation '(guile))
   ;; (setq geiser-implementation-alist '(((regexp "\\.scm$") guile)))
   (setq geiser-active-implementations '(guile))
-  )
+)
 
 ;; (use-package bibtex-completion
 ;;   :ensure t
@@ -553,4 +553,4 @@
   (add-hook 'haskell-mode-hook 'haskell-decl-scan-mode)
 
   (define-key haskell-mode-map (kbd "C-c C-p") 'haskell-interactive-bring)
-  )
+)
