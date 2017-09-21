@@ -517,6 +517,14 @@
   :config
   (setq bibtex-completion-bibliography
         '("~/bib/bibjabref.bib"))
+  (setq bibtex-completion-library-path
+        (mapcar (lambda (x) (concat "~/bib/pdf/" x))
+                '("article/"
+                "book/"
+                "CO/"
+                "conf/"
+                "report/"
+                "TH/")))
   ;; useful for `helm-find-file': tab does completion
   ;; but not for `helm-M-x': tab open stuff and does not complete
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
