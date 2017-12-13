@@ -577,3 +577,7 @@
 
   (define-key haskell-mode-map (kbd "C-c C-p") 'haskell-interactive-bring)
 )
+
+(use-package debbugs
+  :ensure t
+  :defer t)
