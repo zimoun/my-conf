@@ -542,6 +542,8 @@
   ;; even if bibtex-completion-library-path is set to "~/bib/pdf/"
   ;; (setq bibtex-completion-pdf-field "File")
 
+  (setq bibtex-completion-pdf-symbol "#")
+
   ;; replace internal DocView-mode by external MuPDF
   ;; (see package openwith somewhere there)
   (openwith-mode t)
