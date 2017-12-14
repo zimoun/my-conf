@@ -59,7 +59,8 @@
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (haskell-mode geiser ess pyvenv yasnippet magit julia-mode graphviz-dot-mode pandoc-mode markdown-mode lua-mode tuareg utop python-mode use-package))))
+    (debbugs htmlize org haskell-mode geiser ess pyvenv yasnippet magit julia-mode graphviz-dot-mode pandoc-mode markdown-mode lua-mode tuareg utop python-mode use-package)))
+)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

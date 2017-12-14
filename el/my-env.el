@@ -133,3 +133,10 @@
 (setq calendar-latitude +48.8)
 (setq calendar-longitude +2.3)
 (setq calendar-location-name "Paris")
+
+
+;; Guix variable
+(setq safe-local-variable-values
+      '((bug-reference-bug-regexp
+         .
+         "<https?://\\(debbugs\\|bugs\\)\\.gnu\\.org/\\([0-9]+\\)>")))
