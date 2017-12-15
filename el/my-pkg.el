@@ -581,3 +581,7 @@
 (use-package debbugs
   :ensure t
   :defer t)
+
+(use-package htmlize
+  :ensure t
+  :defer t)
