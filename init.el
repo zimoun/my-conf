@@ -56,4 +56,5 @@
 ;; ;; avoid to pollute this file
 ;; ;; and custom.el is not versionned
 (setq custom-file "~/.emacs.d/custom.el")
-(load-file custom-file)
+(when (file-exists-p custom-file)
+  (load-file custom-file))
