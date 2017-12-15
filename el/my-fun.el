@@ -402,3 +402,17 @@ Note: BEG and END are provided by (`interactive' \"r\")."
     (newline)
     ;;(electric-newline-and-maybe-indent)
     ))
+
+
+
+(defun my/time-stamp ()
+  "Insert current date at point.
+
+Simpler than `org-time-stamp', but should work with any mode.
+See Info node `(org)Creating timestamps' for why this format is nice.
+This format is manipulable when M-x `org-mode' is launched.
+
+
+If `org-mode' is not loaded, then link to `org-time-stamp' is blank."
+   (interactive)
+   (insert (format-time-string "<%Y-%m-%d %a>")))
