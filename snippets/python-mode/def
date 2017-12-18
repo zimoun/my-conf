@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # -*- mode: snippet -*-
 # name: def
-# key: def
+# key: def...
 # --
 def ${1:fname}(${2:args}):
     """
