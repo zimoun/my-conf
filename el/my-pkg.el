@@ -359,6 +359,8 @@
 (use-package org
   :defer t
   :config
+  (add-hook 'org-mode-hook 'auto-fill-mode)
+
   (define-key global-map "\C-ca" 'org-agenda)
   (setq org-agenda-files (list "/tmp/cal.org"))
   (put 'narrow-to-region 'disabled nil)
