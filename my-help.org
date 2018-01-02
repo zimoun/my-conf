@@ -1,3 +1,5 @@
+# -*- mode: org ; coding: utf8 -*-
+
 
 * Invoke Info: C-h etc.
   - read a local info file: C-u C-h i
