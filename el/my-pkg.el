@@ -397,6 +397,9 @@
   :ensure t
   :defer t
   :bind ("C-x g" . magit-status)
+  :config
+  (add-hook 'magit-section-set-visibility-hook
+            'my/magit-initially-hide-untracked)
 )
 
 (use-package eshell

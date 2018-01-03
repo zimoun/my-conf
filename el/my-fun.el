@@ -416,3 +416,17 @@ This format is manipulable when M-x `org-mode' is launched.
 If `org-mode' is not loaded, then link to `org-time-stamp' is blank."
    (interactive)
    (insert (format-time-string "<%Y-%m-%d %a>")))
+
+
+
+;; Ugly hack! Not sure it is the right way...
+;;;; but seems do the job.
+(defun my/magit-initially-hide-untracked (section)
+  "Used by `magit-section-set-visibility-hook'.
+
+See Info node `(magit)Section Visibility'.
+
+From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-visibility-of-a-magit-section'. "
+  (and (not magit-insert-section--oldroot)
+       (eq (magit-section-type section) 'untracked)
+       'hide))
