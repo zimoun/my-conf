@@ -358,6 +358,11 @@
 ;; not really used (yet)
 (use-package org
   :defer t
+  :init
+  ;; My prefered and used backends
+  ;;;; need to be set up before loading org.el
+  (setq org-export-backends '(ascii html latex texinfo))
+
   :config
   (add-hook 'org-mode-hook 'auto-fill-mode)
 
