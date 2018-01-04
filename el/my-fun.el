@@ -28,7 +28,7 @@ then check:
             t)
 )
 
-;; not sure this is useful
+;; not sure this is useful. Remove ?
 (defun my/return-newline-with-indent ()
   "Function that does its name.
 
@@ -38,6 +38,7 @@ then check:
 )
 
 
+;;;;
 ;; Compilation -- needs improvments
 ;;;; because it is a mess with the directory
 (defun my/compile-or-recompile ()
@@ -47,7 +48,7 @@ then check:
     (progn
       (setq compile-command "make -k -C ~/")
       (call-interactively 'compile)))
-  )
+)
 
 (defun my/compile-clean ()
   (interactive)
@@ -55,14 +56,14 @@ then check:
   (setq compile-command (concat compile-command " clean "))
   (call-interactively 'recompile)
   (setq compile-command compile-command-save)
-  )
+)
 
 (defun my/compile-run ()
   (interactive)
   (if (get-buffer "*compilation*")
       (kill-buffer "*compilation*"))
   (call-interactively 'compile)
-  )
+)
 ;;;;
 
 
@@ -85,7 +86,7 @@ then check:
   (message "a-cmd: %s" compile-command)
   (compilation-read-command)
   (message "e-cmd: %s" compile-command)
-  )
+)
 
 ;; from http://emacswiki.org/emacs/ModeCompile
 (defun my/compilation-autoclose (status code msg)
@@ -96,13 +97,22 @@ then check:
   (cons msg code)
 )
 
+;;
+;; end compilation unworking stuff
+;;
 
-;; from http://emacswiki.org/emacs/AutoIndentation
+
+
 (defun my/kill-line-or-delete-indent (&optional arg)
   "Useful `kill-line'.
 
 `kill-line' from point to end if text exist
-or delete-indentation and so join line."
+or delete-indentation and so join line.
+
+Should be globally binded to `C-M d'.
+
+From URL `http://emacswiki.org/emacs/AutoIndentation'.
+"
   (interactive "P")
   (if (and (eolp) (not (bolp)))
       (delete-indentation t)
@@ -114,8 +124,8 @@ or delete-indentation and so join line."
   "Function that does its name.
 
   Require ps2pdf
-  temporary file at /tmp/tmp.ps [not-removed]."
-
+  temporary file at /tmp/tmp.ps [not-removed].
+"
   (interactive "FSave as pdf: ")
 
   (ps-spool-buffer-with-faces)
@@ -142,13 +152,16 @@ or delete-indentation and so join line."
   (interactive "r")
   (align-regexp start end
                 "\\(\\s-*\\)\\&" 1 1 t)
-  )
+)
 
-;; from http://www.howardism.org/Technical/Emacs/eshell-fun.html
+
 (defun my/eshell ()
   "Opens up a new shell in the directory associated with the
 current buffer's file. The eshell is renamed to match that
-directory to make multiple eshell windows easier."
+directory to make multiple eshell windows easier.
+
+From URL `http://www.howardism.org/Technical/Emacs/eshell-fun.html'.
+"
   (interactive)
   (let* ((parent (if (buffer-file-name)
                      (file-name-directory (buffer-file-name))
@@ -162,23 +175,30 @@ directory to make multiple eshell windows easier."
     (rename-buffer (concat "*eshell: " name "*"))
 
     ;; trick when do not use standard Linux, and add some NetBSD packages
+    ;;;; useful when running under MacOS env
     (when (file-directory-p "~/pkg")
       (insert (concat "addpath ~/pkg/bin ; printf '\n' ; ")))
 
     (insert (concat "ls"))
-    (eshell-send-input)))
+    (eshell-send-input))
+)
 
+;; not used. Remove ?
 (defun my/eshell-quit ()
   (insert "exit")
 ;  (eshell-send-input)
-  (delete-window))
+  (delete-window)
+)
 
 
-;; from http://pages.sachachua.com/.emacs.d/Sacha.html#orgheadline194
+;; almost never used. :-(
 (defun my/pick-random-doc ()
-  (interactive)
     "Show the documentation for a random interactive function.
-Consider only documented, non-obsolete functions."
+Consider only documented, non-obsolete functions.
+
+From URL `http://pages.sachachua.com/.emacs.d/Sacha.html#orgheadline194'.
+"
+    (interactive)
     (let (result)
       (mapatoms
        (lambda (s)
@@ -192,7 +212,6 @@ Consider only documented, non-obsolete functions."
 )
 
 
-;; from http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
 (defun my/move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
 
@@ -202,7 +221,12 @@ Effectively toggle between the first non-whitespace character and
 the beginning of the line.
 
 If ARG is not nil or 1, move forward ARG - 1 lines first.  If
-point reaches the beginning or end of the buffer, stop there."
+point reaches the beginning or end of the buffer, stop there.
+
+Should globally remap `move-beginning-of-line'.
+
+From URL `http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/'
+"
   (interactive "^p")
   (setq arg (or arg 1))
 
@@ -219,6 +243,8 @@ point reaches the beginning or end of the buffer, stop there."
   )
 )
 
+
+;; Remove ?
 (defun my/not-implemented-find-replace ()
   "
 Not yet implemented this process to do it in once command.
@@ -237,6 +263,7 @@ S : ibuffer-do-save
   (message "Do nothing for now. Info in `docstring`.")
 )
 
+
 (defun my/comment-insert-char (n)
   "Recursively insert `-' N times. Ends by `>8'.
 
@@ -251,9 +278,25 @@ Used by `my/comment-line'.
   )
 
 (defun my/comment-line ()
-  "Insert by calling `my/comment-insert-char' until `fill-column'.
-Then `comment-region' from `back-to-indentation' to `line-end-position'."
+  "Quick line separator with page-break, e.g.,
+^L
+;; ----------------------------------------------------------------------------->8
+
+Insert page break to easily navigate in the file.
+Insert by calling `my/comment-insert-char' until `fill-column'.
+Then `comment-region' from `back-to-indentation' to `line-end-position'.
+
+See `C-x ]' or `C-x [' for navigation with page-break.
+(`forward-page' and `backward-page')
+"
   (interactive)
+  (insert page-delimiter)
+  ;; because page-delimiter is "^^L"
+  (beginning-of-line)
+  (delete-char 1)
+  (end-of-line)
+  ;; end of ugly part
+  (newline)
   (let (
         ;; (bcol (progn
         ;;         (beginning-of-line)
@@ -272,14 +315,16 @@ Then `comment-region' from `back-to-indentation' to `line-end-position'."
   )
 )
 
+
 (defun my/paredit-kill (&optional argument)
   "Unused!
 
-Since I am not using `paredit', yet."
+Since I am not using `paredit', yet.
+"
   (interactive "P")
   (my/move-beginning-of-line nil)
   (paredit-kill argument)
-  )
+)
 
 
 (defun my/change-case-word (fun)
@@ -287,7 +332,8 @@ Since I am not using `paredit', yet."
 
 When the `point' is somewhere in word, first get the `backward-word'
 position, second get the `forward-line' position, and last apply FUN
-to these both."
+to these both.
+"
   (interactive)
   (let ((beg (progn
                (backward-word)
@@ -329,8 +375,8 @@ the keybinding `=' through UNIVERSAL argument.
 `C-u =' binds `ediff-files':
  - if no file is marked: use file at point and ask other file;
  - if one file is marked: use other file at point;
- - if two files are marked: use them."
-
+ - if two files are marked: use them.
+"
   ;; "P" to provide `current-prefix-arg' as UNIVERSAL argument
   (interactive "P")
 
@@ -374,7 +420,8 @@ the keybinding `=' through UNIVERSAL argument.
               (setq file2 (cadr files))))
 
           (ediff-files file1 file2))
-        ))))
+        )))
+)
 
 
 (defun my/cut-here (beg end)
@@ -412,10 +459,11 @@ Simpler than `org-time-stamp', but should work with any mode.
 See Info node `(org)Creating timestamps' for why this format is nice.
 This format is manipulable when M-x `org-mode' is launched.
 
-
-If `org-mode' is not loaded, then link to `org-time-stamp' is blank."
+If `org-mode' is not loaded, then link to `org-time-stamp' is blank.
+"
    (interactive)
-   (insert (format-time-string "<%Y-%m-%d %a>")))
+   (insert (format-time-string "<%Y-%m-%d %a>"))
+)
 
 
 
@@ -429,4 +477,5 @@ See Info node `(magit)Section Visibility'.
 From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-visibility-of-a-magit-section'. "
   (and (not magit-insert-section--oldroot)
        (eq (magit-section-type section) 'untracked)
-       'hide))
+       'hide)
+)
