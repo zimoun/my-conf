@@ -12,7 +12,9 @@
 ;; ;;  (you-need-to-update))
 (require 'package)
 (setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives
+             ;; e.g., `use-package' is not in ELPA
+             '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
 ;; ;; Do not forget to refresh the contents, time to time.
