@@ -45,5 +45,6 @@
 * Misc
  - C-x C-; comment-line
  - M-s h r hi-lock-mode Regexp
+ - M-x ffap open file at point (or URL)
 * encoding
   - C-x C-m f
