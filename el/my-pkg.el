@@ -242,6 +242,12 @@
   ;; c++/c should be merged ? (with mode-common?)
   (setq c-default-style "linux")
   (setq c-basic-offset 4)
+
+  ;; ;; Or conserve TAB style
+  ;; (setq-default c-basic-offset 8
+  ;;                 tab-width 8
+  ;;                 indent-tabs-mode t)
+
   (add-hook 'c-mode-common-hook 'hs-minor-mode)
   (add-hook 'c-mode-common-hook 'my/return-newline-with-indent)
 )
