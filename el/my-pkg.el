@@ -466,9 +466,9 @@
          ("\\.jl\\'" . ess-julia-mode)
          )
   :config
-  (require 'ess-site)
+  (require 'ess-julia)
   (require 'ess-utils)
-  (require 'ess-rutils)
+  ;(require 'ess-rutils)
   (add-hook 'R-mode-hook
             (lambda ()
               (ess-set-style 'RStudio)
