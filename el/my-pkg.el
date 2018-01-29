@@ -606,3 +606,7 @@
   :ensure t
   :defer t
   :mode ("\\.smk$" . snakemake-mode))
+
+(use-package rust-mode
+  :ensure t
+  :defer t)
