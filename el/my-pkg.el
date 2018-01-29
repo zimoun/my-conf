@@ -601,3 +601,8 @@
 (use-package htmlize
   :ensure t
   :defer t)
+
+(use-package snakemake-mode
+  :ensure t
+  :defer t
+  :mode ("\\.smk$" . snakemake-mode))
