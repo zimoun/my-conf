@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 
-RM=rm
-EMACS=emacs
+# Because emacs is sometimes an alias,
+# and moreover badly stored in bash_profile!
+if [[ -s ~/.bash_profile ]]
+then
+    shopt -s expand_aliases
+    . ~/.bash_profile
+fi
+
 
 function rm-that () {
     if [ -f $1 ]
     then
         printf "Removing $1..."
-        $RM -I $1
+        command rm -I $1
         printf "done.\n"
     fi
 }
@@ -15,7 +21,7 @@ function rm-that () {
 function byte-compile () {
     if [ -f $1 ]
     then
-        $EMACS -batch \
+        emacs -batch \
                --eval "(require 'package)" \
                --eval "(setq package-enable-at-startup nil)" \
                -f package-initialize \
