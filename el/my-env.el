@@ -1,4 +1,5 @@
 
+
 (provide 'my-env)
 
 ;; UTF8 everywhere
@@ -126,7 +127,7 @@
         (concat "/home/simon/local/lib:" (getenv "LD_LIBRARY_PATH")))
 
 ;; 80 charecter per line
-(setq-default fill-column 80)
+(setq-default fill-column 72)
 
 ;; used by Calendar
 ;; location: Paris
