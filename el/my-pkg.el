@@ -287,6 +287,8 @@
             (define-key tex-mode-map (kbd "C-c C-S-R") 'tex-region)
             )
           )
+  ;; Automatically bound paragraph length
+  (add-hook 'latex-mode-hook 'turn-on-auto-fill)
   ;; the so nice RefTeX package...
   (add-hook 'latex-mode-hook 'turn-on-reftex)
   (setq reftex-ref-macro-prompt nil)
@@ -364,24 +366,40 @@
 ;; not really used (yet)
 (use-package org
   :defer t
+
+  :bind ("\C-ca"  . org-agenda)
+  :bind ("\C-cl"  . org-store-link)
+
   :init
-  ;; My prefered and used backends
-  ;;;; need to be set up before loading org.el
-  (setq org-export-backends '(ascii html latex texinfo))
+  ;; Need to be initialized before Org is loaded
+  (setq org-enforce-todo-dependencies t)
 
   :config
-  (add-hook 'org-mode-hook 'auto-fill-mode)
+  (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
-  (define-key global-map "\C-ca" 'org-agenda)
+  ;; My prefered and used backends
+  ;;;; need to be set up before loading org.el
+  ;; (or not, depending on Emacs's version ?)
+  (setq org-export-backends '(ascii html latex texinfo))
+
   (setq org-agenda-files (list "/tmp/cal.org"))
+  (setq org-agenda-include-diary t)
+
   (put 'narrow-to-region 'disabled nil)
   (org-babel-do-load-languages
    'org-babel-load-languages '((python . t) (R . t)))
+  ;; do not ask before eval code blocks
+  (setq org-confirm-babel-evaluate nil)
 
-  (setq org-agenda-include-diary t)
   (setq org-log-done (quote time))
 
   (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+  (setq org-src-window-setup 'current-window)
+
+  ;; Try <el TAB
+  (add-to-list 'org-structure-template-alist
+             '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 )
 
 ;; graphviz support
