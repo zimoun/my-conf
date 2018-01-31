@@ -40,11 +40,13 @@
 (global-set-key (kbd "M-u") 'my/upcase-word)
 (global-set-key (kbd "M-l") 'my/downcase-word)
 
-;; M-x wms instead of the long name
-(defalias 'wsm 'whitespace-mode)
+;; M-x mode-* instead of the long name
+(defalias 'mode-whitespace 'whitespace-mode)
+(defalias 'mode-highlight 'global-hl-line-mode)
 
-;; M-x gm to enable/disbale other display of unreadableIdentifiersLikeThis
-(defalias 'gm 'glasses-mode)
+;; M-x mode-glasses to enable/disbale other display of:
+;;  unreadableIdentifiersLikeThis
+(defalias 'mode-glasses 'glasses-mode)
 
 ;; M-x cc instead of the long name
 (defalias 'cc 'recompile)

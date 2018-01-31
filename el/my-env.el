@@ -126,7 +126,7 @@
 (setenv "LD_LIBRARY_PATH"
         (concat "/home/simon/local/lib:" (getenv "LD_LIBRARY_PATH")))
 
-;; 80 charecter per line
+;; character per line
 (setq-default fill-column 72)
 
 ;; used by Calendar
