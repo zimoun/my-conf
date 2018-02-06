@@ -1,4 +1,4 @@
-# -*- mode: org ; coding: utf8 -*-
+# -*- mode: org ; coding: utf-8 -*-
 
 
 * Invoke Info: C-h etc.
@@ -42,13 +42,23 @@
 * Clean
   - clean.sh allows to remove non-necessary files
     Useful when move configuration between several machines
-* Misc
- - C-x C-; comment-line
- - M-s h r hi-lock-mode Regexp
- - M-x ffap open file at point (or URL)
+* Mark ring
+ - C-SPC C-SPC put mark to the mark ring
+ - C-u C-SPC go to this mark
+ - C-x r SPC <n> register position
+ - C-x r j <n> go to this position
+   If C-x r j ...waiting... then list the registered positions
 * encoding
   - C-x C-m f
 * Tab vs Space
   - Add this as one-line header, to turn on TAB style
       -*- tab-width: 8 ; indent-tabs-mode: t -*-
     or what value instead of 8.
+* Misc
+ - C-x C-; comment-line
+ - M-s h r hi-lock-mode Regexp
+ - M-x ffap open file at point (or URL)
+ - Dired: C-x C-q switch to toogle mode
+   then rename any file
+   C-c C-c to save these changes
+   or C-c ESC to disgard them
