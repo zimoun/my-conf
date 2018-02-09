@@ -50,18 +50,6 @@
 (set-register ?e (cons 'file "~/.emacs.d"))
 (put 'narrow-to-region 'disabled nil)
 
-(use-package elfeed
-  :ensure t
-  :defer t
-  :config
-  (setq elfeed-feeds
-        '(
-          "https://lwn.net/headlines/rss"
-          ;"http://nullprogram.com/feed/"
-          ;"http://planet.emacsen.org/atom.xml"
-          )
-        )
-  )
 
 ;; (use-package erc
 ;;   :ensure t

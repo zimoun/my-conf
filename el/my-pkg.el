@@ -628,3 +628,57 @@
 (use-package rust-mode
   :ensure t
   :defer t)
+
+
+(use-package elfeed
+  :ensure t
+  :defer t
+  :bind
+  ;; C-c because C-c is one user shortcut (not a mode one)
+  ;; and w because we Wowse with the Emacs Web Wowser (eww)
+  ;; Return should open the link with the default Browser
+  ("\C-cw"  . eww-follow-link)
+
+  :config
+  ;; useful to quick read webpages by following links
+  (require 'eww)
+
+  ;;change the default location of the Database
+  (setq elfeed-db-directory "~/org/.elfeed")
+
+  ;; Mark as read all the feeds older than 1 month
+  ;; (there are still readable)
+  (add-hook 'elfeed-new-entry-hook
+          (elfeed-make-tagger :before "1 month ago"
+                              :remove 'unread))
+  ;; Default filter: show 1 month new and unread feeds
+  (setq-default elfeed-search-filter "@1-month-ago +unread ")
+  ;;;; note that the both duration (hook/filter) should be different
+
+  ;; All the feeds that I follow... or not!
+  (setq elfeed-feeds
+        '(
+          ("http://planet.emacsen.org/atom.xml" emacs planet)
+          ("http://nullprogram.com/feed/" emacs blog)
+          ("https://www.masteringemacs.org/feed" emacs blog)
+          ("https://planet.debian.org/atom.xml" debian planet)
+          ("https://www.debian.org/News/news" debian)
+          ("http://joeyh.name/blog/index.rss" debian blog)
+          ("http://www.scheme.dk/planet/atom.xml" lisp scheme planet)
+          ("http://planet.lisp.org/rss20.xml" lisp planet)
+          ("http://tapoueh.org/index.xml" postgre lisp blog)
+          ("https://ocaml.org/feed.xml" ocaml planet)
+          ("https://planet.haskell.org/atom.xml" haskell planet)
+          ("https://www.gnu.org/software/guix/feeds/blog.atom" guix)
+          ("https://guix-hpc.bordeaux.inria.fr/blog/feed.xml" guix)
+          ("https://elephly.net/feed.xml" guix)
+          ("https://lwn.net/headlines/rss" lwn news)
+          ("https://lwn.net/headlines/Features" lwn news)
+          ("https://www.fsf.org/static/fsforg/rss/news.xml" fsf news)
+          ("https://www.fsf.org/static/fsforg/rss/blogs.xml" fsf blog)
+          ("https://www.eff.org/en/rss" eff news)
+          ("https://api.quantamagazine.org/feed/" quanta news)
+          ("https://phylogenomics.blogspot.com/feeds/posts/default" bioinfo blog)
+          ("https://simplystatistics.org/index.xml" bioinfo blog)
+          ))
+)

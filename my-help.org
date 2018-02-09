@@ -52,3 +52,7 @@
   - Add this as one-line header, to turn on TAB style
       -*- tab-width: 8 ; indent-tabs-mode: t -*-
     or what value instead of 8.
+* elfeed and eww
+ - Read feed, then yank by y
+ - M-x eww then C-y and adpate.
+Enjoy!
