@@ -385,8 +385,11 @@
   ;; (or not, depending on Emacs's version ?)
   (setq org-export-backends '(ascii html latex texinfo))
 
-  (setq org-agenda-files (list "/tmp/cal.org"))
-  (setq org-agenda-include-diary t)
+  (setq org-agenda-files (list
+                          "~/org/todo.org"
+                          "~/org/diary.org"
+                          ))
+  (setq org-agenda-include-diary nil)
 
   (put 'narrow-to-region 'disabled nil)
   (org-babel-do-load-languages
