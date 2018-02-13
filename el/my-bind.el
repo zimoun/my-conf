@@ -57,3 +57,6 @@
 
 ;; because it seems more matural to me
 (defalias 'run-elisp 'ielm)
+
+;; instead long name
+(defalias 'find-recent 'recentf-open-files)

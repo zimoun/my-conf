@@ -110,6 +110,9 @@
 ;; automatic completion
 (abbrev-mode t)
 
+;; recent file
+(recentf-mode t)
+
 ;; the new buffer are by default in Text mode
 ;(setq major-mode 'text-mode)
 ;(add-hook 'text-mode-hook 'turn-on-auto-fill)
