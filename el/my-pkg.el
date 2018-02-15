@@ -386,8 +386,7 @@
   (setq org-export-backends '(ascii html latex texinfo))
 
   (setq org-agenda-files (list
-                          "~/org/todo.org"
-                          "~/org/diary.org"
+                          "~/org/"
                           ))
   (setq org-agenda-include-diary nil)
 
