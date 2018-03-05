@@ -61,6 +61,7 @@
 
 ;; to change the background, sometimes eyes are really tired
 (set-background-color "LightGoldenrod3")
+;;(set-background-color "LightCyan3")
 
 ;; even the shell deserves colours
 ;; ;; instead of ASCII(-art?)

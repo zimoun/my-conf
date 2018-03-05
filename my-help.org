@@ -67,3 +67,7 @@ Enjoy!
    then rename any file
    C-c C-c to save these changes
    or C-c ESC to disgard them
+ - C-s then RET and magic if C-x C-x to return back to the point when
+   the search starts.
+ - Open the same buffer twice: C-x 3 then C-x b (cycle)
+   Now, M-x follow-mode and scroll. Enjoy !
