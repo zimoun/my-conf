@@ -465,6 +465,13 @@ If `org-mode' is not loaded, then link to `org-time-stamp' is blank.
    (insert (format-time-string "<%Y-%m-%d %a>"))
 )
 
+(defun my/current-time ()
+  "Insert current time at point.
+"
+   (interactive)
+   (insert (format-time-string "%H:%M"))
+)
+
 
 
 ;; Ugly hack! Not sure it is the right way...

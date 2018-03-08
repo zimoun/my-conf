@@ -390,9 +390,22 @@
                           ))
   (setq org-agenda-include-diary nil)
 
+  ;; ;; take advantage of the screen width
+  ;;(setq org-agenda-tags-column -100)
+
+  (setq org-tag-faces
+        '(
+          ;;("@meet" . (:foreground "Chartreuse4" :weight bold :underline t))
+          ("@meet" . (:foreground "mediumseagreen" :weight bold :underline t))
+          ("URGENT" . (:foreground "Red" :underline t))
+          ))
+
+
   (put 'narrow-to-region 'disabled nil)
   (org-babel-do-load-languages
-   'org-babel-load-languages '((python . t) (R . t)))
+   'org-babel-load-languages '((python . t)
+                               (R . t)))
+                               ;(bash . t)))
   ;; do not ask before eval code blocks
   (setq org-confirm-babel-evaluate nil)
 
@@ -401,6 +414,14 @@
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
   (setq org-src-window-setup 'current-window)
+
+
+  ;; Follow internal link C-c C-l
+  ;;;; file:stuff.org::Key1 key2
+  ;;;; then C-c C-o open the link searching with the keywords Key1 key2
+  ;;;; The search is fuzzy. Otherwise, by default 'query-replace-to it is strict.
+  (setq org-link-search-must-match-exact-headline nil)
+
 
   ;; Try <el TAB
   (add-to-list 'org-structure-template-alist
