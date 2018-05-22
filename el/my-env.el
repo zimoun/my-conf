@@ -112,7 +112,7 @@
 (abbrev-mode t)
 
 ;; recent file
-(recentf-mode t)
+(recentf-mode nil)
 
 ;; the new buffer are by default in Text mode
 ;(setq major-mode 'text-mode)
