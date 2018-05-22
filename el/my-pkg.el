@@ -708,3 +708,8 @@
           ("https://simplystatistics.org/index.xml" bioinfo blog)
           ))
 )
+
+
+(use-package writegood-mode
+  :ensure t
+  :defer t)

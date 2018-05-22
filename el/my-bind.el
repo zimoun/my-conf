@@ -43,10 +43,12 @@
 ;; M-x mode-* instead of the long name
 (defalias 'mode-whitespace 'whitespace-mode)
 (defalias 'mode-highlight 'global-hl-line-mode)
+(defalias 'mode-writegood 'writegood-mode)
 
 ;; M-x mode-glasses to enable/disbale other display of:
 ;;  unreadableIdentifiersLikeThis
 (defalias 'mode-glasses 'glasses-mode)
+
 
 ;; M-x cc instead of the long name
 (defalias 'cc 'recompile)
