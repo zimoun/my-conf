@@ -33,6 +33,7 @@ function byte-compile () {
 
 }
 
+emacs -batch -f package-initialize -f package-refresh-contents
 for file in $(git ls-files |grep -e '\.el')
 do
     rm-that ${file%.el}.elc
@@ -40,4 +41,4 @@ do
 done
 
 echo "Done."
-echo "Verify Error and Warning."
+echo "Verify Error and Warning (if any)."
