@@ -33,7 +33,10 @@ function byte-compile () {
 
 }
 
-emacs -batch -f package-initialize -f package-refresh-contents
+emacs -batch \
+      --eval "(require 'package)" \
+      --eval "(add-to-list 'package-archives '(\"melpa\" . \"http://melpa.org/packages/\"))" \
+      -f package-initialize -f package-refresh-contents
 for file in $(git ls-files |grep -e '\.el')
 do
     rm-that ${file%.el}.elc
