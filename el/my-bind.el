@@ -61,4 +61,6 @@
 (defalias 'run-elisp 'ielm)
 
 ;; instead long name
+;;;; do not forget to turn on (recentf-mode t)
+;;;; see my-env.el
 (defalias 'find-recent 'recentf-open-files)

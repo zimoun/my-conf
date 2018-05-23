@@ -112,7 +112,9 @@
 (abbrev-mode t)
 
 ;; recent file
-(recentf-mode nil)
+;; Really slow down when closing Emacs
+;; So commented for now
+;(recentf-mode t)
 
 ;; the new buffer are by default in Text mode
 ;(setq major-mode 'text-mode)
