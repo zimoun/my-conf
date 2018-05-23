@@ -370,7 +370,7 @@
 (use-package org
   :defer t
 
-  :bind ("\C-ca"  . org-agenda)
+  :bind ("\C-ca"  . my/org-agenda)
   :bind ("\C-cl"  . org-store-link)
 
   :init

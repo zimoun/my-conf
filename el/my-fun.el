@@ -486,3 +486,13 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
        (eq (magit-section-type section) 'untracked)
        'hide)
 )
+
+
+(defun my/org-agenda (&optional ARG ORG-KEYS RESTRICTION)
+  "Ugly hack to remember how to enable the log mode with agenda view.
+
+Because not found a way to do it automatically."
+  (interactive "P")
+  (org-agenda ARG ORG-KEYS RESTRICTION)
+  (message "Display all entries: v l (org-agenda-log-mode)")
+)
