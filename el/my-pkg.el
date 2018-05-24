@@ -126,8 +126,10 @@
                              ))
                  ("ESS[R]" (mode . ess-mode))
 
-                 ("lower" (name . "\\`[^[:upper:]]*\\'"))
-                 ("Upper" (name . "[[:upper:]]"))
+                 ;; Match any string not containing any uppercase letter
+                 ;; ("lower" (name . "\\`[^[:upper:]]*\\'"))
+                 ;; Not sure what is doing
+                 ;; ("Upper" (name . "[[:upper:]]"))
   ))))
   (add-hook 'ibuffer-mode-hook
             (lambda ()

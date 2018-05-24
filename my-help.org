@@ -39,26 +39,31 @@
  - C-x n n
  - C-x n w
  - M-x clone-indirect-buffer-other-window
+
 * Clean
   - clean.sh allows to remove non-necessary files
     Useful when move configuration between several machines
+
 * Mark ring
  - C-SPC C-SPC put mark to the mark ring
  - C-u C-SPC go to this mark
  - C-x r SPC <n> register position
  - C-x r j <n> go to this position
    If C-x r j ...waiting... then list the registered positions
+
 * encoding
   - C-x C-m f
+
 * Tab vs Space
   - Add this as one-line header, to turn on TAB style
       -*- tab-width: 8 ; indent-tabs-mode: t -*-
-    or what value instead of 8.
-<<<<<<< HEAD
+    or whatever value instead of 8.
+
 * elfeed and eww
  - Read feed, then yank by y
  - M-x eww then C-y and adpate.
 Enjoy!
+
 * Misc
  - C-x C-; comment-line
  - M-s h r hi-lock-mode Regexp
@@ -71,3 +76,18 @@ Enjoy!
    the search starts.
  - Open the same buffer twice: C-x 3 then C-x b (cycle)
    Now, M-x follow-mode and scroll. Enjoy !
+
+* Show off in Demo
+  All can be done with Awesome (Mod-x blah)
+  - emacs --daemon
+  - emacsclient -c path/to/dir
+  - M-x set-background-color
+     LightGreen | LightBlue | ...
+  - emacsclient -c path/to/file1
+  - M-x set-background-color
+  - M-x term
+    - C-c C-j "normal mode", emacs keys
+    - C-c C-k "pure term mode"
+  - C-x C-+ to zoom in
+  - M-x my/save-buffer-as-pdf
+  - emacsclient -e '(kill-emacs)'
