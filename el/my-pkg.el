@@ -3,8 +3,9 @@
 
 ;; numbering lines (and add column in mode-line)
 (use-package linum
+  ;; linum-mode replaced by display-line-numbers-mode
   :init
-  (global-linum-mode 1)
+  (global-linum-mode 0)
   (setq linum-format "%d ")
   ;; to display the number of the column
   (column-number-mode t)
