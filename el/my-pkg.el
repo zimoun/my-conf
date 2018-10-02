@@ -9,12 +9,14 @@
   (setq linum-format "%d ")
   ;; to display the number of the column
   (column-number-mode t)
+  (setq column-number-indicator-zero-based nil)
+
   :config
   (defcustom linum-disabled-modes-list '(
                                          compilation-mode
                                          dired-mode
                                          doc-view-mode
-                                         tex-(should )ell-mode
+                                         tex-shell-mode
                                          )
     "* List of modes disabled when global linum mode is on"
     :type '(repeat (sexp :tag "Major mode"))
