@@ -104,3 +104,5 @@ Enjoy!
   - emacsclient -e '(kill-emacs)'
 
   Highlight line with cursor:  M-x hl-line-mode
+  Track command: M-x command-log-show
+   (see command-log-mode)

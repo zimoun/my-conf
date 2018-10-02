@@ -723,3 +723,18 @@
   :ensure t
   :defer t
   :init (defalias 'mode-writegood 'writegood-mode))
+
+
+;; useful to demo
+(use-package command-log-mode
+  :ensure t
+  :defer t
+  :init
+  (defalias 'mode-command-log 'command-log-mode)
+  (defalias 'command-log-show '(lambda (&optional arg)
+                                 (interactive "P")
+                                 (progn
+                                   (command-log-mode)
+                                   (message "Alias of clm/open-command-log-buffer. See M-x clm/TAB.")
+                                   (clm/open-command-log-buffer arg))))
+  )
