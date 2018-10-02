@@ -3,13 +3,20 @@
 
 ;; numbering lines (and add column in mode-line)
 (use-package linum
-  ;; linum-mode replaced by display-line-numbers-mode
   :init
   (global-linum-mode 0)
   (setq linum-format "%d ")
   ;; to display the number of the column
   (column-number-mode t)
   (setq column-number-indicator-zero-based nil)
+
+  ;; because linum-mode is replaced by `display-line-numbers-mode'
+  ;;;; see my-pkg.el package linum
+  (defalias 'mode-linum '(lambda (&optional args)
+                           (interactive)
+                           (progn
+                             (message "Deprecated. Instead: M-x display-line-numbers-mode. Turn off: M-x linum-mode.")
+                             (linum-mode args))))
 
   :config
   (defcustom linum-disabled-modes-list '(
@@ -218,6 +225,9 @@
 ;; ELisp
 (use-package lisp-mode
   :defer t
+  :init
+  ;; because it seems more matural to me
+  (defalias 'run-elisp 'ielm)
   :config
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
   (add-hook 'emacs-lisp-mode-hook 'my/save-file-and-remove-filec)

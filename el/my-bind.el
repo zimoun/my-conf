@@ -20,16 +20,32 @@
                   'my/move-beginning-of-line)
 
 ;;;; plus C-x o which is working everywhere
-;;;;  ie within  and without X
+;;;;  ie within and without X
+;;;; (should free this key because conflicts with Org `org-force-cycle-archived')
 (global-set-key (kbd "C-<tab>") 'other-window)
 
 ;; completion with shift-tab
 (global-set-key (quote [S-tab]) (quote dabbrev-expand))
 
+
+;;;;
+;;;; Already binded by M-;
+;;;; (see section Comments in Manual)
+;;;; C-h i m Emacs m Comment Command
+;;;; C-h i g (emacs)Comment Commands
+;;;;
 ;; to comment a region (work in all the modes)
-(global-set-key [?\C-c ?c] 'comment-region)
+(global-set-key [?\C-c ?c] '(lambda (beg end &optional arg)
+                              (interactive "*r\nP")
+                              (progn
+                                (message "Switch to M-; see  C-h i g (emacs)Comment Commands.")
+                                (comment-region beg end arg))))
 ;; more C-c C-c in C-mode
-(global-set-key [?\C-c ?u] 'uncomment-region)
+(global-set-key [?\C-c ?u] '(lambda (beg end &optional arg)
+                              (interactive "*r\nP")
+                              (progn
+                                (message "Switch to M-; see  C-h i g (emacs)Comment Commands.")
+                                (uncomment-region beg end arg))))
 ;; (global-set-key [?\C-c ?\C-ù] 'uncomment-region)
 
 ;; to complement M-! which starts one line Shell command
@@ -43,11 +59,10 @@
 ;; M-x mode-* instead of the long name
 (defalias 'mode-whitespace 'whitespace-mode)
 (defalias 'mode-highlight 'global-hl-line-mode)
-(defalias 'mode-writegood 'writegood-mode)
-
-;; M-x mode-glasses to enable/disbale other display of:
-;;  unreadableIdentifiersLikeThis
 (defalias 'mode-glasses 'glasses-mode)
+(defalias 'mode-follow 'follow-mode)
+;;;; M-x mode-glasses to enable/disbale other display of:
+;;;;  unreadableIdentifiersLikeThis
 
 
 ;; M-x cc instead of the long name
@@ -57,18 +72,8 @@
 ;; i.e., here only with Python
 (defalias 'workon 'pyvenv-workon)
 
-;; because it seems more matural to me
-(defalias 'run-elisp 'ielm)
 
 ;; instead long name
 ;;;; do not forget to turn on (recentf-mode t)
 ;;;; see my-env.el
 (defalias 'find-recent 'recentf-open-files)
-
-;; because linum-mode is replaced by `display-line-numbers-mode'
-;;;; see my-pkg.el package linum
-(defalias 'mode-linum '(lambda (&optional args)
-                         (interactive)
-                         (progn
-                           (message "Deprecated. Instead: M-x display-line-numbers-mode.")
-                           (linum-mode args))))

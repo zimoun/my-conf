@@ -6,30 +6,31 @@
   - switch between plain-info text and Info-view: M-x Info-on-current-buffer
 
 * artist-mode keys (from HELP	: C-h m)
-  - rectangle	: C-c C-a r RET move RET
-  - line	: C-c C-a l RET move RET
-  - circle	: C-c C-a c RET move RET
-  - ellipse	: C-c C-a e RET move RET
-  - poly-line	: C-c C-a p RET move RET move RET ..
+  - rectangle : C-c C-a r RET move RET
+  - line      : C-c C-a l RET move RET
+  - circle    : C-c C-a c RET move RET
+  - ellipse   : C-c C-a e RET move RET
+  - poly-line : C-c C-a p RET move RET move RET ..
   - copy a line and paste it below	: S-C-j
 
-* pense-bete for bookmarks
+* Pense-bete for bookmarks
+  See [[info:emacs#Bookmarks][C-h i g (emacs)Bookmarks]].
   - C-x r m : set a bookmark at the current location (e.g. in a file)
   - C-x r b : jump to a bookmark
   - C-x r l : list your bookmarks
   - M-x bookmark-delete : delete a bookmark by name
 
-* after the def of a saved macro
+* Macro (save and reuse)
   - ie, the sequence is 2 steps
-    - C-x ( blabla C-x )
-    - M-x name-last-kdb-maco [ou insert-kdb-macro]
+    + C-x ( blabla C-x )
+    + M-x name-last-kdb-maco [ou insert-kdb-macro]
   - this macro can be used in a region with the simple sequence
     C-u N M-x nom_macro
 
 * Completion / Abbrev
   - C-M i runs completion-at-point
   - M-/ runs dabbrev-expand
-    - bla M-/ expands with words in the file
+    e.g., bla M-/ expands with words in the file
 
   - M-x abbrev-mode
     http://ergoemacs.org/emacs/emacs_abbrev_mode_tutorial.html
@@ -43,19 +44,27 @@
     - Remove: C-u -1 C-x a g then eg
 
 * Move around balanced expr. {}()[]
-  - C-M-n C-M-p C-M-u
-  - C-M-f C-M-b C-M-k C-M-t
+  See [[info:emacs#Moving%20by%20Parens][C-h i g (emacs)Moving by Parens]].
+  - forward-list     : C-M-n
+  - backward-list    : C-M-p
+  - backward-up-list : C-M-u
+  - forward-sexp     : C-M-f
+  - backward-sexp    : C-M-b
+  - transpose-sexps  : C-M-t
+  - kill-sexp        : C-M-k
 
-* narrow
+* Narrow
+  See [[info:emacs#Narrowing][C-h i g (emacs)Narrowing]].
  - C-x n n
  - C-x n w
  - M-x clone-indirect-buffer-other-window
 
 * Clean
   - clean.sh allows to remove non-necessary files
-    Useful when move configuration between several machines
+    Useful when I move configuration between several machines.
 
 * Mark ring
+  See [[info:emacs#Mark%20Ring][C-h i g (emacs)Mark Ring]]
  - C-SPC C-SPC put mark to the mark ring
  - C-u C-SPC go to this mark
  - C-x r SPC <n> register position
@@ -71,22 +80,26 @@
     or whatever value instead of 8.
 
 * elfeed and eww
- - Read feed, then yank by y
+ - Go to link, then yank by y.
  - M-x eww then C-y and adpate.
 Enjoy!
 
 * Misc
- - C-x C-; comment-line
  - M-s h r hi-lock-mode Regexp
  - M-x ffap open file at point (or URL)
- - Dired: C-x C-q switch to toogle mode
-   then rename any file
-   C-c C-c to save these changes
-   or C-c ESC to disgard them
- - C-s then RET and magic if C-x C-x to return back to the point when
-   the search starts.
- - Open the same buffer twice: C-x 3 then C-x b (cycle)
-   Now, M-x follow-mode and scroll. Enjoy !
+ - Dired:
+   + switch to toogle mode C-x C-q
+   + then rename any file
+   + save these changes C-c C-c
+     or C-c ESC to disgard them
+ - C-s then RET and magic when C-x C-x
+   i.e., return back to the point where the search starts
+   and possibly select the region.
+ - Multi-pages with 2 (or more) buffers
+    + open the same buffer twice: C-x 3 then C-x b (cycle)
+    + M-x follow-mode and scroll (C-v or M-v)
+    + the end of one buffer is the start of the other one.
+Enjoy !
 
 * Show off in Demo
   All can be done with Awesome (Mod-x blah)
