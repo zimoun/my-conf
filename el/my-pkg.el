@@ -715,6 +715,11 @@
 )
 
 
+;; provide some stats about writings
+;;;; writegood-grade-level -> Flesch-Kincaid grade level score
+;;;; writegood-reading-ease -> Flesch-Kincaid reading ease score
+;;;; https://en.wikipedia.org/wiki/Flesch–Kincaid_readability_tests
 (use-package writegood-mode
   :ensure t
-  :defer t)
+  :defer t
+  :init (defalias 'mode-writegood 'writegood-mode))
