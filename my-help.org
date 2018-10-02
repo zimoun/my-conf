@@ -26,10 +26,21 @@
   - this macro can be used in a region with the simple sequence
     C-u N M-x nom_macro
 
-* completion
+* Completion / Abbrev
   - C-M i runs completion-at-point
   - M-/ runs dabbrev-expand
     - bla M-/ expands with words in the file
+
+  - M-x abbrev-mode
+    http://ergoemacs.org/emacs/emacs_abbrev_mode_tutorial.html
+    - Add word for current buffer
+      1. Write it: e.g.,
+      2. Add it: M-x add-mode-abbrev then eg
+    - Now when typing eg it expands to e.g.,
+    - Add several words: freq asked questions
+      Then: C-u 3 C-x a g
+      Or C-u 5 C-x a l
+    - Remove: C-u -1 C-x a g then eg
 
 * Move around balanced expr. {}()[]
   - C-M-n C-M-p C-M-u
@@ -91,3 +102,5 @@ Enjoy!
   - C-x C-+ to zoom in
   - M-x my/save-buffer-as-pdf
   - emacsclient -e '(kill-emacs)'
+
+  Highlight line with cursor:  M-x hl-line-mode
