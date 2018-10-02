@@ -64,3 +64,11 @@
 ;;;; do not forget to turn on (recentf-mode t)
 ;;;; see my-env.el
 (defalias 'find-recent 'recentf-open-files)
+
+;; because linum-mode is replaced by `display-line-numbers-mode'
+;;;; see my-pkg.el package linum
+(defalias 'mode-linum '(lambda (&optional args)
+                         (interactive)
+                         (progn
+                           (message "Deprecated. Instead: M-x display-line-numbers-mode.")
+                           (linum-mode args))))
