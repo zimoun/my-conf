@@ -93,27 +93,6 @@
   (defalias 'list-buffers 'ibuffer)
   (setq ibuffer-saved-filter-groups
         (quote (("default"
-                 ("emacs" (or
-                           (name . "^\\*scratch\\*$")
-                           ;; (name . "^\\*Messages\\*$")
-                           ;; (name . "^\\*Help\\*$")
-                           ;; (name . "^\\*Completions\\*$")
-                           ;; (name . "^\\*Calculator\\*$")
-                           ;; (name . "^\\*Calendar\\*$")
-                           ;; (name . "^\\*Calc Trail\\*$")
-                           ;; (name . "^\\*Compile-Log\\*$")
-                           (name . "^\\*tramp.*\\*$")
-                           ))
-                 ;; ("magit" (name . "^\\*magit.[-_:a-zA-Z0-9 ]+$"))
-                 ("magit" (name . "\*magit"))
-                 ("Run" (or
-                         ;; (name . "^\*eshell\*$")
-                         (name . "^\*eshell.*\*$")
-                         (name . "^\\*compilation\\*$")
-                         (name . "^\\*tex-shell\\*$")
-                         (name . "^\\*Python.*\*$")
-                         (name . "^\*Inferior Octave\*$")
-                         ))
                  ("Py" (mode . python-mode))
                  ("C/C++" (or
                            (mode . c-mode)
@@ -124,6 +103,7 @@
                            (mode . c-mode)
                            (mode . c++-mode)
                            ))
+                 ("Haskell" (mode . haskell-mode))
                  ("caML" (mode . tuareg-mode))
                  ("Lisp" (or
                           (mode . lisp-mode)
@@ -134,7 +114,33 @@
                              (mode . tex-mode)
                              (mode . latex-mode)
                              ))
-                 ("ESS[R]" (mode . ess-mode))
+                 ("ESS[R/jl]" (or
+                            (mode . ess-mode)
+                            (mode . ess-julia-mode)))
+
+                 ;; ("magit" (name . "^\\*magit.[-_:a-zA-Z0-9 ]+$"))
+                 ("Magit" (name . "\*magit"))
+                 ("Run" (or
+                         ;; (name . "^\*eshell\*$")
+                         (name . "^\*eshell.*\*$")
+                         (name . "^\\*compilation\\*$")
+                         (name . "^\\*tex-shell\\*$")
+                         (name . "^\\*Python.*\*$")
+                         (name . "^\*Inferior Octave\*$")
+                         ))
+                 ;; ("emacs" (or
+                 ;;           (name . "^\\*scratch\\*$")
+                 ;;           ;; (name . "^\\*Messages\\*$")
+                 ;;           ;; (name . "^\\*Help\\*$")
+                 ;;           ;; (name . "^\\*Completions\\*$")
+                 ;;           ;; (name . "^\\*Calculator\\*$")
+                 ;;           ;; (name . "^\\*Calendar\\*$")
+                 ;;           ;; (name . "^\\*Calc Trail\\*$")
+                 ;;           ;; (name . "^\\*Compile-Log\\*$")
+                 ;;           (name . "^\\*tramp.*\\*$")
+                 ;;           ))
+                 ("emacs" (or
+                           (name . "^\\*[a-zA-Z ]*\\*$")))
 
                  ;; Match any string not containing any uppercase letter
                  ;; ("lower" (name . "\\`[^[:upper:]]*\\'"))
