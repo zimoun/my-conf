@@ -89,6 +89,7 @@ Enjoy!
  - M-x ffap open file at point (or URL)
  - Dired:
    + switch to toogle mode C-x C-q
+     (other mode C-x C-q turn on read-only for the buffer)
    + then rename any file
    + save these changes C-c C-c
      or C-c ESC to disgard them
@@ -96,10 +97,12 @@ Enjoy!
    i.e., return back to the point where the search starts
    and possibly select the region.
  - Multi-pages with 2 (or more) buffers
-    + open the same buffer twice: C-x 3 then C-x b (cycle)
-    + M-x follow-mode and scroll (C-v or M-v)
-    + the end of one buffer is the start of the other one.
-Enjoy !
+   + open the same buffer twice: C-x 3 then C-x b (cycle)
+   + M-x follow-mode and scroll (C-v or M-v)
+   + the end of one buffer is the start of the other one.
+ - Insert page break C-q C-l
+   then navigate with C-x [ and C-x ]
+
 
 * Show off in Demo
   All can be done with Awesome (Mod-x blah)
