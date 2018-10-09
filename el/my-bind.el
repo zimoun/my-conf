@@ -27,6 +27,8 @@
 ;; completion with shift-tab
 (global-set-key (quote [S-tab]) (quote dabbrev-expand))
 
+;; Use `hippie-expand' instead of `dabbrev-expand'
+(global-set-key "\M-/" 'hippie-expand)
 
 ;;;;
 ;;;; Already binded by M-;
