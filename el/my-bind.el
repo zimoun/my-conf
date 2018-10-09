@@ -36,6 +36,7 @@
 ;;;; C-h i m Emacs m Comment Command
 ;;;; C-h i g (emacs)Comment Commands
 ;;;;
+(global-set-key "\M-;" 'my/comment-dwim)
 ;; to comment a region (work in all the modes)
 (global-set-key [?\C-c ?c] '(lambda (beg end &optional arg)
                               (interactive "*r\nP")

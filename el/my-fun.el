@@ -496,3 +496,24 @@ Because not found a way to do it automatically."
   (org-agenda ARG ORG-KEYS RESTRICTION)
   (message "Display all entries: v l (org-agenda-log-mode)")
 )
+
+
+(defun my/comment-dwim (ARG)
+  "Wrapper around `comment-dwim'. Because `comment-kill' is not so much useful.
+
+If a prefix ARG is specified, then call `comment-line' (C-x C-;).
+By default (C-u M-;) comment the current line.
+C-u n M-; comments the n lines, starting at the current line.
+Negative integer comments topward.
+
+
+Note: M-2 M-; is equivalent to C-u 2 M-; see `universal-argument'.
+"
+  (interactive "*P")
+  (message "arg=%s" ARG)
+  (if ARG
+      (if (integerp ARG)
+          (comment-line ARG)
+        (comment-line 1))
+    (comment-dwim ARG))
+)
