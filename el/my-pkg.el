@@ -93,7 +93,6 @@
   (defalias 'list-buffers 'ibuffer)
   (setq ibuffer-saved-filter-groups
         (quote (("default"
-                 ("Py" (mode . python-mode))
                  ("C/C++" (or
                            (mode . c-mode)
                            (mode . c++-mode)
@@ -114,9 +113,11 @@
                              (mode . tex-mode)
                              (mode . latex-mode)
                              ))
+                 ("Py" (mode . python-mode))
                  ("ESS[R/jl]" (or
                             (mode . ess-mode)
                             (mode . ess-julia-mode)))
+                 ("Org" (mode . org-mode))
 
                  ;; ("magit" (name . "^\\*magit.[-_:a-zA-Z0-9 ]+$"))
                  ("Magit" (name . "\*magit"))
@@ -663,6 +664,7 @@
   :ensure t
   :defer t)
 
+;; Not installed ? How to force install ?
 (use-package htmlize
   :ensure t
   :defer t)

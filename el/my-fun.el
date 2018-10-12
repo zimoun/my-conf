@@ -277,7 +277,7 @@ Used by `my/comment-line'.
     )
   )
 
-(defun my/comment-line ()
+(defun my/comment-separator ()
   "Quick line separator with page-break, e.g.,
 ^L
 ;; ----------------------------------------------------------------------------->8
@@ -510,7 +510,6 @@ Negative integer comments topward.
 Note: M-2 M-; is equivalent to C-u 2 M-; see `universal-argument'.
 "
   (interactive "*P")
-  (message "arg=%s" ARG)
   (if ARG
       (if (integerp ARG)
           (comment-line ARG)
