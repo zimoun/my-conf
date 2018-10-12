@@ -756,3 +756,17 @@
                                    (message "Alias of clm/open-command-log-buffer. See M-x clm/TAB.")
                                    (clm/open-command-log-buffer arg))))
   )
+
+
+(use-package ox-reveal
+  ;; :ensure t
+  ;; https://github.com/yjwen/org-reveal/issues/324
+  ;; git clone https://github.com/yjwen/org-reveal.git elpa/org-reveal.git
+  :load-path "~/.emacs.d/elpa/org-reveal.git"
+  :defer t
+  ;; Do not forget to provide REVEAL_ROOT:
+  ;; (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0")
+  ;; or with #+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0
+
+  ;; Load it in index.org with: M-: (require 'ox-reveal)
+  )
