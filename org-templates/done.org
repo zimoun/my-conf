@@ -1,0 +1,2 @@
+* DONE %^{Description}
+  CLOSED: %U

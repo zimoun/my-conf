@@ -445,6 +445,21 @@
   (setq org-link-search-must-match-exact-headline nil)
 
 
+  ;; Add notes (C-c C-z) in LOGBOOK
+  (setq org-log-into-drawer t)
+
+  ;; Set quick capture
+  (defalias 'orgadd 'org-capture)
+  (setq org-capture-templates
+        (quote
+         (("t" "TODO entry" entry
+           (file+headline "~/org/todo.org" "Capture")
+           (file "~/.emacs.d/org-templates/todo.org"))
+          ("d" "Diary" entry
+           (file+headline "~/org/diary.org" "Capture")
+           (file "~/.emacs.d/org-templates/done.org")))
+         ))
+
   ;; Try <el TAB
   (add-to-list 'org-structure-template-alist
              '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
@@ -762,6 +777,7 @@
   ;; :ensure t
   ;; https://github.com/yjwen/org-reveal/issues/324
   ;; git clone https://github.com/yjwen/org-reveal.git elpa/org-reveal.git
+  ;; WARNING: issue with Org 8.2
   :load-path "~/.emacs.d/elpa/org-reveal.git"
   :defer t
   ;; Do not forget to provide REVEAL_ROOT:
