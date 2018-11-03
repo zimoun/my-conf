@@ -452,9 +452,13 @@
   (defalias 'orgadd 'org-capture)
   (setq org-capture-templates
         (quote
-         (("t" "TODO entry" entry
+         (("t" "Todo")
+          ("tt" "TODO entry" entry
            (file+headline "~/org/todo.org" "Capture")
            (file "~/.emacs.d/org-templates/todo.org"))
+          ("tm" "Misc and URGENT" entry
+           (file+headline "~/org/todo.org" "Misc")
+           (file "~/.emacs.d/org-templates/urgent.org"))
           ("d" "Diary" entry
            (file+headline "~/org/diary.org" "Capture")
            (file "~/.emacs.d/org-templates/done.org")))
