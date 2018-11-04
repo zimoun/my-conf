@@ -182,6 +182,21 @@
     (setq eshell-save-history-on-exit t)
     (setq eshell-where-to-jump 'begin)
     (setq eshell-review-quick-commands nil)
+    )
+    (setq eshell-prompt-function
+        (lambda nil
+          (concat
+           "\n"
+           (replace-regexp-in-string
+            (getenv "HOME") "~" (eshell/pwd))
+           "\n $ "
+           )
+          ;;"\n"(user-login-name) "@" (system-name) " $ ")
+        )
+   )
+  (use-package esh-toggle
+    :defer t
+    :bind ("C-x C-z" . eshell-toggle)
   )
 )
 
@@ -493,26 +508,6 @@
             'my/magit-initially-hide-untracked)
 )
 
-(use-package eshell
-  :ensure t
-  :defer t
-  :config
-  (setq eshell-prompt-function
-        (lambda nil
-          (concat
-           "\n"
-           (replace-regexp-in-string
-            (getenv "HOME") "~" (eshell/pwd))
-           "\n $ "
-           )
-          ;;"\n"(user-login-name) "@" (system-name) " $ ")
-        )
-   )
-  (use-package esh-toggle
-    :defer t
-    :bind ("C-x C-z" . eshell-toggle)
-  )
-)
 
 (use-package yasnippet
   :ensure t
