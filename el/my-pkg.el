@@ -790,3 +790,9 @@
 
   ;; Load it in index.org with: M-: (require 'ox-reveal)
   )
+
+(use-package fill-column-indicator
+  :ensure t
+  :defer t
+  :init
+  (defalias 'mode-fci 'fci-mode))
