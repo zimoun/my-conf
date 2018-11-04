@@ -103,6 +103,22 @@ Enjoy!
  - Insert page break C-q C-l
    then navigate with C-x [ and C-x ]
 
+* Org
+  - ORDERED (properties) allow to block task if they are not done in the
+    right order
+  - C-c C-x ; set timer. Time out is a small screen that pops up
+    C-c C-x 0 org-timer-start then insert timestamp with C-c C-x .
+    or items: C-c C-x - and stop it C-c C-x _ or pause it C-c C-x ,
+    C-u C-c C-x 0 start with an offset
+  - #+PROPERTY: Effort_ALL 0:05 0:30 1:00
+    Column View: %*Effort(Effort){:}
+    Then C-c C-x C-c and in one box, Shift arrow to increase/decrease
+    effort
+    Press q to quit Column view
+  - C-c C-x C-d displays clocking time
+    C-c C-x C-r clock report... ouch! read the manual
+    [[https://www.youtube.com/watch?v=ldTx_CB5cRc&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=29][Tuto from Youtube]]
+  - Org module ? Allow habits
 
 * Show off in Demo
   All can be done with Awesome (Mod-x blah)
