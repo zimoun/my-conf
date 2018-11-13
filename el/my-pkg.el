@@ -563,6 +563,14 @@
   (setq ess-use-eldoc'script-only)
   )
 
+
+(use-package poly-markdown
+  :defer t
+  :ensure t
+  :mode (("\\.md" . poly-markdown-mode)
+         ("\\.Rmd" . poly-markdown-mode)
+         ))
+
 ;; (use-package ess-site
 ;;   :ensure ess
 ;;   :mode (
