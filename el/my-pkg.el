@@ -163,7 +163,7 @@
   ;; ;; Global bind and not only for Dired mode
   ;;:bind ("\C-ce" . dired-toggle-read-only)
   :config
-  ;;(setq dired-listing-switches "-alr")
+  (setq dired-listing-switches "-alh")
   (define-key dired-mode-map (kbd "r") 'my/dired-sort)
   (define-key dired-mode-map (kbd "=") 'my/dired-ediff-or-diff)
   (define-key dired-mode-map (kbd "E") 'dired-toggle-read-only)
