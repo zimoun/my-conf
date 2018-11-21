@@ -446,11 +446,20 @@
   ;; do not ask before eval code blocks
   (setq org-confirm-babel-evaluate nil)
 
+  ;; insert image
+  ;; just after a block is executed
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+  ;; when org file is opened
+  (add-hook 'org-mode-hook 'org-display-inline-images)
+  (add-hook 'org-mode-hook 'org-babel-result-hide-all)
+
+
   (setq org-log-done (quote time))
 
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
   (setq org-src-window-setup 'current-window)
+  ;; (setq org-hide-emphasis-markers t)    ; hide the *,=, or / markers
 
 
   ;; Follow internal link C-c C-l
