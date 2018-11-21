@@ -121,6 +121,7 @@
 
                  ;; ("magit" (name . "^\\*magit.[-_:a-zA-Z0-9 ]+$"))
                  ("Magit" (name . "\*magit"))
+                 ("Dired" (mode . dired-mode))
                  ("Run" (or
                          ;; (name . "^\*eshell\*$")
                          (name . "^\*eshell.*\*$")
@@ -152,7 +153,6 @@
             (lambda ()
               (setq-local case-fold-search nil)
               (ibuffer-switch-to-saved-filter-groups "default")))
-  (setq ibuffer-default-sorting-mode 'alphabetic)
   (setq ibuffer-show-empty-filter-groups nil)
 )
 
