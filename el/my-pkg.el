@@ -38,6 +38,8 @@
   (show-paren-mode 1)
   ;; not sure it is the right place here
   (electric-pair-mode 1)
+  ;; not sure what it does
+  (electric-indent-mode 1)
 )
 
 ;; ;; easy Lisp manipulation with paredit
@@ -290,6 +292,12 @@
 
   (add-hook 'c-mode-common-hook 'hs-minor-mode)
   (add-hook 'c-mode-common-hook 'my/return-newline-with-indent)
+
+  ;; add better completion
+  (add-hook 'c-mode-common-hook 'semantic-mode)
+  (add-hook 'c-mode-common-hook 'semantic-idle-completions-mode)
+  (add-hook 'c-mode-common-hook 'semantic-highlight-func-mode)
+  (add-hook 'c-mode-common-hook 'semantic-stickyfunc-mode)
 )
 
 ;; python (which mode ?)
@@ -441,7 +449,9 @@
   (put 'narrow-to-region 'disabled nil)
   (org-babel-do-load-languages
    'org-babel-load-languages '((python . t)
-                               (R . t)))
+                               (R . t)
+                               (C . t)
+                               (shell . t)))
                                ;(bash . t)))
   ;; do not ask before eval code blocks
   (setq org-confirm-babel-evaluate nil)

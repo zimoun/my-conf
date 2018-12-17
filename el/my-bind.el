@@ -1,9 +1,9 @@
 
 (provide 'my-bind)
 
-(global-set-key (kbd "C-c C-r") 'my/compile-or-recompile)
-(global-set-key (kbd "C-c C-t") 'my/compile-run)
-(global-set-key (kbd "C-c C-e") 'my/compile-clean)
+;; (global-set-key (kbd "C-c C-r") 'my/compile-or-recompile)
+;; (global-set-key (kbd "C-c C-t") 'my/compile-run)
+;; (global-set-key (kbd "C-c C-e") 'my/compile-clean)
 
 (global-set-key [?\C-$] 'ispell-region)
 ;;;;;;;; C-$ does not work in terminal
@@ -77,6 +77,9 @@
 (defalias 'mode-highlight 'global-hl-line-mode)
 (defalias 'mode-glasses 'glasses-mode)
 (defalias 'mode-follow 'follow-mode)
+(defalias 'mode-which-function 'which-function-mode)
+(defalias 'mode-subword 'subword-mode)
+(defalias 'mode-hl-lock-regexp 'hi-lock-mode)
 ;;;; M-x mode-glasses to enable/disbale other display of:
 ;;;;  unreadableIdentifiersLikeThis
 

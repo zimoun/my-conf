@@ -147,3 +147,6 @@
       '((bug-reference-bug-regexp
          .
          "<https?://\\(debbugs\\|bugs\\)\\.gnu\\.org/\\([0-9]+\\)>")))
+
+;; hi-lock-mode: avoid to prompt the color
+(setq hi-lock-auto-select-face t)
