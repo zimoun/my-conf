@@ -179,13 +179,20 @@
             (lambda ()
               (add-to-list 'eshell-visual-commands "htop")))
   :config
-  (progn
-    (setq eshell-history-size 5000)
-    (setq eshell-save-history-on-exit t)
-    (setq eshell-where-to-jump 'begin)
-    (setq eshell-review-quick-commands nil)
-    )
-    (setq eshell-prompt-function
+  (setq
+   eshell-history-size 5000
+   eshell-save-history-on-exit t
+   eshell-where-to-jump 'begin
+   eshell-review-quick-commands nil
+   ;; howardism :-)
+   eshell-scroll-to-bottom-on-input 'all
+   eshell-error-if-no-glob t
+   eshell-hist-ignoredups t
+   eshell-save-history-on-exit t
+   eshell-prefer-lisp-functions nil
+   eshell-destroy-buffer-when-process-dies t
+   )
+  (setq eshell-prompt-function
         (lambda nil
           (concat
            "\n"
@@ -194,8 +201,27 @@
            "\n $ "
            )
           ;;"\n"(user-login-name) "@" (system-name) " $ ")
+          )
         )
-   )
+  (add-hook 'eshell-mode-hook
+            (lambda ()
+              ;; hum? why && does not work?
+              ;; instead ;
+              (eshell/alias "cd" "cd $1 ; ls -art1")
+              (eshell/alias "mkcd" "mkdir -p $1 ; cd $1")
+              (eshell/alias "em" "for i in ${eshell-flatten-list $*} {find-file $i}")
+              (eshell/alias "ew" "find-file-other-window $1")
+              (eshell/alias "dir" "dired $1")
+              (eshell/alias "ff" "find $1 -type f -name $2 -print")))
+  (setenv "PAGER" "cat")
+
+    (defun eshell/gst (&rest arg)
+      (magit-status (pop args) nil)
+      (eshell/echo))
+
+    (defun eshell/x ()
+      (kill-buffer))
+
   (use-package esh-toggle
     :defer t
     :bind ("C-x C-z" . eshell-toggle)
