@@ -11,6 +11,9 @@
 (global-set-key [f11] 'flyspell-mode)
 (global-set-key [f12] 'flyspell-buffer)
 
+;; rebind (view-emacs-FAQ) because I never use it
+(global-set-key (kbd "C-h C-f") 'find-function)
+
 ;; to easily erase a complete line
 (global-set-key [?\C-k] 'kill-whole-line)
 (global-set-key [?\C-\M-d] 'my/kill-line-or-delete-indent)
@@ -22,7 +25,7 @@
 ;;;; plus C-x o which is working everywhere
 ;;;;  ie within and without X
 ;;;; (should free this key because conflicts with Org `org-force-cycle-archived')
-(global-set-key (kbd "C-<tab>") 'other-window)
+;; (global-set-key (kbd "C-<tab>") 'other-window)
 
 ;; completion with shift-tab
 (global-set-key (quote [S-tab]) (quote dabbrev-expand))
