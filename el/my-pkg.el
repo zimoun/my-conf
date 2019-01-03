@@ -844,3 +844,19 @@
   :defer t
   :init
   (defalias 'mode-fci 'fci-mode))
+
+
+(use-package guix
+	     :ensure t
+	     :defer t
+	     :init
+	     ;; For specific modes
+	     (add-hook 'shell-mode-hook 'guix-prettify-mode)
+	     (add-hook 'eshell-mode-hook 'guix-prettify-mode)
+	     (add-hook 'dired-mode-hook 'guix-prettify-mode)
+	     ;; Prettify globally
+	     (add-hook 'after-init-hook 'global-guix-prettify-mode)
+	     ;; Help for Devel
+	     (add-hook 'scheme-mode-hook 'guix-devel-mode)
+	     (add-hook 'shell-mode-hook 'guix-build-log-minor-mode)
+	     )
