@@ -42,20 +42,25 @@
   (electric-indent-mode 1)
 )
 
-;; ;; easy Lisp manipulation with paredit
-;; (use-package paredit
-;;   :ensure t
-;;   :defer t
-;;   :init
-;;   (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-;;   ;; (add-hook 'emacs-lisp-mode
-;;   ;;           (lambda ()
-;;   ;;             (define-key emacs-lisp-mode-map
-;;   ;;               (kdb "C-k") 'my/paredit-kill)
-;;   ;;             ))
-;;   :bind ("C-k" . my/paredit-kill)
-;;   ;; :diminish paredit-mode
-;;   )
+;; easy Lisp manipulation with paredit
+(use-package paredit
+  :ensure t
+  :defer t
+  ;; :diminish paredit-mode
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+  ;; (add-hook 'emacs-lisp-mode
+  ;;           (lambda ()
+  ;;             (define-key emacs-lisp-mode-map
+  ;;               (kdb "C-k") 'my/paredit-kill)
+  ;;             ))
+  :bind
+  ("C-k" . my/paredit-kill)
+  ("RET" . my/electrify-return-if-match)
+
+  :config
+  (diminish 'paredit-mode "ParEd")
+  )
 
 
 ;; save history
@@ -847,16 +852,18 @@
 
 
 (use-package guix
-	     :ensure t
-	     :defer t
-	     :init
-	     ;; For specific modes
-	     (add-hook 'shell-mode-hook 'guix-prettify-mode)
-	     (add-hook 'eshell-mode-hook 'guix-prettify-mode)
-	     (add-hook 'dired-mode-hook 'guix-prettify-mode)
-	     ;; Prettify globally
-	     (add-hook 'after-init-hook 'global-guix-prettify-mode)
-	     ;; Help for Devel
-	     (add-hook 'scheme-mode-hook 'guix-devel-mode)
-	     (add-hook 'shell-mode-hook 'guix-build-log-minor-mode)
-	     )
+  :ensure t
+  :defer t
+  :init
+  ;; For specific modes
+  (add-hook 'shell-mode-hook 'guix-prettify-mode)
+  (add-hook 'eshell-mode-hook 'guix-prettify-mode)
+  (add-hook 'dired-mode-hook 'guix-prettify-mode)
+
+  ;; Prettify globally
+  ;(add-hook 'after-init-hook 'global-guix-prettify-mode)
+
+  ;; Help for Devel
+  (add-hook 'scheme-mode-hook 'guix-devel-mode)
+  (add-hook 'shell-mode-hook 'guix-build-log-minor-mode)
+  )

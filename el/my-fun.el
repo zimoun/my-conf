@@ -516,3 +516,22 @@ Note: M-2 M-; is equivalent to C-u 2 M-; see `universal-argument'.
         (comment-line 1))
     (comment-dwim ARG))
 )
+
+;;; https://www.emacswiki.org/emacs/ParEdit
+(defvar my/electrify-return-match
+  "[\]}\)\"]"
+  "If this regexp matches the text after the cursor, do an \"electric\"
+  return.")
+
+(defun my/electrify-return-if-match (arg)
+  "If the text after the cursor matches `electrify-return-match' then
+  open and indent an empty line between the cursor and the text.  Move the
+  cursor to the new line.
+
+See URL `https://www.emacswiki.org/emacs/ParEdit'"
+  (interactive "P")
+  (let ((case-fold-search nil))
+    (if (looking-at my/electrify-return-match)
+        (save-excursion (newline-and-indent)))
+    (newline arg)
+    (indent-according-to-mode)))
