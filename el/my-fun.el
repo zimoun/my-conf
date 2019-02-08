@@ -535,3 +535,12 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
         (save-excursion (newline-and-indent)))
     (newline arg)
     (indent-according-to-mode)))
+
+
+(defun my/git-grep (regexp)
+  "Mimick the command-line git-grep."
+  (interactive "sGit grep (regexp): ")
+  (grep
+   (format
+    "git --no-pager grep -nH --no-color -i \"%s\" -- $(git rev-parse --show-toplevel)"
+    regexp)))

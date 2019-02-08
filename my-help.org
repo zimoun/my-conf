@@ -138,3 +138,17 @@ Enjoy!
   Highlight line with cursor:  M-x hl-line-mode
   Track command: M-x command-log-show
    (see command-log-mode)
+
+* Message-mode
+ - copy region
+ - paste it
+ - then M-x message-mark-inserted-region
+For example:
+--8<---------------cut here---------------start------------->8---
+  All can be done with Awesome (Mod-x blah)
+  - emacs --daemon
+  - emacsclient -c path/to/dir
+  - M-x set-background-color
+     LightGreen | LightBlue | ...
+  - emacsclient -c path/to/file1
+--8<---------------cut here---------------end--------------->8---

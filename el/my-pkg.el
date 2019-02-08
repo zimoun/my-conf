@@ -326,9 +326,9 @@
 
   ;; add better completion
   (add-hook 'c-mode-common-hook 'semantic-mode)
-  (add-hook 'c-mode-common-hook 'semantic-idle-completions-mode)
-  (add-hook 'c-mode-common-hook 'semantic-highlight-func-mode)
-  (add-hook 'c-mode-common-hook 'semantic-stickyfunc-mode)
+  ;(add-hook 'c-mode-common-hook 'semantic-idle-completions-mode)
+  ;(add-hook 'c-mode-common-hook 'semantic-highlight-func-mode)
+  ;;(add-hook 'c-mode-common-hook 'semantic-stickyfunc-mode)
 )
 
 ;; python (which mode ?)
@@ -432,6 +432,8 @@
     (setq markdown-open-command "marked")
   )
 )
+
+
 ;; see if useful ?
 (use-package pandoc-mode
   :ensure t
@@ -440,6 +442,7 @@
   ;; (add-hook 'org-mode-hook 'pandoc-mode)
   (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
 )
+
 
 
 ;; not really used (yet)
@@ -529,9 +532,9 @@
            (file "~/.emacs.d/org-templates/done.org")))
          ))
 
-  ;; Try <el TAB
-  (add-to-list 'org-structure-template-alist
-             '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+  ;; ;; Try <el TAB
+  ;; (add-to-list 'org-structure-template-alist
+  ;;            '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 )
 
 ;; graphviz support
@@ -553,9 +556,9 @@
   :ensure t
   :defer t
   :bind ("C-x g" . magit-status)
-  :config
-  (add-hook 'magit-section-set-visibility-hook
-            'my/magit-initially-hide-untracked)
+;;   :config
+;;   (add-hook 'magit-section-set-visibility-hook
+;;             'my/magit-initially-hide-untracked)
 )
 
 
@@ -601,16 +604,27 @@
   ;(require 'ess-rutils)
   (add-hook 'R-mode-hook
             (lambda ()
-              (ess-set-style 'RStudio)
-              (setq ess-indent-offset tab-width)
-              ;; remap (default) "_" to "<-" by "=" to "<-"
-              (setq ess-smart-S-assign-key "=")
-              ;; needs to double `(ess-toggle-S-assign nil)'
-              (ess-toggle-S-assign nil)
-              (ess-toggle-S-assign nil)
-              ))
+              (progn
+                (ess-set-style 'RStudio)
+                (setq ess-indent-offset tab-width)
+
+                ;; Not sure this is still useful
+                ;; remap (default) "_" to "<-" by "=" to "<-"
+                (setq ess-smart-S-assign-key "=")
+                ;; needs to double `(ess-toggle-S-assign nil)'
+                (ess-toggle-S-assign nil)
+                (ess-toggle-S-assign nil)
+
+                ;; Fix the assign
+                (local-set-key (kbd "=") 'ess-cycle-assign)
+                )))
+  (setq ess-assign-list '(" <- " " = " " <<- " " -> " " ->> "))
   (setq ess-eval-visibly-p nil)
   (setq ess-use-eldoc'script-only)
+  ;; (add-hook 'R-mode-hook
+  ;;           (lambda ()
+  ;;             (local-set-key (kbdb "=" 'ess-cycle-assign))
+  ;;             ))
   )
 
 
@@ -677,6 +691,7 @@
 ;;         '("~/tmp/bibjabref.bib"))
 ;;   )
 
+
 (use-package helm-bibtex
   :ensure t
   :defer t
@@ -707,6 +722,7 @@
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "<backtab>") 'helm-select-action)
 )
+
 
 
 (use-package haskell-mode
