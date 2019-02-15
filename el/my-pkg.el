@@ -606,6 +606,10 @@
 (use-package pyvenv
   :ensure t
   :defer t
+  :init
+  ;; hum? is it possible to have alias per mode
+  ;; i.e., here only with Python
+  (defalias 'workon 'pyvenv-workon)
   :config
   (setq python-shell-interpreter "ipython"
         python-shell-interpreter-args "-i --profile=ipy --simple-prompt")

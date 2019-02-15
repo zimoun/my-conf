@@ -90,10 +90,6 @@
 ;; M-x cc instead of the long name
 (defalias 'cc 'recompile)
 
-;; hum? is it possible to have alias per mode
-;; i.e., here only with Python
-(defalias 'workon 'pyvenv-workon)
-
 
 ;; instead long name
 ;;;; do not forget to turn on (recentf-mode t)
