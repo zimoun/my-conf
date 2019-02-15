@@ -56,7 +56,7 @@
   ;;             ))
   :bind
   ("C-k" . my/paredit-kill)
-  ("RET" . my/electrify-return-if-match)
+  ("RET" . my/ilectrify-return-if-match)
 
   :config
   (diminish 'paredit-mode "ParEd")
