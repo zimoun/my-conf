@@ -21,6 +21,8 @@
 ;;;; (should free this key because conflicts with Org `org-force-cycle-archived')
 ;; (global-set-key (kbd "C-<tab>") 'other-window)
 
+;; Search in file
+(global-set-key (kbd "C-x s") 'occur)
 
 ;; Use `hippie-expand' instead of `dabbrev-expand'
 (global-set-key "\M-/" 'hippie-expand)
