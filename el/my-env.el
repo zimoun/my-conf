@@ -96,9 +96,6 @@
 (setq-default tab-width 4)
 (setq-default tab-stop-list (number-sequence 4 200 4))
 
-;; delete dirty spaces
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-;;;; maybe will change to whitespace-cleanup
 
 ;; compilation stuff
 (setq compilation-scroll-output 'first-error)

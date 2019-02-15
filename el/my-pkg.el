@@ -908,3 +908,17 @@
   (add-hook 'scheme-mode-hook 'guix-devel-mode)
   (add-hook 'shell-mode-hook 'guix-build-log-minor-mode)
   )
+
+
+;; better than `delete-trailing-whitespace'
+;;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
+;;; because clean up only the touched lines
+(use-package ws-butler
+  :ensure t
+  :defer t
+  :diminish t
+  :init
+  (ws-butler-global-mode)
+  :config
+  (diminish 'ws-butler-mode)
+  )
