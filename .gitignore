@@ -1,0 +1,10 @@
+abbrev_defs
+backup/
+custom.el
+elpa/
+eshell/
+history
+.org-id-locations
+semanticdb/
+tramp
+tramp-auto-save/
