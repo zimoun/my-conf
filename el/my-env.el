@@ -121,13 +121,9 @@
 ;; if browse some web ??
 (setq w3m-use-cookies t)
 
-;; find my compiled stuff
-(setenv "PATH" (concat "~/local/bin:" (getenv "PATH")))
-(setq exec-path (append exec-path '("~/local/bin")))
-(setenv "LIBRARY_PATH"
-        (concat "/home/simon/local/lib:" (getenv "LIBRARY_PATH")))
-(setenv "LD_LIBRARY_PATH"
-        (concat "/home/simon/local/lib:" (getenv "LD_LIBRARY_PATH")))
+;; hi-lock-mode: avoid to prompt the color
+(setq hi-lock-auto-select-face t)
+
 
 ;; character per line
 (setq-default fill-column 72)
@@ -139,11 +135,27 @@
 (setq calendar-location-name "Paris")
 
 
+;; find my compiled stuff
+(setenv "PATH" (concat "~/local/bin:" (getenv "PATH")))
+(setq exec-path (append exec-path '("~/local/bin")))
+(setenv "LIBRARY_PATH"
+        (concat "/home/simon/local/lib:" (getenv "LIBRARY_PATH")))
+(setenv "LD_LIBRARY_PATH"
+        (concat "/home/simon/local/lib:" (getenv "LD_LIBRARY_PATH")))
+
+
+;; find Guix stuff
+(setq guix-path
+      "$HOME/.config/guix/current/bin:$HOME/.guix-profile/bin:$HOME/.guix-profile/sbin")
+(setenv "PATH" (concat guix-path (getenv "PATH")))
+(setq exec-path (append exec-path '(guix-path)))
+(setenv "LIBRARY_PATH"
+        (concat "/home/simon/local/lib:" (getenv "LIBRARY_PATH")))
+(setenv "LD_LIBRARY_PATH"
+        (concat "/home/simon/local/lib:" (getenv "LD_LIBRARY_PATH")))
+
 ;; Guix variable
 (setq safe-local-variable-values
       '((bug-reference-bug-regexp
          .
          "<https?://\\(debbugs\\|bugs\\)\\.gnu\\.org/\\([0-9]+\\)>")))
-
-;; hi-lock-mode: avoid to prompt the color
-(setq hi-lock-auto-select-face t)
