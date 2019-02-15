@@ -444,9 +444,9 @@
 )
 
 
-
-;; not really used (yet)
+;; Org-anize my life
 (use-package org
+  :ensure org-plus-contrib		; ensure the last version of Org
   :defer t
 
   :bind ("\C-ca"  . my/org-agenda)
@@ -457,6 +457,8 @@
   (setq org-enforce-todo-dependencies t)
 
   :config
+  ;; hook to limit the number of characters per line
+  ;; this number is controled by the variable fill-column
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
   ;; My prefered and used backends
@@ -497,11 +499,11 @@
   (add-hook 'org-mode-hook 'org-display-inline-images)
   (add-hook 'org-mode-hook 'org-babel-result-hide-all)
 
-
+  ;; store time when TODO is DONE
   (setq org-log-done (quote time))
 
-  (setq org-src-fontify-natively t)
-  (setq org-src-tab-acts-natively t)
+  (setq org-src-fontify-natively t)	; coloring   inside blocks
+  (setq org-src-tab-acts-natively t)	; completion inside blocks)
   (setq org-src-window-setup 'current-window)
   ;; (setq org-hide-emphasis-markers t)    ; hide the *,=, or / markers
 
@@ -530,11 +532,34 @@
           ("d" "Diary" entry
            (file+headline "~/org/diary.org" "Capture")
            (file "~/.emacs.d/org-templates/done.org")))
-         ))
+	 ))
 
-  ;; ;; Try <el TAB
-  ;; (add-to-list 'org-structure-template-alist
-  ;;            '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+
+  (if (not (version-list-< '(9 2) (version-to-list org-version)))
+      (progn
+        (warn "Please update Org-mode.\ne.g., by installing `org-plus-contrib'.\nKeybindings <s need `(require 'org-tempo)' to work again.")
+        ;; Try <el TAB
+        (add-to-list 'org-structure-template-alist
+                     '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC")))
+    (progn
+      ;; With 9.2 the keybindings <s does not work anymore
+      ;; The Org Tempo allow the previous mechanism
+      ;; https://orgmode.org/Changes.html#org1b5e967
+      (require 'org-tempo)
+      ;; see org-structure-template-alist
+      (add-to-list 'org-structure-template-alist
+		           '("sel" . "src emacs-lisp")))
+    )
+
+  (defun org-latex-export-as-latex-only ()
+    "How to customize `org-export-dispatch'?"
+    (interactive)
+    (org-latex-export-as-latex nil nil nil t nil))
+
+  (defun org-latex-export-to-latex-only ()
+    "How to customize `org-export-dispatch'?"
+    (interactive)
+    (org-latex-export-to-latex nil nil nil t nil))
 )
 
 ;; graphviz support

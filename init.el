@@ -15,6 +15,9 @@
 (add-to-list 'package-archives
              ;; e.g., `use-package' is not in ELPA
              '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives
+	     ;; Add org-plus-contrib
+	     '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
 
 ;; ;; Do not forget to refresh the contents, time to time.
