@@ -293,7 +293,8 @@
   :defer t
   :config
   (setq tramp-default-method "ssh")
-  (setq tramp-auto-save-directory "~/.emacs.d/auto-save-list")
+  (setq tramp-auto-save-directory
+        (concat user-emacs-directory "tramp-auto-save"))
 )
 
 ;; ;; catch all the keys

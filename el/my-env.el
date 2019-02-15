@@ -18,7 +18,7 @@
 ; (setq make-backup-files nil)
 
 ;; backup management ?
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+(setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backup")))
   backup-by-copying t    ; Don't delink hardlinks
   version-control t      ; Use version numbers on backups
   delete-old-versions t  ; Automatically delete excess backups
