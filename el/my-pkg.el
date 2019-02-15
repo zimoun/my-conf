@@ -174,6 +174,11 @@
   (define-key dired-mode-map (kbd "r") 'my/dired-sort)
   (define-key dired-mode-map (kbd "=") 'my/dired-ediff-or-diff)
   (define-key dired-mode-map (kbd "E") 'dired-toggle-read-only)
+
+  ;; change confirmation style
+  ;;; because the confirmation style is hard coded
+  (defalias 'dired--yes-no-all-quit-help 'y-or-n-p)
+
 )
 
 ;; Emacs shell
