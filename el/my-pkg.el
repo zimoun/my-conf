@@ -127,7 +127,9 @@
                  ("Org" (mode . org-mode))
 
                  ;; ("magit" (name . "^\\*magit.[-_:a-zA-Z0-9 ]+$"))
-                 ("Magit" (name . "\*magit"))
+                 ("Magit" (or
+                           (name . "\*magit")
+                           (name . "^magit")))
                  ("Dired" (mode . dired-mode))
                  ("Run" (or
                          ;; (name . "^\*eshell\*$")
