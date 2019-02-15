@@ -372,6 +372,9 @@
   (add-hook 'latex-mode-hook 'turn-on-reftex)
   (setq reftex-ref-macro-prompt nil)
 
+  ;; add the underlining of mistakes
+  (add-hook 'tex-mode-hook 'flyspell-mode)
+
   ;; replace internal DocView-mode by external MuPDF
   ;; (see package openwith somewhere there)
   (openwith-mode t)
@@ -380,6 +383,12 @@
 ;; mispell corrector using dictionary
 (use-package ispell
   :defer t
+  :init
+  (global-set-key [?\C-$] 'ispell-region)
+  ;;;;;;;; C-$ does not work in terminal
+  (global-set-key [f1] 'ispell-buffer)
+  (global-set-key [f11] 'flyspell-buffer)
+  (global-set-key [f12] 'flyspell-mode)
   :config
   (setq-default ispell-program-name "aspell")
 )
@@ -460,6 +469,9 @@
   ;; hook to limit the number of characters per line
   ;; this number is controled by the variable fill-column
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+  ;; add the underlining of mistakes
+  (add-hook 'org-mode-hook 'flyspell-mode)
 
   ;; My prefered and used backends
   ;;;; need to be set up before loading org.el

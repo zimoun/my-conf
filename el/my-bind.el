@@ -5,12 +5,6 @@
 ;; (global-set-key (kbd "C-c C-t") 'my/compile-run)
 ;; (global-set-key (kbd "C-c C-e") 'my/compile-clean)
 
-(global-set-key [?\C-$] 'ispell-region)
-;;;;;;;; C-$ does not work in terminal
-(global-set-key [f1] 'ispell-buffer)
-(global-set-key [f11] 'flyspell-mode)
-(global-set-key [f12] 'flyspell-buffer)
-
 ;; rebind (view-emacs-FAQ) because I never use it
 (global-set-key (kbd "C-h C-f") 'find-function)
 
