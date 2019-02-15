@@ -69,28 +69,6 @@
   (savehist-mode 1)
 )
 
-;; easy switch between buffers
-(use-package ido
-  :defer t
-  :init (ido-mode 'buffers)
-  :config
-  (defun ido-ignore-except (name)
-    "Ignore all non-user buffer (i.e., *name*) with exceptions
-
-      except:  *eshell* etc."
-    ;; (and (string-match "^\*" name)
-    ;;      (not (string-match  "^\*eshell.*\*$" name))
-    ;;      (not (string-match  "^\*Python.*\*$" name))
-    ;;      (not (string-match "^\*Inferior Octave\*$")))
-  )
-  ;(setq ido-ignore-buffers '("\\` " ido-ignore-except))
-  ;; ido-switch-buffer implies problem ?
-  ;; 1/ emacsclient -c foo -> frame1
-  ;; 2/ emacsclient -c bar -> frame2
-  ;; 3/ switch to foo in frame2 ==> nope !
-;;;; this line fixes the problem
-  (setq ido-default-buffer-method 'selected-window)
-)
 
 ;; the nice buffer management
 (use-package ibuffer
@@ -150,6 +128,7 @@
                  ;;           ;; (name . "^\\*Compile-Log\\*$")
                  ;;           (name . "^\\*tramp.*\\*$")
                  ;;           ))
+                 ("Helm" (name . "\*helm"))
                  ("emacs" (or
                            (name . "^\\*[a-zA-Z ]*\\*$")))
 
@@ -226,6 +205,15 @@
               (eshell/alias "dir" "dired $1")
               (eshell/alias "ff" "find $1 -type f -name $2 -print")))
   (setenv "PAGER" "cat")
+
+  ;; add helm support to completion (TAB activates helm)
+  (add-hook 'eshell-mode-hook
+          (lambda ()
+            (eshell-cmpl-initialize)
+            (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
+            (define-key eshell-mode-map (kbd "C-r") 'helm-eshell-history)
+            (define-key eshell-mode-map (kbd "C-c r") 'isearch-backward)))
+
 
     (defun eshell/gst (&rest arg)
       (magit-status (pop args) nil)
@@ -740,6 +728,46 @@
 ;;         '("~/tmp/bibjabref.bib"))
 ;;   )
 
+(use-package helm
+  :ensure t
+  :defer t
+  :init
+  (require 'helm-config)
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+  (global-set-key (kbd "C-x b") 'helm-mini)
+  (global-set-key (kbd "C-x c s") 'helm-occur)
+
+  (helm-mode 1)
+
+  :config
+  ;; from documentation
+  (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+        helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+        helm-ff-file-name-history-use-recentf t
+        helm-echo-input-in-header-line t
+        helm-show-completion-display-function #'helm-show-completion-default-display-function)
+
+  (setq helm-autoresize-max-height 0)
+  (setq helm-autoresize-min-height 30)
+  (helm-autoresize-mode 1)
+
+  ;; Fuzzy (approximative) search
+  (setq
+   helm-M-x-fuzzy-match        t
+   helm-buffers-fuzzy-matching t
+   helm-recentf-fuzzy-match    t)
+
+  (diminish 'helm-mode)
+  )
+
+(use-package helm-ls-git
+  :ensure t
+  :defer t
+  )
 
 (use-package helm-bibtex
   :ensure t
