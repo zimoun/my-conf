@@ -1,6 +1,5 @@
 ;; -*- lexical-binding: t -*-
 
-(provide 'my-fun)
 
 
 (defun my/byte-compile-el-init ()
@@ -38,6 +37,7 @@ then check:
 )
 
 
+
 ;;;;
 ;; Compilation -- needs improvments
 ;;;; because it is a mess with the directory
@@ -100,7 +100,7 @@ then check:
 ;;
 ;; end compilation unworking stuff
 ;;
-
+
 
 
 (defun my/kill-line-or-delete-indent (&optional arg)
@@ -544,3 +544,6 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
    (format
     "git --no-pager grep -nH --color=auto -i \"%s\" -- $(git rev-parse --show-toplevel)"
     regexp)))
+
+
+(provide 'my-fun)

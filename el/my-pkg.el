@@ -1,5 +1,4 @@
 
-(provide 'my-pkg)
 
 ;; numbering lines (and add column in mode-line)
 (use-package linum
@@ -308,8 +307,8 @@ as a new repository."
   :defer t
   :config
   (setq tramp-default-method "ssh")
-  (setq tramp-auto-save-directory
-        (concat user-emacs-directory "tramp-auto-save"))
+  ;; (setq tramp-auto-save-directory
+  ;;       (concat user-emacs-directory "tramp-auto-save"))
 )
 
 ;; ;; catch all the keys
@@ -994,3 +993,6 @@ as a new repository."
   :config
   (diminish 'ws-butler-mode)
   )
+
+
+(provide 'my-pkg)

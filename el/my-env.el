@@ -1,6 +1,5 @@
+;; -*- lexical-binding: t -*-
 
-
-(provide 'my-env)
 
 ;; UTF8 everywhere
 ; (setq locale-coding-system 'utf-8)
@@ -144,6 +143,7 @@
         (concat "/home/simon/local/lib:" (getenv "LD_LIBRARY_PATH")))
 
 
+
 ;; find Guix stuff
 (defun my/-concat-path (input-list separator output-list &optional not-rev)
   "Concatenate INPUT-LIST to OUTPUT-LIST (helper function).
@@ -185,3 +185,6 @@ SEPARATOR is a string, .e.g., \":\".
       '((bug-reference-bug-regexp
          .
          "<https?://\\(debbugs\\|bugs\\)\\.gnu\\.org/\\([0-9]+\\)>")))
+
+
+(provide 'my-env)

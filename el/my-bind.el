@@ -1,5 +1,4 @@
 
-(provide 'my-bind)
 
 ;; (global-set-key (kbd "C-c C-r") 'my/compile-or-recompile)
 ;; (global-set-key (kbd "C-c C-t") 'my/compile-run)
@@ -96,3 +95,6 @@
 ;;;; do not forget to turn on (recentf-mode t)
 ;;;; see my-env.el
 (defalias 'find-recent 'recentf-open-files)
+
+
+(provide 'my-bind)

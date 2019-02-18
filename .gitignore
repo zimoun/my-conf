@@ -1,10 +1,13 @@
 abbrev_defs
+auto-save-list/
 backup/
 custom.el
 elpa/
 eshell/
 history
 .org-id-locations
+recentf
 semanticdb/
 tramp
 tramp-auto-save/
+transient/
