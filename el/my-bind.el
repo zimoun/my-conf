@@ -8,6 +8,11 @@
 ;; rebind (view-emacs-FAQ) because I never use it
 (global-set-key (kbd "C-h C-f") 'find-function)
 
+;; rebind M-o because it should be important
+;;; and the moves between window are faster
+(global-set-key (kbd "M-o") 'other-window)
+
+
 ;; to easily erase a complete line
 (global-set-key [?\C-k] 'kill-whole-line)
 (global-set-key [?\C-\M-d] 'my/kill-line-or-delete-indent)
@@ -22,7 +27,9 @@
 ;; (global-set-key (kbd "C-<tab>") 'other-window)
 
 ;; Search in file
-(global-set-key (kbd "C-x s") 'occur)
+;;; helm-occur should be binded to C-x c s
+;;; but helm-occur is more frequent
+(global-set-key (kbd "C-x c s") 'occur)
 
 ;; Use `hippie-expand' instead of `dabbrev-expand'
 (global-set-key "\M-/" 'hippie-expand)

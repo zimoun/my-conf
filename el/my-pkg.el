@@ -737,7 +737,7 @@
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "M-y") 'helm-show-kill-ring)
   (global-set-key (kbd "C-x b") 'helm-mini)
-  (global-set-key (kbd "C-x c s") 'helm-occur)
+  (global-set-key (kbd "C-x s") 'helm-occur)
 
   (helm-mode 1)
 
