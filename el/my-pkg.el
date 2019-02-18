@@ -203,7 +203,8 @@
               (eshell/alias "ew" "find-file-other-window $1")
               (eshell/alias "dir" "dired $1")
               (eshell/alias "ff" "find $1 -type f -name $2 -print")
-              (eshell/alias "git-grep" "my/git-grep $1")))
+              (eshell/alias "git-grep" "my/git-grep $1")
+              (eshell/alias "git-grep--all" "my/git-grep--all $1")))
   (setenv "PAGER" "cat")
 
   ;; add helm support to completion (TAB activates helm)

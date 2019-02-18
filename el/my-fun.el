@@ -545,5 +545,13 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
     "git --no-pager grep -nH --color=auto -i \"%s\" -- $(git rev-parse --show-toplevel)"
     regexp)))
 
+(defun my/git-grep--all (regexp)
+  "Mimick the command-line git-grep."
+  (interactive "sGit grep (regexp): ")
+  (grep
+   (format
+    "git rev-list --all | xargs git --no-pager grep -nH --color=auto -i \"%s\" "
+    regexp)))
+
 
 (provide 'my-fun)
