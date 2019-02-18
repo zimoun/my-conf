@@ -145,10 +145,36 @@
 
 
 ;; find Guix stuff
-(setq guix-path
-      "$HOME/.config/guix/current/bin:$HOME/.guix-profile/bin:$HOME/.guix-profile/sbin")
-(setenv "PATH" (concat guix-path (getenv "PATH")))
-(setq exec-path (append exec-path '(guix-path)))
+(defun my/-concat-path (input-list separator output-list &optional not-rev)
+  "Concatenate INPUT-LIST to OUTPUT-LIST (helper function).
+
+The recursive concatenation reverses the order.
+Instead of applying the function `reverse' when calling, an option eases the job.
+If NOT-REV is set to `t', then INPUT-LIST is not reversed.
+The aim is to reverse at the first call, and so, preserve the order.
+
+SEPARATOR is a string, .e.g., \":\".
+"
+  (let (lst)
+    (if not-rev
+        (setq lst input-list)
+      (setq lst (reverse input-list)))
+    (if (equal input-list '())
+        output-list
+      (let
+          ((elem (expand-file-name (car lst)))
+           (rest (cdr lst)))
+        (my/-concat-path
+         rest separator
+         (concat elem separator output-list)
+         t)))))
+;; $HOME is not well recognized by `expand-file-name', but ~/ is.
+(setq guix-paths
+      '("~/.config/guix/current/bin"
+        "~/.guix-profile/bin"
+        "~/.guix-profile/sbin"))
+(setenv "PATH" (my/-concat-path guix-paths ":" (getenv "PATH")))
+(setq exec-path (append exec-path '(guix-paths)))
 (setenv "LIBRARY_PATH"
         (concat "/home/simon/local/lib:" (getenv "LIBRARY_PATH")))
 (setenv "LD_LIBRARY_PATH"
