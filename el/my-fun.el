@@ -542,5 +542,5 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
   (interactive "sGit grep (regexp): ")
   (grep
    (format
-    "git --no-pager grep -nH --no-color -i \"%s\" -- $(git rev-parse --show-toplevel)"
+    "git --no-pager grep -nH --color=auto -i \"%s\" -- $(git rev-parse --show-toplevel)"
     regexp)))

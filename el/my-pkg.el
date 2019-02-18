@@ -203,7 +203,8 @@
               (eshell/alias "em" "for i in ${eshell-flatten-list $*} {find-file $i}")
               (eshell/alias "ew" "find-file-other-window $1")
               (eshell/alias "dir" "dired $1")
-              (eshell/alias "ff" "find $1 -type f -name $2 -print")))
+              (eshell/alias "ff" "find $1 -type f -name $2 -print")
+              (eshell/alias "git-grep" "my/git-grep $1")))
   (setenv "PAGER" "cat")
 
   ;; add helm support to completion (TAB activates helm)
@@ -212,12 +213,31 @@
             (eshell-cmpl-initialize)
             (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
             (define-key eshell-mode-map (kbd "C-r") 'helm-eshell-history)
-            (define-key eshell-mode-map (kbd "C-c r") 'isearch-backward)))
+            (define-key eshell-mode-map (kbd "C-c r") 'isearch-backward)
+            (define-key eshell-mode-map (kbd "C-d") 'eshell-life-is-too-much)))
 
 
-    (defun eshell/gst (&rest arg)
-      (magit-status (pop args) nil)
-      (eshell/echo))
+    (defun eshell/git-status (&rest args)
+      "Alias as function to `magit-status'.
+
+If ARGS is nil, then open `magit-status' in `default-directory'.
+Else open it in first ARGS.
+
+If other ARGS is non-nil, then offer to initialize it
+as a new repository."
+      (let ((a-dir (if args
+                       (pop  args)
+                     default-directory))
+            (create (if args
+                        (pop args)
+                      nil)))
+        (if (file-directory-p a-dir)
+            (if (file-directory-p (concat a-dir "/.git"))
+                (magit-status a-dir nil)
+              (if create
+                  (magit-status a-dir nil)
+                (eshell/echo (format "Try: git-status %s init" a-dir))))
+          (message "Error: %s is not a directory." a-dir))))
 
     (defun eshell/x ()
       (kill-buffer))
