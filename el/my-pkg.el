@@ -178,7 +178,6 @@
    eshell-scroll-to-bottom-on-input 'all
    eshell-error-if-no-glob t
    eshell-hist-ignoredups t
-   eshell-save-history-on-exit t
    eshell-prefer-lisp-functions nil
    eshell-destroy-buffer-when-process-dies t
    )
@@ -203,6 +202,9 @@
               (eshell/alias "ew" "find-file-other-window $1")
               (eshell/alias "dir" "dired $1")
               (eshell/alias "ff" "find $1 -type f -name $2 -print")
+              ;(eshell/alias "find-grep" "find $1 -type f -name $2 -exec grep --color -nH -e $3 {} +")
+              (eshell/alias "ffind-grep" "my/find-grep")
+              (eshell/alias "star-ff" "\"*find\" $1 -type f -name $2 -print")
               (eshell/alias "git-grep" "my/git-grep $1")
               (eshell/alias "git-grep--all" "my/git-grep--all $1")))
   (setenv "PAGER" "cat")
@@ -214,7 +216,10 @@
             (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
             (define-key eshell-mode-map (kbd "C-r") 'helm-eshell-history)
             (define-key eshell-mode-map (kbd "C-c r") 'isearch-backward)
-            (define-key eshell-mode-map (kbd "C-d") 'eshell-life-is-too-much)))
+          ;  (define-key eshell-mode-map (kbd "C-d") 'eshell-life-is-too-much)
+            )
+
+          )
 
 
     (defun eshell/git-status (&rest args)
@@ -238,6 +243,24 @@ as a new repository."
                   (magit-status a-dir nil)
                 (eshell/echo (format "Try: git-status %s init" a-dir))))
           (message "Error: %s is not a directory." a-dir))))
+
+
+    (defun eshell/find-grepp (&rest args)
+      "Mimick the command-line find grep."
+      (let ((directory (pop args))
+            (file (pop args))
+            (regexp (pop args))
+            )
+        ;(generate-new-buffer "*find-grep*")
+        ;(switch-to-buffer "*find-grep*")
+        (grep
+         (format
+          "find %s -type f -name %s -exec grep --color -nH -e %s {} +"
+          directory file regexp)))
+      ;(grep-mode)
+      )
+
+
 
     (defun eshell/x ()
       (kill-buffer))
