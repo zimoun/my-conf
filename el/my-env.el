@@ -145,7 +145,7 @@
 
 
 ;; find Guix stuff
-(defun my/-concat-path (input-list separator output-list &optional not-rev)
+(defun my/-addpath (input-list separator output-list &optional not-rev)
   "Concatenate INPUT-LIST to OUTPUT-LIST (helper function).
 
 The recursive concatenation reverses the order.
@@ -154,6 +154,10 @@ If NOT-REV is set to `t', then INPUT-LIST is not reversed.
 The aim is to reverse at the first call, and so, preserve the order.
 
 SEPARATOR is a string, .e.g., \":\".
+
+See `eshell/addpath'. Except that the order is not finely controlled.
+(defun my/addpath (&rest args)
+  (setenv \"PATH\" (my/-addpath args \":\" (getenv \"PATH\")))
 "
   (let (lst)
     (if not-rev
@@ -164,16 +168,16 @@ SEPARATOR is a string, .e.g., \":\".
       (let
           ((elem (expand-file-name (car lst)))
            (rest (cdr lst)))
-        (my/-concat-path
+        (my/-addpath
          rest separator
          (concat elem separator output-list)
          t)))))
 ;; $HOME is not well recognized by `expand-file-name', but ~/ is.
 (setq guix-paths
-      '("~/.config/guix/current/bin"
+      '(")~/.config/guix/current/bin"
         "~/.guix-profile/bin"
         "~/.guix-profile/sbin"))
-(setenv "PATH" (my/-concat-path guix-paths ":" (getenv "PATH")))
+(setenv "PATH" (my/-addpath guix-paths ":" (getenv "PATH")))
 (setq exec-path (append exec-path '(guix-paths)))
 (setenv "LIBRARY_PATH"
         (concat "/home/simon/local/lib:" (getenv "LIBRARY_PATH")))
