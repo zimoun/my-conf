@@ -206,7 +206,9 @@
               (eshell/alias "ffind-grep" "my/find-grep")
               (eshell/alias "star-ff" "\"*find\" $1 -type f -name $2 -print")
               (eshell/alias "git-grep" "my/git-grep $1")
-              (eshell/alias "git-grep--all" "my/git-grep--all $1")))
+              (eshell/alias "git-grep--all" "my/git-grep--all $1")
+              (eshell/alias "qq" "eshell/close")
+              ))
   (setenv "PAGER" "cat")
 
   ;; add helm support to completion (TAB activates helm)
@@ -260,6 +262,11 @@ as a new repository."
       ;(grep-mode)
       )
 
+
+    (defun eshell/close ()
+      "Kill the current buffer (eshell one expected) and close the frame."
+      (kill-buffer (current-buffer))
+      (delete-frame))
 
 
     (defun eshell/x ()
