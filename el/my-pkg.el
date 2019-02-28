@@ -164,11 +164,17 @@
 ;; Emacs shell
 (use-package eshell
   :defer t
+  :bind
+  ("C-d" . eshell/close-or-delete-char)
+  ("C-k" . kill-line)
   :init
   (add-hook 'eshell-first-time-mode-hook
             (lambda ()
-              (add-to-list 'eshell-visual-commands "htop")))
-  :config
+              (add-to-list 'eshell-visual-commands "htop")
+              (add-to-list 'eshell-visual-commands "ssh")
+              (add-to-list 'eshell-visual-commands "tail")
+              (add-to-list 'eshell-visual-commands "tree")))
+  ;; :config
   (setq
    eshell-history-size 5000
    eshell-save-history-on-exit t
@@ -181,6 +187,8 @@
    eshell-prefer-lisp-functions nil
    eshell-destroy-buffer-when-process-dies t
    )
+
+  :config
   (setq eshell-prompt-function
         (lambda nil
           (concat
@@ -196,11 +204,12 @@
             (lambda ()
               ;; hum? why && does not work?
               ;; instead ;
-              (eshell/alias "cd" "cd $1 ; ls -art1")
+              (eshell/alias "ll" "ls -AGhrtl --color=always")
+              (eshell/alias "cd" "cd $1 ; ls -AGrt1 --color=always")
               (eshell/alias "mkcd" "mkdir -p $1 ; cd $1")
               (eshell/alias "em" "for i in ${eshell-flatten-list $*} {find-file $i}")
               (eshell/alias "ew" "find-file-other-window $1")
-              (eshell/alias "dir" "dired $1")
+              (eshell/alias "dir" "my/dired $1")
               (eshell/alias "ff" "find $1 -type f -name $2 -print")
               ;(eshell/alias "find-grep" "find $1 -type f -name $2 -exec grep --color -nH -e $3 {} +")
               (eshell/alias "ffind-grep" "my/find-grep")
@@ -262,11 +271,26 @@ as a new repository."
       ;(grep-mode)
       )
 
+    (defun eshell/clear ()
+       "Clear the eshell buffer."
+       (let ((inhibit-read-only t))
+         (erase-buffer)
+         (eshell-send-input)))
 
     (defun eshell/close ()
+      (progn
+        (eshell-life-is-too-much)
+        (ignore-errors (delete-frame))))
+
+    (defun eshell/close-or-delete-char (&rest arg)
       "Kill the current buffer (eshell one expected) and close the frame."
-      (kill-buffer (current-buffer))
-      (delete-frame))
+      (interactive "p")
+      (if (and (eolp) (looking-back eshell-prompt-regexp))
+          (progn
+            (eshell-life-is-too-much) ; Why not? (eshell/exit)
+            (ignore-errors
+              (delete-frame)))
+        (delete-forward-char arg)))
 
 
     (defun eshell/x ()

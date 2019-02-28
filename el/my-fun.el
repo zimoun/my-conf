@@ -554,4 +554,16 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
     regexp)))
 
 
+(defun my/setup ()
+  (interactive)
+  (progn
+    (menu-bar-mode 1)
+    (set-background-color "LightGoldenrod3")))
+
+(defun my/setup-blue ()
+  (interactive)
+  (progn
+    (menu-bar-mode 1)
+    (set-background-color "LightCyan3")))
+
 (provide 'my-fun)
