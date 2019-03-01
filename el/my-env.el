@@ -174,11 +174,11 @@ See `eshell/addpath'. Except that the order is not finely controlled.
          t)))))
 ;; $HOME is not well recognized by `expand-file-name', but ~/ is.
 (setq guix-paths
-      '(")~/.config/guix/current/bin"
+      '("~/.config/guix/current/bin"
         "~/.guix-profile/bin"
         "~/.guix-profile/sbin"))
 (setenv "PATH" (my/-addpath guix-paths ":" (getenv "PATH")))
-(setq exec-path (append exec-path '(guix-paths)))
+(setq exec-path (append exec-path guix-paths))
 (setenv "LIBRARY_PATH"
         (concat "/home/simon/local/lib:" (getenv "LIBRARY_PATH")))
 (setenv "LD_LIBRARY_PATH"
