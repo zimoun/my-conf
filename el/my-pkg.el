@@ -663,9 +663,11 @@ as a new repository."
   :ensure t
   :defer t
   :bind ("C-x g" . magit-status)
-;;   :config
+  :config
 ;;   (add-hook 'magit-section-set-visibility-hook
 ;;             'my/magit-initially-hide-untracked)
+  (setq magit-view-git-manual-method 'woman)
+  (add-hook 'magit-status-sections-hook 'magit-insert-recent-commits)
 )
 
 
