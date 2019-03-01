@@ -835,6 +835,18 @@ as a new repository."
    helm-buffers-fuzzy-matching t
    helm-recentf-fuzzy-match    t)
 
+    (defmethod helm-setup-user-source ((source helm-source-ffiles))
+  (helm-source-add-action-to-source-if
+   "Magit status"
+   (lambda (_candidate)
+     (magit-status helm-ff-default-directory))
+   source
+   (lambda (candidate)
+     (and (not (string-match-p ffap-url-regexp candidate))
+          helm-ff-default-directory
+          (locate-dominating-file helm-ff-default-directory ".git")))
+   1))
+
   (diminish 'helm-mode)
   )
 
@@ -1048,6 +1060,14 @@ as a new repository."
   :config
   (diminish 'ws-butler-mode)
   )
+
+(use-package proced
+  :defer t
+  :init
+  :config
+  (add-hook 'proced-mode-hook '(lambda ()
+                                 (proced-toggle-auto-update 1)))
+)
 
 
 (provide 'my-pkg)
