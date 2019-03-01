@@ -262,7 +262,7 @@ as a new repository."
         (eshell-life-is-too-much)
         (ignore-errors (delete-frame))))
 
-    (defun eshell/close-or-delete-char (&rest arg)
+    (defun eshell/close-or-delete-char (arg)
       "Kill the current buffer (eshell one expected) and close the frame."
       (interactive "p")
       (if (and (eolp) (looking-back eshell-prompt-regexp))
