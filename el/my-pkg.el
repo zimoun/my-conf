@@ -801,7 +801,11 @@ as a new repository."
         helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
         helm-ff-file-name-history-use-recentf t
         helm-echo-input-in-header-line t
-        helm-show-completion-display-function #'helm-show-completion-default-display-function)
+        helm-show-completion-display-function #'helm-show-completion-default-display-function
+        helm-always-two-windows nil
+        helm-display-buffer-default-height 30
+        helm-default-display-buffer-functions '(display-buffer-in-side-window)
+        )
 
   (setq helm-autoresize-max-height 0)
   (setq helm-autoresize-min-height 30)
