@@ -796,19 +796,19 @@ as a new repository."
   :config
   ;; from documentation
   (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+        helm-move-to-line-cycle-in-source     t ; move to end/beginning of source when reaching top/bottom of source
         helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
         helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
         helm-ff-file-name-history-use-recentf t
-        helm-echo-input-in-header-line t
+        helm-echo-input-in-header-line        t
         helm-show-completion-display-function #'helm-show-completion-default-display-function
-        helm-always-two-windows nil
-        helm-display-buffer-default-height 30
+        helm-always-two-windows               nil
+        helm-display-buffer-default-height    23  ; 30 leads to bug for default graphical on my Desktop
         helm-default-display-buffer-functions '(display-buffer-in-side-window)
         )
 
-  (setq helm-autoresize-max-height 0)
-  (setq helm-autoresize-min-height 30)
+  (setq helm-autoresize-max-height 0
+	    helm-autoresize-min-height 30)
   (helm-autoresize-mode 1)
 
   ;; Fuzzy (approximative) search
@@ -817,17 +817,18 @@ as a new repository."
    helm-buffers-fuzzy-matching t
    helm-recentf-fuzzy-match    t)
 
-    (defmethod helm-setup-user-source ((source helm-source-ffiles))
-  (helm-source-add-action-to-source-if
-   "Magit status"
-   (lambda (_candidate)
-     (magit-status helm-ff-default-directory))
-   source
-   (lambda (candidate)
-     (and (not (string-match-p ffap-url-regexp candidate))
-          helm-ff-default-directory
-          (locate-dominating-file helm-ff-default-directory ".git")))
-   1))
+  (defmethod helm-setup-user-source ((source helm-source-ffiles))
+    (helm-source-add-action-to-source-if
+     "Magit status"
+     (lambda (candidate)
+       (magit-status
+        (locate-dominating-file helm-ff-default-directory ".git")))
+     source
+     (lambda (candidate)
+       (and (not (string-match-p ffap-url-regexp candidate))
+            helm-ff-default-directory
+            (locate-dominating-file helm-ff-default-directory ".git")))
+     1))
 
   (diminish 'helm-mode)
   )
