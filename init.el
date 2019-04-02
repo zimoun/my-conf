@@ -6,6 +6,9 @@
 ;; Add my custom folder to the elisp path
 (add-to-list 'load-path (expand-file-name "el" user-emacs-directory))
 
+;; Avoid issue loading old bytecode instead of newer source
+(setq load-prefer-newer t)
+
 ;; Package system
 ;; ;; (if (< emacs-major-version 24)
 ;; ;;  (who-does-that-?)

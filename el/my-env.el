@@ -191,4 +191,8 @@ See `eshell/addpath'. Except that the order is not finely controlled.
          "<https?://\\(debbugs\\|bugs\\)\\.gnu\\.org/\\([0-9]+\\)>")))
 
 
+;; useful to start fullscreen
+;;; for example with exec emacs in .xinitrc
+;(set-frame-parameter nil 'fullscreen 'fullboth)
+
 (provide 'my-env)
