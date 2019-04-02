@@ -512,6 +512,9 @@ as a new repository."
   (setq org-enforce-todo-dependencies t)
 
   :config
+  ;; More "intuitive" beginning of line
+  (setq org-special-ctrl-a/e t)
+
   ;; hook to limit the number of characters per line
   ;; this number is controled by the variable fill-column
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
