@@ -817,6 +817,9 @@ as a new repository."
    helm-buffers-fuzzy-matching t
    helm-recentf-fuzzy-match    t)
 
+  (setq helm-locate-command
+        "locate %s -e -A --regex %s -d ~/.cache/locate.db")
+
   (defmethod helm-setup-user-source ((source helm-source-ffiles))
     (helm-source-add-action-to-source-if
      "Magit status"
