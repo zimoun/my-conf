@@ -833,6 +833,10 @@ as a new repository."
   (diminish 'helm-mode)
   )
 
+(use-package helm-ag
+  :ensure t
+  :defer t)
+
 (use-package helm-ls-git
   :ensure t
   :defer t
