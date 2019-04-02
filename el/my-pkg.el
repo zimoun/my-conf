@@ -793,6 +793,7 @@ as a new repository."
   (global-set-key (kbd "M-y") 'helm-show-kill-ring)
   (global-set-key (kbd "C-x b") 'helm-mini)
   (global-set-key (kbd "C-x s") 'helm-occur)
+  (global-set-key (kbd "C-x c u SPC") 'helm-all-mark-rings)
 
   (helm-mode 1)
 
