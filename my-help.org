@@ -55,7 +55,7 @@
 
 * Narrow
   See [[info:emacs#Narrowing][C-h i g (emacs)Narrowing]].
- - C-x n n
+ - C-x n n / C-x n d
  - C-x n w
  - M-x clone-indirect-buffer-other-window
 
@@ -102,6 +102,9 @@ Enjoy!
    + the end of one buffer is the start of the other one.
  - Insert page break C-q C-l
    then navigate with C-x [ and C-x ]
+ - Save/restore windows configuration
+   + C-x r w LETTER saves window configuration
+   + C-x r j LETTER restore it
 
 * Org
   - ORDERED (properties) allow to block task if they are not done in the
@@ -125,7 +128,7 @@ Enjoy!
   - emacs --daemon
   - emacsclient -c path/to/dir
   - M-x set-background-color
-     LightGreen | LightBlue | ...
+    LightGreen | LightBlue | ...
   - emacsclient -c path/to/file1
   - M-x set-background-color
   - M-x term
