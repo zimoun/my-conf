@@ -35,6 +35,15 @@
 ;; use it
 (require 'use-package)
 
+;; Fix issue from included Org version vs Latest one
+;;; see http://lists.gnu.org/archive/html/emacs-orgmode/2019-03/msg00094.html
+;; (unless (package-installed-p 'org-plus-contrib)
+;;   (package-refresh-contents)
+;; (package-install 'org-plus-contrib))
+(use-package org
+  :ensure org-plus-contrib		; ensure the last version of Org
+  :defer t)
+
 
 ;; more or less useful functions
 (use-package my-fun
