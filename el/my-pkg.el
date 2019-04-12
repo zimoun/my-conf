@@ -548,10 +548,16 @@ as a new repository."
    'org-babel-load-languages '((python . t)
                                (R . t)
                                (C . t)
-                               (shell . t)))
+                               (shell . t)
+                               (org . t)
+                               (makefile . t)
+                               ))
                                ;(bash . t)))
   ;; do not ask before eval code blocks
   (setq org-confirm-babel-evaluate nil)
+  ;; In org-mode 9 you need to have #+PROPERTY: header-args :eval never-export
+  ;; in the beginning or your document to tell org-mode not to evaluate every
+  ;; code block every time you export.
 
   ;; insert image
   ;; just after a block is executed
