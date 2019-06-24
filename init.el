@@ -35,8 +35,10 @@
 ;; use it
 (require 'use-package)
 ;; aggregate time spent in each package
-(setq use-package-compute-statistics t)
 ;;; try M-x use-package-report
+(setq use-package-compute-statistics t)
+;; verbose the loading
+(setq use-package-verbose t)
 
 ;; Fix issue from included Org version vs Latest one
 ;;; see http://lists.gnu.org/archive/html/emacs-orgmode/2019-03/msg00094.html
