@@ -183,6 +183,20 @@ From URL `http://www.howardism.org/Technical/Emacs/eshell-fun.html'.
     (eshell-send-input))
 )
 
+(defun my/eshell-starter ()
+  "Hack to launch EShell in Emacs client with AwesomeWM.
+
+Start a new `esehll' session
+then load the elisp file `my/aliases-define-file' containing the `my/aliases' list of cons cells.
+The function `my/eshell-alias' writes down this list to the file `eshell-aliases-file'.
+Last the aliases are updated by internal function."
+  (interactive)
+  (eshell "new")
+  (load-file my/aliases-define-file)
+  (my/eshell-alias my/aliases)
+  (eshell-read-aliases-list))
+
+
 ;; not used. Remove ?
 (defun my/eshell-quit ()
   (insert "exit")

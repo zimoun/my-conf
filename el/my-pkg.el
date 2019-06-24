@@ -201,23 +201,39 @@
           ;;"\n"(user-login-name) "@" (system-name) " $ ")
           )
         )
-  (add-hook 'eshell-mode-hook
-            (lambda ()
-              ;; hum? why && does not work?
-              ;; instead ;
-              (eshell/alias "ll" "ls -AGhrtl --color=always")
-              (eshell/alias "cd" "cd $1 ; ls -AGrt1 --color=always")
-              (eshell/alias "mkcd" "mkdir -p $1 ; cd $1")
-              (eshell/alias "em" "for i in ${eshell-flatten-list $*} {find-file $i}")
-              (eshell/alias "ew" "find-file-other-window $1")
-              (eshell/alias "dir" "my/dired $1")
-              (eshell/alias "ff" "find $1 -type f -name $2 -print")
-              (eshell/alias "star-ff" "\"*find\" $1 -type f -name $2 -print")
-              (eshell/alias "git-grep" "my/git-grep $1")
-              (eshell/alias "git-grep--all" "my/git-grep--all $1")
-              (eshell/alias "qq" "eshell/close")
-              ))
+
   (setenv "PAGER" "cat")
+
+
+  (defvar my/aliases-define-file
+    "~/.emacs.d/el/my-pkg.el"
+    "File where the list of aliases is defined.")
+
+  (defvar my/aliases
+    '(
+      ;; hum? why && does not work?
+      ;; instead ;
+      ;; but does not neither. Hum?!
+      ;; delete -G and --color=always
+      ("ll" . "ls -Ahrtl")
+      ("cd" . "cd $1 ; ls -Art1")
+      ("mkcd" . "mkdir -p $1 ; cd $1")
+
+      ("em" . "for i in ${eshell-flatten-list $*} {find-file $i}")
+      ("ew" . "find-file-other-window $1")
+      ("dir" . "my/dired $1")
+
+      ("locate" . "locate -d ~/.cache/locate.db")
+      ("ff" . "locate $* | grep ${pwd}")
+      ("ff-here" . "find ${pwd} -type f -name $1 -print")
+      ("ff-there" . "find $1 -type f -name $2 -print")
+      ("ff-usr/bin/find" . "\"*find\" $1 -type f -name $2 -print")
+
+      ("git-grep" . "my/git-grep $1")
+      ("git-grep--all" . "my/git-grep--all $1")
+      ("qq" . "eshell/close")
+      )
+    "List of cons cells containing all the aliases. See `my/aliases-define-file.'")
 
   ;; add helm support to completion (TAB activates helm)
   (add-hook 'eshell-mode-hook
@@ -229,8 +245,25 @@
             ))
 
 
-    (defun eshell/git-status (&rest args)
-      "Alias as function to `magit-status'.
+  (defun my/eshell-alias (aliases)
+    "Write the list ALIASES of cons cells to `eshell-aliases-file'.
+
+Check if `my/aliases-define-file' is newer than `eshell-aliases-file' to stay up-to-date."
+    (when (or
+           (file-newer-than-file-p my/aliases-define-file eshell-aliases-file)
+           (not (file-exists-p eshell-aliases-file)))
+      (progn
+        (delete-file eshell-aliases-file)
+        (with-temp-file eshell-aliases-file
+          (mapcar #'(lambda (arg)
+                      (let ((name (car arg))
+                            (command (cdr arg)))
+                        (insert (format "alias %s %s\n" name command))))
+                  aliases)))))
+
+
+  (defun eshell/git-status (&rest args)
+    "Alias as function to `magit-status'.
 
 If ARGS is nil, then open `magit-status' in `default-directory'.
 Else open it in first ARGS.
