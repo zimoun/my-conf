@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 
 
 ;; numbering lines (and add column in mode-line)
