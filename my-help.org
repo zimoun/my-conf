@@ -62,6 +62,7 @@
 * Clean
   - clean.sh allows to remove non-necessary files
     Useful when I move configuration between several machines.
+  - C-x C-o deletes all but one consecutive blank lines
 
 * Mark ring
   See [[info:emacs#Mark%20Ring][C-h i g (emacs)Mark Ring]]
