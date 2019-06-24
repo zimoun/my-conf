@@ -55,8 +55,8 @@
   ;;               (kdb "C-k") 'my/paredit-kill)
   ;;             ))
   :bind
-  ("C-k" . my/paredit-kill)
-  ("RET" . my/ilectrify-return-if-match)
+  (("C-k" . my/paredit-kill)
+   ("RET" . my/ilectrify-return-if-match))
 
   :config
   (diminish 'paredit-mode "ParEd")
@@ -166,8 +166,8 @@
 (use-package eshell
   :defer t
   :bind
-  ("C-d" . eshell/close-or-delete-char)
-  ("C-k" . kill-line)
+  (("C-d" . eshell/close-or-delete-char)
+   ("C-k" . kill-line))
   :init
   (add-hook 'eshell-first-time-mode-hook
             (lambda ()
@@ -505,8 +505,8 @@ as a new repository."
   :ensure org-plus-contrib		; ensure the last version of Org
   :defer t
 
-  :bind ("\C-ca"  . my/org-agenda)
-  :bind ("\C-cl"  . org-store-link)
+  :bind (("\C-ca"  . my/org-agenda)
+	 ("\C-cl"  . org-store-link))
 
   :init
   ;; Need to be initialized before Org is loaded
@@ -600,7 +600,7 @@ as a new repository."
           ("d" "Diary" entry
            (file+headline "~/org/diary.org" "Capture")
            (file "~/.emacs.d/org-templates/done.org")))
-	 ))
+     ))
 
 
   (if (not (version-list-< '(9 2) (version-to-list org-version)))
@@ -650,8 +650,8 @@ as a new repository."
   :defer t
   :bind ("C-x g" . magit-status)
   :config
-;;   (add-hook 'magit-section-set-visibility-hook
-;;             'my/magit-initially-hide-untracked)
+  ;;   (add-hook 'magit-section-set-visibility-hook
+  ;;             'my/magit-initially-hide-untracked)
   (setq magit-view-git-manual-method 'woman)
   (add-hook 'magit-status-sections-hook 'magit-insert-recent-commits)
 )
@@ -696,7 +696,7 @@ as a new repository."
   :mode (
          ("\\.[r|R]\\'" . R-mode)
          ("\\.jl\\'" . ess-julia-mode)
-         )
+        )
   :config
   (require 'ess-julia)
   (require 'ess-utils)
@@ -724,15 +724,16 @@ as a new repository."
   ;;           (lambda ()
   ;;             (local-set-key (kbdb "=" 'ess-cycle-assign))
   ;;             ))
-  )
+  (setq inferior-julia-program-name "/home/simon/local/julia-1.0.3/bin/julia")
+)
 
 
 (use-package poly-markdown
   :defer t
   :ensure t
   :mode (("\\.md" . poly-markdown-mode)
-         ("\\.Rmd" . poly-markdown-mode)
-         ))
+	 ("\\.Rmd" . poly-markdown-mode)
+	))
 
 ;; (use-package ess-site
 ;;   :ensure ess
@@ -831,7 +832,7 @@ as a new repository."
   (setq helm-locate-command
         "locate %s -e -A --regex %s -d ~/.cache/locate.db")
 
-  (defmethod helm-setup-user-source ((source helm-source-ffiles))
+  (cl-defmethod helm-setup-user-source ((source helm-source-ffiles))
     (helm-source-add-action-to-source-if
      "Magit status"
      (lambda (candidate)
