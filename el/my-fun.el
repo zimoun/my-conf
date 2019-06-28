@@ -186,7 +186,7 @@ From URL `http://www.howardism.org/Technical/Emacs/eshell-fun.html'.
 (defun my/eshell-starter ()
   "Hack to launch EShell in Emacs client with AwesomeWM.
 
-Start a new `esehll' session
+Start a new `eshell' session
 then load the elisp file `my/aliases-define-file' containing the `my/aliases' list of cons cells.
 The function `my/eshell-alias' writes down this list to the file `eshell-aliases-file'.
 Last the aliases are updated by internal function."
@@ -566,6 +566,21 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
    (format
     "git rev-list --all | xargs git --no-pager grep -nH --color=auto -i \"%s\" "
     regexp)))
+
+(defun my/find-grep (regexp &optional dir)
+  "Mimick the command-line find-grep."
+  (interactive "sFind grep (regexp): ")
+  (let ((there (if dir
+                   dir
+                 default-directory)))
+    (if (file-directory-p there)
+        (progn
+          (grep
+           (format
+            "find %s -type f -exec grep --color -nH --null -e \"%s\" \{\} +"
+            there regexp))
+          (switch-to-buffer "*grep*"))
+      (message "Error: %s is not a directory." there))))
 
 
 (defun my/setup ()

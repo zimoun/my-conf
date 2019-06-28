@@ -165,6 +165,7 @@
 ;; Emacs shell
 (use-package eshell
   :defer t
+  :after em-alias			; load eshell-aliases-file
   :bind
   (("C-d" . eshell/close-or-delete-char)
    ("C-k" . kill-line))
@@ -206,34 +207,9 @@
 
 
   (defvar my/aliases-define-file
-    "~/.emacs.d/el/my-pkg.el"
+    "~/.emacs.d/el/my-aliases.el"
     "File where the list of aliases is defined.")
 
-  (defvar my/aliases
-    '(
-      ;; hum? why && does not work?
-      ;; instead ;
-      ;; but does not neither. Hum?!
-      ;; delete -G and --color=always
-      ("ll" . "ls -Ahrtl")
-      ("cd" . "cd $1 ; ls -Art1")
-      ("mkcd" . "mkdir -p $1 ; cd $1")
-
-      ("em" . "for i in ${eshell-flatten-list $*} {find-file $i}")
-      ("ew" . "find-file-other-window $1")
-      ("dir" . "my/dired $1")
-
-      ("locate" . "locate -d ~/.cache/locate.db")
-      ("ff" . "locate $* | grep ${pwd}")
-      ("ff-here" . "find ${pwd} -type f -name $1 -print")
-      ("ff-there" . "find $1 -type f -name $2 -print")
-      ("ff-usr/bin/find" . "\"*find\" $1 -type f -name $2 -print")
-
-      ("git-grep" . "my/git-grep $1")
-      ("git-grep--all" . "my/git-grep--all $1")
-      ("qq" . "eshell/close")
-      )
-    "List of cons cells containing all the aliases. See `my/aliases-define-file.'")
 
   ;; add helm support to completion (TAB activates helm)
   (add-hook 'eshell-mode-hook
@@ -270,46 +246,149 @@ Else open it in first ARGS.
 
 If other ARGS is non-nil, then offer to initialize it
 as a new repository."
-      (let ((a-dir (if args
-                       (pop  args)
-                     default-directory))
-            (create (if args
-                        (pop args)
-                      nil)))
-        (if (file-directory-p a-dir)
-            (if (file-directory-p (concat a-dir "/.git"))
+    (let ((a-dir (if args
+                     (pop  args)
+                   default-directory))
+          (create (if args
+                      (pop args)
+                    nil)))
+      (if (file-directory-p a-dir)
+          (if (file-directory-p (concat a-dir "/.git"))
+              (magit-status a-dir nil)
+            (if create
                 (magit-status a-dir nil)
-              (if create
-                  (magit-status a-dir nil)
-                (eshell/echo (format "Try: git-status %s init" a-dir))))
-          (message "Error: %s is not a directory." a-dir))))
+              (eshell/echo (format "Try: git-status %s init" a-dir))))
+        (message "Error: %s is not a directory." a-dir))))
 
 
-    (defun eshell/clear ()
-       "Clear the eshell buffer."
-       (let ((inhibit-read-only t))
-         (erase-buffer)
-         (eshell-send-input)))
+  (defun eshell/clear ()
+    "Clear the eshell buffer."
+    (let ((inhibit-read-only t))
+      (erase-buffer)
+      (eshell-send-input)))
 
-    (defun eshell/close ()
-      (progn
-        (eshell-life-is-too-much)
-        (ignore-errors (delete-frame))))
+  (defun eshell/close ()
+    (progn
+      (eshell-life-is-too-much)
+      (ignore-errors (delete-frame))))
 
-    (defun eshell/close-or-delete-char (arg)
-      "Kill the current buffer (eshell one expected) and close the frame."
-      (interactive "p")
-      (if (and (eolp) (looking-back eshell-prompt-regexp))
-          (progn
-            (eshell-life-is-too-much) ; Why not? (eshell/exit)
-            (ignore-errors
-              (delete-frame)))
-        (delete-forward-char arg)))
+  (defun eshell/close-or-delete-char (arg)
+    "Kill the current buffer (eshell one expected) and close the frame."
+    (interactive "p")
+    (if (and (eolp) (looking-back eshell-prompt-regexp))
+        (progn
+          (eshell-life-is-too-much)      ; Why not? (eshell/exit)
+          (ignore-errors
+            (delete-frame)))
+      (delete-forward-char arg)))
+
+  (defun eshell/find-grep (&rest args)
+    "Wrapper of `find-grep' to ease with Info node `(eshell)'.
+
+Two use cases:
+ 1. find-grep <REGEXP>
+ 2. find-grep <PATH> <REGEXP>
+where <REGEXP> is a pattern.
+
+If <PATH> is omitted, `default-directory' is used (current one). See `my/find-grep'."
+    (let (regexp
+          (dir nil))
+      (if (= (length args) 1)
+          (setq regexp (pop args))
+        (progn
+          (setq dir (pop args))
+          (setq regexp (pop args))))
+      (my/find-grep regexp dir)))
+
+
+  (defun eshell/pdfcat (&rest args)
+    "Wrapper of Ghostscript (GS) to concatenate PDF files.
+
+Use: pdfcat outfile infile1 infile2 foo*.pdf infile3 ..."
+    (cond
+     ((= (length args) 0)
+      (error "pdfcat outfile infile1 infile2 foo*.pdf infile3 ..."))
+     ((= (length args) 1)
+      (error "pdfcat needs more than only one files."))
+     ((= (length args) 2)
+      (let* ((outfile (pop args))
+             (infile (pop args)))
+        (copy-file infile outfile)))
+     (t
+      (let* ((todo (make-progress-reporter "eshell/pdfcat..."))
+             (outfile (pop args))
+             (infiles (mapconcat 'identity args " "))
+             (cmd "gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=")
+             (s (concat cmd outfile " " infiles)))
+        (message (format "in : %s\nout: %s\n%s" infiles outfile s))
+        (shell-command-to-string s)
+        (progress-reporter-done todo)))))
+
+  (defun eshell/pdfextract (&rest args)
+    "Wrapper of Ghostscript (GS) to extract pages in PDF file.
+
+Use: pdfextract myfile #first #last"
+    (let (first
+          last
+          (rev-args (reverse args)))
+      (cond
+       ((< (length args) 2)
+        (error "pdfextract myfile #first #last"))
+       ((= (length args) 2)
+        (progn
+          (setq first (pop rev-args))
+          (setq last first)))
+       ((= (length args) 3)
+        (progn
+          (setq last (pop rev-args))
+          (setq first (pop rev-args))))
+       (t
+        (error "Error: wrong number of arguments.")))
+
+      (setq first (number-to-string first))
+      (setq last (number-to-string last))
+
+      (let* ((todo (make-progress-reporter "eshell/pdfextract..."))
+             (name (pop rev-args))
+             (sans (file-name-sans-extension name))
+             (out (concat sans "_p" first "-p" last ".pdf"))
+             (cmd "gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER")
+             (s (format "%s -dFirstPage=%s -dLastPage=%s -sOutputFile=%s %s"
+                         cmd first last out name)))
+        (shell-command-to-string s)
+        (progress-reporter-done todo))))
+
+  (defun eshell/pdfview (&rest args)
+    "Wrapper of 'find [path|.] -type f -name \"*myfile*.pdf\" -print -exec mupdf {} \;'
+
+Note: the alias of mupdf is unknown.    ;; FIXME
+
+Use: pdfview pattern [path]"
+    ;; TODO: allow regexp as pattern
+    (let (pattern
+          (dir default-directory))
+      (cond
+       ((= (length args) 0)
+        (error "pdfview pattern [path]"))
+       ((= (length args) 1)
+        (setq pattern (pop args)))
+       ((= (length args) 2)
+        (progn
+          (setq pattern (pop args))     ;FIXME: expand as regexp
+          (setq dir (pop args))))
+       (t
+        (error "Error: wrong number of arguments.")))
+      (let ((f (file-name-sans-extension pattern))
+            ;;(mupdf "~/.guix-profile/bin/mupdf-x11")
+            (mupdf "mupdf-x11")
+            )
+        (shell-command-to-string (format "find %s -type f -name '*%s*.pdf' -print -exec %s {} \\;"
+                                         dir f mupdf)))))
 
   (use-package esh-toggle
     :defer t
     :bind ("C-x C-z" . eshell-toggle)
-  )
+    )
 )
 
 ;; Bookmark facilities

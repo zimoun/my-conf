@@ -156,3 +156,19 @@ For example:
      LightGreen | LightBlue | ...
   - emacsclient -c path/to/file1
 --8<---------------cut here---------------end--------------->8---
+
+* AwesomeWM
+
+  1. Start the daemon
+     awful.util.spawn_with_shell("source /home/simon/.bash_profile && /home/simon/.guix-profile/bin/emacs --daemon")
+  2. Use emacsclient
+     eterminal = "emacsclient -c -e '(my/eshell-starter)' -e '(rename-buffer (generate-new-buffer-name \"*eshell*\"))'"
+  3. Bind to Mod-Shift-Ret
+     awful.key({ modkey, "Shift"  }, "Return", function () awful.spawn(eterminal) end,
+        {description = "open a EShell terminal", group = "launcher"})
+
+  From the Emacs side:
+  1. Trick to load early the variable
+     :after em-alias			; load eshell-aliases-file
+  2. See the function my/eshell-starter; trick to load the aliases
+     See the file my-aliases.el for the definition
