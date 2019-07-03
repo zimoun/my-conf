@@ -128,6 +128,7 @@
                  ;;           ;; (name . "^\\*Compile-Log\\*$")
                  ;;           (name . "^\\*tramp.*\\*$")
                  ;;           ))
+                 ("Info" (mode . Info-mode))
                  ("Helm" (name . "\*helm"))
                  ("emacs" (or
                            (name . "^\\*[a-zA-Z ]*\\*$")))
@@ -142,7 +143,14 @@
               (setq-local case-fold-search nil)
               (ibuffer-switch-to-saved-filter-groups "default")))
   (setq ibuffer-show-empty-filter-groups nil)
-)
+
+  ;; M-o is currently binded
+  ;; by default in IBuffer `ibuffer-visit-buffer-1-window'
+  ;; and these rebind does not work.
+  (local-unset-key (kbd "M-o"))
+  (local-set-key (kbd "M-o") 'other-window)
+  (global-set-key (kbd "M-o") 'other-window)
+  )
 
 ;; files manager
 (use-package dired
@@ -176,7 +184,7 @@
               (add-to-list 'eshell-visual-commands "ssh")
               (add-to-list 'eshell-visual-commands "tail")
               (add-to-list 'eshell-visual-commands "tree")))
-  ;; :config
+
   (setq
    eshell-history-size 5000
    eshell-save-history-on-exit t
@@ -682,10 +690,15 @@ Use: pdfview pattern [path]"
   ;; store time when TODO is DONE
   (setq org-log-done (quote time))
 
-  (setq org-src-fontify-natively t)	; coloring   inside blocks
+  (setq org-src-fontify-natively t)     ; coloring   inside blocks
   (setq org-src-tab-acts-natively t)	; completion inside blocks)
   (setq org-src-window-setup 'current-window)
   ;; (setq org-hide-emphasis-markers t)    ; hide the *,=, or / markers
+  (setq org-cycle-separator-lines 1)    ; number of empty lines
+                                        ; needed to keep empty
+                                        ; between collapsed trees
+
+
 
 
   ;; Follow internal link C-c C-l
@@ -885,7 +898,8 @@ Use: pdfview pattern [path]"
   ;; (setq geiser-default-implementation '(guile))
   ;; (setq geiser-implementation-alist '(((regexp "\\.scm$") guile)))
   (setq geiser-active-implementations '(guile))
-)
+  ;;(setq geiser-guile-binary "/home/simon/.guix-profile/bin/guile")
+  )
 
 (use-package openwith
   :ensure t
@@ -906,6 +920,9 @@ Use: pdfview pattern [path]"
 (use-package helm
   :ensure t
   :defer t
+  :bind* (:map helm-map
+               ([tab] . helm-next-line)
+               ("C-j" . helm-select-action))
   :init
   (require 'helm-config)
   (global-set-key (kbd "M-x") 'helm-M-x)
@@ -1027,7 +1044,10 @@ Use: pdfview pattern [path]"
 
 (use-package debbugs
   :ensure t
-  :defer t)
+  :defer t
+  :config
+  (add-to-list 'debbugs-gnu-all-packages "guix-patches")
+  )
 
 ;; Not installed ? How to force install ?
 (use-package htmlize
