@@ -744,6 +744,27 @@ Use: pdfview pattern [path]"
 		           '("sel" . "src emacs-lisp")))
     )
 
+  ;; Add the support of LaTeX macro when exporting (pdf or html)
+  ;;;; Write your LaTeX macros in source block latex-macro1
+  (add-to-list 'org-src-lang-modes '("latex-macro" . latex))
+
+  (defvar org-babel-default-header-args:latex-macro
+    '((:results . "raw drawer")
+      (:exports . "results")))
+
+  (defun org-babel-execute:latex-macro (body _params)
+    (defun prefix-all-lines (pre body)
+      (with-temp-buffer
+        (insert body)
+        (string-insert-rectangle (point-min) (point-max) pre)
+        (buffer-string)))
+    (concat
+     (prefix-all-lines "#+LATEX_HEADER: " body)
+     "\n#+HTML_HEAD_EXTRA: <div style=\"display: none\"> \\(\n"
+     (prefix-all-lines "#+HTML_HEAD_EXTRA: " body)
+     "\n#+HTML_HEAD_EXTRA: \\)</div>\n"))
+
+
   (defun org-latex-export-as-latex-only ()
     "How to customize `org-export-dispatch'?"
     (interactive)
