@@ -4,7 +4,10 @@
 ;; UTF8 everywhere
 ; (setq locale-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
-(set-language-environment "UTF-8")
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
 
 ;; mainly to avoid python-mode issues
 (define-coding-system-alias 'UTF-8 'utf-8)
