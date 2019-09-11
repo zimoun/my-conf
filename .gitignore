@@ -3,6 +3,7 @@ abbrev_defs
 auto-save-list/
 backup/
 custom.el
+debbugs
 elpa/
 eshell/
 history
