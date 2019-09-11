@@ -1046,7 +1046,20 @@ Use: pdfview pattern [path]"
   :ensure t
   :defer t
   :config
-  (add-to-list 'debbugs-gnu-all-packages "guix-patches")
+  (setq debbugs-gnu-default-packages '("guix-patches"))
+
+  ;; deactivate Helm for the function `debbugs-gnu-search'
+  ;; Enter attribute indefinitively loops
+  ;; because Helm always suggests a completion
+  ;; then it is impossible to enter an empty key
+  (eval-after-load 'helm-mode
+    '(add-to-list 'helm-completing-read-handlers-alist '(debbugs-gnu-search)))
+
+  ;; weird because the keymap variable is load at this time
+  (with-eval-after-load "debbugs-gnu"
+    (define-key debbugs-gnu-mode-map "N" 'debbugs-gnu-narrow-to-status)
+    (define-key debbugs-gnu-mode-map "/" 'debbugs-gnu-search)
+    (define-key debbugs-gnu-mode-map "#" 'debbugs-gnu-bugs))
   )
 
 ;; Not installed ? How to force install ?

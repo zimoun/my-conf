@@ -174,3 +174,12 @@ For example:
      :after em-alias			; load eshell-aliases-file
   2. See the function my/eshell-starter; trick to load the aliases
      See the file my-aliases.el for the definition
+
+* Debbugs (gnus)
+
+  - View MINE attachment (go between brakets):
+    - c: open in other buffer
+    - i: insert in the current buffer
+      WARNING: plain/text without charset decoding
+    - C: prompt the charset but then view with external program
+      This fixes the encoding issue when replying.
