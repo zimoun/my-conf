@@ -15,6 +15,7 @@
 ;; to easily erase a complete line
 (global-set-key [?\C-k] 'kill-whole-line)
 (global-set-key [?\C-\M-d] 'my/kill-line-or-delete-indent)
+(global-set-key [?\M-^] 'my/join-line)
 
 ;; fix C-a when indent
 (global-set-key [remap move-beginning-of-line]

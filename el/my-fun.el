@@ -204,6 +204,28 @@ Last the aliases are updated by internal function."
   (delete-window)
 )
 
+(defun my/join-line (&optional arg)
+  "Join this line to next and fix up whitespace at join.
+With argument, join this line to previous line.
+
+See `join-line'."
+  (interactive "*P")
+  (beginning-of-line)
+  (forward-line 1)
+  (if arg (forward-line -2))
+  (if (eq (preceding-char) ?\n)
+      (progn
+	(delete-region (point) (1- (point)))
+	;; If the second line started with the fill prefix,
+	;; delete the prefix.
+	(if (and fill-prefix
+		 (<= (+ (point) (length fill-prefix)) (point-max))
+		 (string= fill-prefix
+			  (buffer-substring (point)
+					    (+ (point) (length fill-prefix)))))
+	    (delete-region (point) (+ (point) (length fill-prefix))))
+	(fixup-whitespace))))
+
 
 ;; almost never used. :-(
 (defun my/pick-random-doc ()
