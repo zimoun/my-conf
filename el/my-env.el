@@ -127,6 +127,10 @@
 ;; automatic completion
 (abbrev-mode t)
 
+;; Redefine M-p/M-n because old habits
+(define-key comint-mode-map (kbd "<up>") 'comint-previous-input)
+(define-key comint-mode-map (kbd "<down>") 'comint-next-input)
+
 ;; recent file
 ;; Really slow down when closing Emacs
 ;; So commented for now

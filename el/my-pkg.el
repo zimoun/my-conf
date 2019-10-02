@@ -409,6 +409,29 @@ Use: pdfview pattern [path]"
     )
 )
 
+(use-package shell
+  :defer t
+  :config
+  (add-hook 'shell-mode-hook
+          (lambda ()
+            ;; Redefine M-p/M-n because old habits
+            (define-key shell-mode-map (kbd "C-d")
+              'my/comint-delchar-or-maybe-eof)
+            ))
+
+  (defun my/comint-delchar-or-maybe-eof (arg)
+  "See `comint-delchar-or-maybe-eof' with `kill-current-buffer'."
+  (interactive "p")
+  (let ((proc (get-buffer-process (current-buffer))))
+    (if (and (eobp) proc (= (point) (marker-position (process-mark proc))))
+        (progn
+          (comint-send-eof)
+          (kill-current-buffer)
+          )
+      (delete-char arg))))
+
+  )
+
 ;; Bookmark facilities
 (use-package bookmark
   :defer t
