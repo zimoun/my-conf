@@ -15,6 +15,7 @@
 
 ;; to simplify the question-answer process
 (defalias 'yes-or-no-p 'y-or-n-p)
+(setq kill-buffer-query-functions nil)
 
 ;; delete the file *~ when quiting
 ; (setq make-backup-files nil)
@@ -85,6 +86,10 @@
 ;; what?!? who use the latteral bar to scroll ?
 (scroll-bar-mode 0)
 
+;; don't do jerky jump when the cursor reaches the end of the window
+;;; instead scroll only one line per one line
+(setq scroll-conservatively 101)
+
 ;; remove the menu
 (if (display-graphic-p)
     (menu-bar-mode 1)
@@ -108,6 +113,8 @@
 (setq-default tab-width 4)
 (setq-default tab-stop-list (number-sequence 4 200 4))
 
+;; terminate files with newline
+(setq require-final-newline t)
 
 ;; compilation stuff
 (setq compilation-scroll-output 'first-error)
@@ -138,7 +145,7 @@
 
 
 ;; character per line
-(setq-default fill-column 72)
+(setq-default fill-column 80)
 
 ;; used by Calendar
 ;; location: Paris

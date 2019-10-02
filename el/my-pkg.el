@@ -89,14 +89,13 @@
                            ))
                  ("Haskell" (mode . haskell-mode))
                  ("caML" (mode . tuareg-mode))
-                 ("Lisp" (or
-                          (mode . lisp-mode)
-                          (mode . emacs-lisp-mode)
-                          (mode . scheme-mode)
-                          ))
-                 ("(La)TeX" (or
+                 ("ELisp" (mode . emacs-lisp-mode))
+                 ("Scheme" (mode . scheme-mode))
+                 ("Lisp" (mode . lisp-mode))
+                 ("(La)TeX(info)" (or
                              (mode . tex-mode)
                              (mode . latex-mode)
+                             (mode . texinfo-mode)
                              ))
                  ("Py" (mode . python-mode))
                  ("ESS[R/jl]" (or
@@ -112,6 +111,7 @@
                  ("Run" (or
                          ;; (name . "^\*eshell\*$")
                          (name . "^\*eshell.*\*$")
+                         (mode . shell-mode)
                          (name . "^\\*compilation\\*$")
                          (name . "^\\*tex-shell\\*$")
                          (name . "^\\*Python.*\*$")
@@ -128,10 +128,17 @@
                  ;;           ;; (name . "^\\*Compile-Log\\*$")
                  ;;           (name . "^\\*tramp.*\\*$")
                  ;;           ))
-                 ("Info" (mode . Info-mode))
+                 ("Info" (or
+                          (mode . Info-mode)
+                          (mode . help-mode)
+                          ))
                  ("Helm" (name . "\*helm"))
                  ("emacs" (or
-                           (name . "^\\*[a-zA-Z ]*\\*$")))
+                           (name . "^\\*[a-zA-Z+:#0-9 -]*\\*$")
+                           (mode . debbugs-gnu-mode)
+                           (mode . erc-mode)
+                           )
+                  )
 
                  ;; Match any string not containing any uppercase letter
                  ;; ("lower" (name . "\\`[^[:upper:]]*\\'"))
@@ -143,6 +150,9 @@
               (setq-local case-fold-search nil)
               (ibuffer-switch-to-saved-filter-groups "default")))
   (setq ibuffer-show-empty-filter-groups nil)
+
+  ;; sort by alphabetic order instead of (default) recency
+  (setq ibuffer-default-sorting-mode 'alphabetic)
 
   ;; M-o is currently binded
   ;; by default in IBuffer `ibuffer-visit-buffer-1-window'
