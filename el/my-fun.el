@@ -194,7 +194,10 @@ Last the aliases are updated by internal function."
   (eshell "new")
   (load-file my/aliases-define-file)
   (my/eshell-alias my/aliases)
-  (eshell-read-aliases-list))
+  (eshell-read-aliases-list)
+  ;; this is not efficient at all
+  ;; because it loads the theme each time it starts
+  (my/setup))
 
 
 ;; not used. Remove ?
@@ -609,12 +612,24 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
   (interactive)
   (progn
     (menu-bar-mode 1)
-    (set-background-color "LightGoldenrod3")))
+    (load-theme 'misterioso)
+    (set-face-background 'cursor "gold")
+    (set-face-background 'mode-line "steel blue")
+    (set-face-background 'mode-line-inactive "gray70")
+    (set-face-attribute 'region nil :background "black")))
 
 (defun my/setup-blue ()
   (interactive)
   (progn
     (menu-bar-mode 1)
+    (disable-theme 'misterioso)
     (set-background-color "LightCyan3")))
 
+(defun my/setup-gold ()
+  (interactive)
+  (progn
+    (menu-bar-mode 1)
+    (disable-theme 'misterioso)
+    (set-background-color "LightGoldenrod3")
+    (set-face-attribute 'region nil :background "yellow")))
 (provide 'my-fun)

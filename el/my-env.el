@@ -58,11 +58,21 @@
 ;; to underline the selected area
 (setq transient-mark-mode t)
 
+;; load theme
+(load-theme 'misterioso)
+
+;; because the default is not enough visible
+(add-to-list 'default-frame-alist '(cursor-color . "gold"))
+
+;; increase the contrast
+(set-face-background 'mode-line "steel blue")
+(set-face-background 'mode-line-inactive "gray70")
+
 ;; to change highlight of the selection
-(set-face-attribute 'region nil :background "#ffff00")
+(set-face-attribute 'region nil :background "black")
 
 ;; to change the background, sometimes eyes are really tired
-(set-background-color "LightGoldenrod3")
+;(set-background-color "LightGoldenrod3")
 ;;(set-background-color "LightCyan3")
 
 ;; even the shell deserves colours
