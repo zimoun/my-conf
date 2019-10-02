@@ -1247,5 +1247,18 @@ Use: pdfview pattern [path]"
                                  (proced-toggle-auto-update 1)))
 )
 
+(use-package erc
+  :ensure t
+  :init
+  (require 'tls)
+  (erc-tls
+   :server "irc.freenode.net"
+   :port 6667 ;6697
+   :nick "zimoun"
+   :password "toutoune23"
+   )
+  (setq erc-join-channels-alist '(("freenode.net" "#guix")))
+)
+
 
 (provide 'my-pkg)

@@ -51,13 +51,3 @@
 (put 'narrow-to-region 'disabled nil)
 
 
-;; (use-package erc
-;;   :ensure t
-;;   :init
-;;   (require 'tls)
-;;   (erc-tls
-;;    :server "irc.debian.org"
-;;    :port 6697
-;;    :nick "zimoun"
-;;    :full-name "simon")
-;; )
