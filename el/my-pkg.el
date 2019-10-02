@@ -804,7 +804,12 @@ Use: pdfview pattern [path]"
 (use-package magit
   :ensure t
   :defer t
-  :bind ("C-x g" . magit-status)
+  :bind (("C-x g" . magit-status)
+         ("C-x C-g b" . magit-blame)
+         ("C-x C-g l" . magit-log-buffer-file)
+         ("C-x C-g C-l" . magit-show-commit)
+         ("C-x C-g C-t" . magit-toggle-buffer-lock)
+         ("C-x C-g C-f" . magit-find-file))
   :config
   ;;   (add-hook 'magit-section-set-visibility-hook
   ;;             'my/magit-initially-hide-untracked)
@@ -1010,11 +1015,16 @@ Use: pdfview pattern [path]"
 
 (use-package helm-ag
   :ensure t
-  :defer t)
+  :defer t
+  :config
+  ;; See `helm-do-grep-ag' C-x c M-g a
+  (defalias 'ag-grep 'helm-ag)
+  )
 
 (use-package helm-ls-git
   :ensure t
   :defer t
+  :bind ("C-x M-b" . helm-ls-git-ls)
   )
 
 (use-package helm-bibtex
