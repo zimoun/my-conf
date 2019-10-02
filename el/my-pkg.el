@@ -506,6 +506,8 @@ Use: pdfview pattern [path]"
   ;(add-hook 'c-mode-common-hook 'semantic-idle-completions-mode)
   ;(add-hook 'c-mode-common-hook 'semantic-highlight-func-mode)
   ;;(add-hook 'c-mode-common-hook 'semantic-stickyfunc-mode)
+
+  (add-hook 'c-mode-common-hook 'eldoc-mode)
 )
 
 ;; python (which mode ?)
@@ -569,6 +571,14 @@ Use: pdfview pattern [path]"
   :config
   (setq-default ispell-program-name "aspell")
 )
+
+(use-package flycheck
+  :ensure t
+  :defer t
+  :init
+  (global-flycheck-mode)
+  (setq flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+  )
 
 ;; OCalm improved mode
 (use-package utop
