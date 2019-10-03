@@ -156,7 +156,7 @@ From URL `http://emacswiki.org/emacs/AutoIndentation'.
 
 
 (defun my/eshell ()
-  "Opens up a new shell in the directory associated with the
+  "Open up a new shell in the directory associated with the
 current buffer's file. The eshell is renamed to match that
 directory to make multiple eshell windows easier.
 
@@ -206,6 +206,11 @@ Last the aliases are updated by internal function."
 ;  (eshell-send-input)
   (delete-window)
 )
+
+(defun my/shell ()
+  "Open new shell with new buffer name."
+  (interactive)
+  (shell (generate-new-buffer-name "*shell*")))
 
 (defun my/join-line (&optional arg)
   "Join this line to next and fix up whitespace at join.
