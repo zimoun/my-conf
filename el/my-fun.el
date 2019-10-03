@@ -229,6 +229,20 @@ See `join-line'."
 	    (delete-region (point) (+ (point) (length fill-prefix))))
 	(fixup-whitespace))))
 
+(defun my/list-exported-files (&optional ext dir)
+  "List the files matching the extension EXT and with another one.
+By default the extension EXT is \"org\" and the directory DIR is the current one."
+  (let* ((there (or dir "."))
+         (extension (or ext "org"))
+         (regexp (concat "\." extension "$"))
+         (files (directory-files there))
+         (exts (seq-filter (lambda (x) (string-match regexp x)) files))
+         (names (mapcar (lambda (x) (file-name-sans-extension x)) exts))
+         (exts+exported (seq-filter
+                         (lambda (x) (member (file-name-sans-extension x) names))
+                         files)))
+    (seq-filter (lambda (x) (not (string-match regexp x))) exts+exported)
+    ))
 
 ;; almost never used. :-(
 (defun my/pick-random-doc ()
