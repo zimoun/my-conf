@@ -3,6 +3,7 @@
 
 ;; numbering lines (and add column in mode-line)
 (use-package linum
+  :defer t
   :init
   (global-linum-mode 0)
   (setq linum-format "%d ")
@@ -12,11 +13,13 @@
 
   ;; because linum-mode is replaced by `display-line-numbers-mode'
   ;;;; see my-pkg.el package linum
-  (defalias 'mode-linum '(lambda (&optional args)
+  (defalias 'mode-linum-old '(lambda (&optional args)
                            (interactive)
                            (progn
                              (message "Deprecated. Instead: M-x display-line-numbers-mode. Turn off: M-x linum-mode.")
                              (linum-mode args))))
+
+  (defalias 'mode-linum 'display-line-numbers-mode)
 
   :config
   (defcustom linum-disabled-modes-list '(
@@ -656,6 +659,7 @@ Use: pdfview pattern [path]"
 ;; see if useful ?
 (use-package pandoc-mode
   :ensure t
+  :defer t
   :config
   (add-hook 'markdown-mode-hook 'pandoc-mode)
   ;; (add-hook 'org-mode-hook 'pandoc-mode)
