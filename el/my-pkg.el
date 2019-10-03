@@ -589,6 +589,12 @@ Use: pdfview pattern [path]"
   (openwith-mode t)
 )
 
+;; I do not used it but required by cdlatex
+;;; because of texmathp
+(use-package auctex
+  :ensure t
+  :defer t)
+
 ;; mispell corrector using dictionary
 (use-package ispell
   :defer t
@@ -693,6 +699,10 @@ Use: pdfview pattern [path]"
 
   ;; add the underlining of mistakes
   (add-hook 'org-mode-hook 'flyspell-mode)
+
+  ;; add cdlatex to ease typing math
+  ;;;; dependency to auctex because of texmathp
+  (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
   ;; My prefered and used backends
   ;;;; need to be set up before loading org.el
