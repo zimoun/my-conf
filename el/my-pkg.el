@@ -547,7 +547,11 @@ Use: pdfview pattern [path]"
   ;; the second hook is applied when python is required.
   :init
   (add-hook 'python-mode-hook 'eldoc-mode)
+  (setq python-shell-interpreter "ipython"
+        python-shell-interpreter-args "-i --simple-prompt")
   :config
+  (define-key inferior-python-mode-map (kbd "<up>") 'comint-previous-input)
+  (define-key inferior-python-mode-map (kbd "<down>") 'comint-next-input)
   (add-hook 'python-mode-hook 'my/return-newline-with-indent)
   ;; Need to define function something in this flavor
   ;; in order to create the TAGS file
