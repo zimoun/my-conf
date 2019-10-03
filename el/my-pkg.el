@@ -417,10 +417,13 @@ Use: pdfview pattern [path]"
   :config
   (add-hook 'shell-mode-hook
           (lambda ()
-            ;; Redefine M-p/M-n because old habits
             (define-key shell-mode-map (kbd "C-d")
               'my/comint-delchar-or-maybe-eof)
             ))
+
+  ;; Redefine M-p/M-n because old habits
+  (define-key shell-mode-map (kbd "<up>") 'comint-previous-input)
+  (define-key shell-mode-map (kbd "<down>") 'comint-next-input)
 
   (defun my/comint-delchar-or-maybe-eof (arg)
   "See `comint-delchar-or-maybe-eof' with `kill-current-buffer'."
