@@ -1012,7 +1012,9 @@ Use: pdfview pattern [path]"
   :defer t
   :bind* (:map helm-map
                ([tab] . helm-next-line)
-               ("C-j" . helm-select-action))
+               ("/" . helm-execute-persistent-action)
+               ("C-j" . helm-select-action)
+               )
   :init
   (require 'helm-config)
   (global-set-key (kbd "M-x") 'helm-M-x)
