@@ -73,6 +73,8 @@
   (message "See my-still-in-dev.el.")
 )
 
+;; useless minor mode
+(use-package useless-minor-mode)
 
 ;; Move automatic custom to special file
 ;; ;; avoid to pollute this file
