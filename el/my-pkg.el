@@ -1331,13 +1331,14 @@ Use: pdfview pattern [path]"
 (use-package erc
   :ensure t
   :disabled t
-  :config
+  :init
   (require 'tls)
   (erc-tls
    :server "irc.freenode.net"
    :port 6667 ;6697
    :nick "zimoun"
    )
+  (setq erc-nick "zimoun")
   (setq erc-join-channels-alist '(("freenode.net" "#guix")))
 )
 
