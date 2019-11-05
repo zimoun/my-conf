@@ -1005,6 +1005,15 @@ Use: pdfview pattern [path]"
   (setq openwith-associations '(("\\.pdf\\'" "mupdf" (file))))
 )
 
+(use-package pdf-tools
+  :ensure t
+  :defer t
+  :config
+  ;; guix environment emacs-pdf-tools
+  ;; ~/.emacs.d/elpa/pdf-tools-XXXX/build/server/autobuild -i ~/.emacs.d/elpa/pdf-tools-XXXX/
+  (message "How to export Annotation to Org/PDF")
+  )
+
 ;; (use-package bibtex-completion
 ;;   :ensure t
 ;;   :defer t
