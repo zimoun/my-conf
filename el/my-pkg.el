@@ -52,6 +52,7 @@
   ;; :diminish paredit-mode
   :init
   (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+  (add-hook 'scheme-mode-hook 'paredit-mode)
   ;; (add-hook 'emacs-lisp-mode
   ;;           (lambda ()
   ;;             (define-key emacs-lisp-mode-map
@@ -1271,7 +1272,7 @@ Use: pdfview pattern [path]"
 (use-package ox-reveal
   ;; :ensure t
   ;; https://github.com/yjwen/org-reveal/issues/324
-  ;; git clone https://github.com/yjwen/org-reveal.git elpa/org-reveal.git
+  ;; git clone https://github.com/yjwen/org-reveal.git ~/.emacs.d/elpa/org-reveal.git
   ;; WARNING: issue with Org 8.2
   :load-path "~/.emacs.d/elpa/org-reveal.git"
   :defer t
