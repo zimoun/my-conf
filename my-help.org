@@ -61,11 +61,6 @@
  - C-x n w
  - M-x clone-indirect-buffer-other-window
 
-* Clean
-  - clean.sh allows to remove non-necessary files
-    Useful when I move configuration between several machines.
-  - C-x C-o deletes all but one consecutive blank lines
-
 * Mark ring
   See [[info:emacs#Mark%20Ring][C-h i g (emacs)Mark Ring]]
  - C-SPC C-SPC put mark to the mark ring
@@ -87,27 +82,33 @@
  - M-x eww then C-y and adpate.
 Enjoy!
 
+* Dired
+  - switch to toogle mode C-x C-q
+    (other mode C-x C-q turn on read-only for the buffer)
+  - then rename any file
+  - save these changes C-c C-c
+    or C-c ESC to disgard them
+
 * Misc
- - M-s h r hi-lock-mode Regexp
- - M-x ffap open file at point (or URL)
- - Dired:
-   + switch to toogle mode C-x C-q
-     (other mode C-x C-q turn on read-only for the buffer)
-   + then rename any file
-   + save these changes C-c C-c
-     or C-c ESC to disgard them
- - C-s then RET and magic when C-x C-x
-   i.e., return back to the point where the search starts
-   and possibly select the region.
- - Multi-pages with 2 (or more) buffers
-   + open the same buffer twice: C-x 3 then C-x b (cycle)
-   + M-x follow-mode and scroll (C-v or M-v)
-   + the end of one buffer is the start of the other one.
- - Insert page break C-q C-l
-   then navigate with C-x [ and C-x ]
- - Save/restore windows configuration
-   + C-x r w LETTER saves window configuration
-   + C-x r j LETTER restore it
+  - M-s h r hi-lock-mode Regexp
+  - M-x ffap open file at point (or URL)
+  - C-s then RET and magic when C-x C-x
+    i.e., return back to the point where the search starts
+    and possibly select the region.
+  - Multi-pages with 2 (or more) buffers
+    + open the same buffer twice: C-x 3 then C-x b (cycle)
+    + M-x follow-mode and scroll (C-v or M-v)
+    + the end of one buffer is the start of the other one.
+  - Insert page break  C-q C-l
+    then navigate with C-x [ and C-x ]
+  - Save/restore windows configuration
+    + C-x r w LETTER saves window configuration
+    + C-x r j LETTER restore it
+  - Use imenu to ease the navigation
+  - Relative goto line:
+    + 40 line forward: M-4 M-0 C-n (or C-u 40 C-n or C-2 C-0 C-n)
+    + 5 line backward: C-5 C-p
+
 
 * Org
   - ORDERED (properties) allow to block task if they are not done in the
@@ -125,6 +126,8 @@ Enjoy!
     C-c C-x C-r clock report... ouch! read the manual
     [[https://www.youtube.com/watch?v=ldTx_CB5cRc&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=29][Tuto from Youtube]]
   - Org module ? Allow habits
+  - M-x org-occur to efficiently search
+    Less convenient than M-x helm-occur (bind C-x s)
 
 * Show off in Demo
   All can be done with Awesome (Mod-x blah)
@@ -141,9 +144,50 @@ Enjoy!
   - M-x my/save-buffer-as-pdf
   - emacsclient -e '(kill-emacs)'
 
-  Highlight line with cursor:  M-x hl-line-mode
-  Track command: M-x command-log-show
-   (see command-log-mode)
+  - Highlight line with cursor:  M-x hl-line-mode
+  - Track command: M-x command-log-show
+    (see command-log-mode)
+  - Remove mode-line: M-: (setq mode-line-format nil)
+
+
+
+* Basics
+ - Repeating command C-x z
+   - Split window
+   - Do:
+     - C-x } enlarge-window-horizontally
+     - C-x { shrink-window-horizontally
+     - C-x ^ enlarge-window
+   - C-x z Repeat the last command
+   - z Repeat again, etc.
+
+ - C-x + Make window the same size
+ - C-M-v Scroll other window down
+
+ - C-s C-w Search word after point
+ - M-x flush-lines
+ - M-x map-query-replace-regexp
+   #+begin_src text
+     gp: Adam
+     gp: Bella
+     gp: Carol
+     gp: Danuta
+     gp: Ed
+     gp: Fran
+   #+end_src
+   M-x map-query-replace-regexp ^gp: RET red: blue: green: RET !
+   #+begin_src text
+     red: Adam
+     blue: Bella
+     green: Carol
+     red: Danuta
+     blue: Ed
+     green: Fran
+   #+end_src
+ - M-^ Join the current line with the previous one
+ - M-SPACE Delete *ALL* spaces but one between 2 char
+ - M-\ Delete *ALL* whitespace between 2 char
+ - C-x r C-h List all the C-x r <key>
 
 * Message-mode
  - copy region
@@ -183,3 +227,33 @@ For example:
       WARNING: plain/text without charset decoding
     - C: prompt the charset but then view with external program
       This fixes the encoding issue when replying.
+
+* Magit
+
+  - magit-log-buffer-file does git log the-visited-file
+  - magit-show-commit updates the buffer magit-revision
+    => to compare two commits: lock one buffer with
+    magit-toggle-buffer-lock
+  - Guix workflow
+    1. one patch:
+       #+begin_src shell
+
+         git format-patch -o patches -1 <branch>
+         git send-email --to=guix-patches@gnu.org patches/0001-<title>
+
+       #+end_src
+
+    2. series of patches
+       #+begin_src shell
+
+         git format-patch -N --cover-letter -o patches <branch>
+
+         edit patches/0000-cover-letter.patch
+         # send as you want patches/0000-cover-letter.patch to guix-patches@gnu.org
+         rm patches/0000-cover-letter.patch
+         # wait the bug number
+         git send-email --to=nnnnn@debbugs.gnu.org patches/*.patch
+
+       #+end_src
+
+  - Split hunk: select lines and stage
