@@ -99,12 +99,20 @@
                              (mode . tex-mode)
                              (mode . latex-mode)
                              (mode . texinfo-mode)
+                             (name . "^\\*tex-shell\\*$")
                              ))
-                 ("Py" (mode . python-mode))
+                 ("Py" (or
+                        (mode . python-mode)
+                        (name . "^\\*Python.*\*$")
+                        ))
                  ("ESS[R/jl]" (or
                             (mode . ess-mode)
-                            (mode . ess-julia-mode)))
+                            (mode . ess-r-mode)
+                            (mode . ess-julia-mode)
+                            (name . "^\*R.*\*$")
+                            ))
                  ("Org" (mode . org-mode))
+                 ("PDF" (name . "^[a-zA-Z0-9]*\.pdf$"))
 
                  ;; ("magit" (name . "^\\*magit.[-_:a-zA-Z0-9 ]+$"))
                  ("Magit" (or
@@ -116,8 +124,6 @@
                          (name . "^\*eshell.*\*$")
                          (mode . shell-mode)
                          (name . "^\\*compilation\\*$")
-                         (name . "^\\*tex-shell\\*$")
-                         (name . "^\\*Python.*\*$")
                          (name . "^\*Inferior Octave\*$")
                          ))
                  ;; ("emacs" (or
