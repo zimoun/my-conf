@@ -1159,21 +1159,36 @@ Use: pdfview pattern [path]"
   :ensure t
   :defer t
   :config
-  (setq debbugs-gnu-default-packages '("guix-patches"))
-
-  ;; deactivate Helm for the function `debbugs-gnu-search'
-  ;; Enter attribute indefinitively loops
-  ;; because Helm always suggests a completion
-  ;; then it is impossible to enter an empty key
-  (eval-after-load 'helm-mode
-    '(add-to-list 'helm-completing-read-handlers-alist '(debbugs-gnu-search)))
 
   ;; weird because the keymap variable is load at this time
   (with-eval-after-load "debbugs-gnu"
+    ;; deactivate Helm for the function `debbugs-gnu-search'
+    ;; Enter attribute indefinitively loops
+    ;; because Helm always suggests a completion
+    ;; then it is impossible to enter an empty key
+    (eval-after-load 'helm-mode
+      '(add-to-list 'helm-completing-read-handlers-alist '(debbugs-gnu-search)))
+
+    (setq debbugs-gnu-default-packages '("guix-patches" "guix"))
+    (add-to-list 'debbugs-gnu-all-packages "guix-patches")
     (define-key debbugs-gnu-mode-map "N" 'debbugs-gnu-narrow-to-status)
     (define-key debbugs-gnu-mode-map "/" 'debbugs-gnu-search)
     (define-key debbugs-gnu-mode-map "#" 'debbugs-gnu-bugs))
-  )
+
+
+  ;; inspired by Oleg Pykhalov from mailing list
+  (defun my/debbugs-query-email (email-address)
+    "List all the bug report that EMAIL-ADDRESS has opened."
+    (interactive
+     (let* ((default "zimon.toutoune@gmail.com")
+            (string (read-string (format "Email address (%s): " default))))
+       (when (not (equal string ""))
+         (setq default string))
+       (list default)))
+    (let ((debbugs-gnu-current-query `((submitter . ,email-address))))
+      (debbugs-gnu nil))
+    (message (format "Debbugs current-query: submitter=%s" email-address)))
+)
 
 ;; Not installed ? How to force install ?
 (use-package htmlize
