@@ -6,6 +6,7 @@
   - switch between plain-info text and Info-view:
      M-x Info-on-current-buffer
   - M-n open new window
+  - C-h e opens *Messages*
 
 * artist-mode keys (from HELP	: C-h m)
   - rectangle : C-c C-a r RET move RET
