@@ -158,6 +158,8 @@
 (setq calendar-longitude +2.3)
 (setq calendar-location-name "Paris")
 
+;;; useful for EShell or shell-mode
+(setenv "PAGER" "cat")
 
 ;; find my compiled stuff
 (setenv "PATH" (concat "~/local/bin:" (getenv "PATH")))

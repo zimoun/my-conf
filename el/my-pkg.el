@@ -231,8 +231,6 @@
           )
         )
 
-  (setenv "PAGER" "cat")
-
 
   (defvar my/aliases-define-file
     "~/.emacs.d/el/my-aliases.el"
