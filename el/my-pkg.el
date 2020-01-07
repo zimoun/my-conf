@@ -1358,5 +1358,14 @@ Use: pdfview pattern [path]"
   (setq erc-join-channels-alist '(("freenode.net" "#guix")))
 )
 
+;;; convert ^L (C-q l) to pretty lines
+(use-package page-break-lines
+  :ensure t
+  :defer
+  :init
+  ;; (turn-on-page-break-lines-mode)
+  (page-break-lines-mode 1)
+  (diminish 'page-break-lines-mode)
+)
 
 (provide 'my-pkg)
