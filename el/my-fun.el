@@ -651,4 +651,17 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
     (disable-theme 'misterioso)
     (set-background-color "LightGoldenrod3")
     (set-face-attribute 'region nil :background "yellow")))
+
+;; adapted from:
+;;; http://whattheemacsd.com/key-bindings.el-01.html#disqus_thread
+ (defun my/goto-line-with-feedback ()
+   "Active `display-line-numbers-mode' when calling `goto-line'."
+   (interactive)
+   (unwind-protect
+       (progn
+         (when (not (boundp 'display-line-numbers-mode))
+           (display-line-numbers-mode 0))
+         (when (not display-line-numbers-mode)
+           (display-line-numbers-mode 1))
+         (call-interactively 'goto-line))))
 (provide 'my-fun)

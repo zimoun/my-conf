@@ -87,6 +87,8 @@
 ;;;; M-x mode-glasses to enable/disbale other display of:
 ;;;;  unreadableIdentifiersLikeThis
 
+;; Help when jumping to line
+(global-set-key [remap goto-line] 'my/goto-line-with-feedback)
 
 ;; M-x cc instead of the long name
 (defalias 'cc 'recompile)
