@@ -1368,4 +1368,11 @@ Use: pdfview pattern [path]"
   (diminish 'page-break-lines-mode)
 )
 
+;;; JavaScript utility
+;;; https://github.com/skeeto/skewer-mode
+(use-package skewer-mode
+  :ensure t
+  :disabled t
+  )
+
 (provide 'my-pkg)
