@@ -652,6 +652,20 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
     (set-background-color "LightGoldenrod3")
     (set-face-attribute 'region nil :background "yellow")))
 
+
+(defun my/guix-issue (number)
+  (interactive "sBug number: ")
+  (let ((str (format "http://issues.guix.gnu.org/issue/%s" number)))
+    (kill-new str)
+    (message (format "%s yanked." str))))
+
+(defun my/guix-debbug (number)
+  (interactive "sBug number: ")
+  (let ((str (format "https://debbugs.gnu.org/cgi/bugreport.cgi?bug=%s" number)))
+    (kill-new str)
+    (message (format "%s yanked." str))))
+
+
 ;; adapted from:
 ;;; http://whattheemacsd.com/key-bindings.el-01.html#disqus_thread
  (defun my/goto-line-with-feedback ()
