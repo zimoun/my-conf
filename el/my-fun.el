@@ -627,6 +627,15 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
       (message "Error: %s is not a directory." there))))
 
 
+(defun my/Info-reload ()
+  (interactive)
+  (with-eval-after-load "info"
+    (let ((file Info-current-file)
+          (node Info-current-node)
+          (point (point)))
+      (Info-revert-find-node file node)
+      (goto-char point))))
+
 (defun my/setup ()
   (interactive)
   (progn
@@ -652,6 +661,15 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
     (set-background-color "LightGoldenrod3")
     (set-face-attribute 'region nil :background "yellow")))
 
+(defun my/buffer-file-name ()
+  (interactive)
+  (message (buffer-file-name)))
+
+(defun my/apply-patch ()
+  (interactive)
+  (let ((gnus-summary-pipe-output-default-command
+         "cd ~/work/guix/guix/ && git am"))
+    (gnus-summary-pipe-output)))
 
 (defun my/guix-issue (number)
   (interactive "sBug number: ")
@@ -678,4 +696,32 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
          (when (not display-line-numbers-mode)
            (display-line-numbers-mode 1))
          (call-interactively 'goto-line))))
+
+(defun my/double-space-sentence (arg)
+  "Add space to the end of a sentence."
+  (interactive "p")
+  (let ((sentence-end-double-space nil))
+    (loop for i from 1 to arg do
+          (forward-sentence 1)
+          (insert " "))))
+
+;; From: http://stackoverflow.com/a/18814469/519736
+(defun my/copy-buffer-file-name (choice)
+  "Copy the buffer-file-name to the kill-ring"
+  (interactive "cCopy buffer-name (f) Full, (d) Directory, (n) Name? ")
+  (let ((new-kill-string)
+        (name (if (eq major-mode 'dired-mode)
+                  (dired-get-filename)
+                (or (buffer-file-name) ""))))
+    (cond ((eq choice ?f)
+           (setq new-kill-string name))
+          ((eq choice ?d)
+           (setq new-kill-string (file-name-directory name)))
+          ((eq choice ?n)
+           (setq new-kill-string (file-name-nondirectory name)))
+          (t (message "Quit")))
+    (when new-kill-string
+      (message "%s yanked." new-kill-string)
+      (kill-new new-kill-string))))
+
 (provide 'my-fun)
