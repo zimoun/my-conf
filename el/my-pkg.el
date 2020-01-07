@@ -751,6 +751,9 @@ Use: pdfview pattern [path]"
   ;; in the beginning or your document to tell org-mode not to evaluate every
   ;; code block every time you export.
 
+  ;; C-c ' do not indent when leaves
+  (setq org-edit-src-content-indentation 0)
+
   ;; insert image
   ;; just after a block is executed
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
@@ -795,9 +798,11 @@ Use: pdfview pattern [path]"
            (file "~/.emacs.d/org-templates/urgent.org"))
           ("d" "Diary" entry
            (file+headline "~/org/diary.org" "Capture")
-           (file "~/.emacs.d/org-templates/done.org")))
+           (file "~/.emacs.d/org-templates/done.org"))
+          ("b" "Bookmark" entry
+           (file+headline "~/org/bookmarks.org" "Bookmarks")
+           "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1))
      ))
-
 
   (if (not (version-list-< '(9 2) (version-to-list org-version)))
       (progn
