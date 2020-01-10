@@ -109,6 +109,7 @@ Enjoy!
   - Relative goto line:
     + 40 line forward: M-4 M-0 C-n (or C-u 40 C-n or C-2 C-0 C-n)
     + 5 line backward: C-5 C-p
+  - C-u M-q fill paragraph justified.
 
 
 * Org

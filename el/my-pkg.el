@@ -536,7 +536,7 @@ Use: pdfview pattern [path]"
   (add-hook 'c-mode-common-hook 'my/return-newline-with-indent)
 
   ;; add better completion
-  (add-hook 'c-mode-common-hook 'semantic-mode)
+  ;(add-hook 'c-mode-common-hook 'semantic-mode)
   ;(add-hook 'c-mode-common-hook 'semantic-idle-completions-mode)
   ;(add-hook 'c-mode-common-hook 'semantic-highlight-func-mode)
   ;;(add-hook 'c-mode-common-hook 'semantic-stickyfunc-mode)
@@ -741,6 +741,7 @@ Use: pdfview pattern [path]"
                                (shell . t)
                                (org . t)
                                (makefile . t)
+                               (scheme . t)
                                ))
                                ;(bash . t)))
   ;; do not ask before eval code blocks
