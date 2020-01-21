@@ -259,3 +259,8 @@ For example:
        #+end_src
 
   - Split hunk: select lines and stage
+
+* ELPA error
+
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+  https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
