@@ -27,9 +27,7 @@
 ;; (global-set-key (kbd "C-<tab>") 'other-window)
 
 ;; Search in file
-;;; helm-occur should be binded to C-x c s
-;;; but helm-occur is more frequent
-(global-set-key (kbd "C-x c s") 'occur)
+(global-set-key (kbd "C-x c s") 'isearch-forward)
 
 ;; Use `hippie-expand' instead of `dabbrev-expand'
 (global-set-key "\M-/" 'hippie-expand)

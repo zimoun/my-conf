@@ -129,7 +129,7 @@ Enjoy!
     [[https://www.youtube.com/watch?v=ldTx_CB5cRc&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=29][Tuto from Youtube]]
   - Org module ? Allow habits
   - M-x org-occur to efficiently search
-    Less convenient than M-x helm-occur (bind C-x s)
+    Less convenient than M-x swiper-isearch (bind C-s)
 
 * Show off in Demo
   All can be done with Awesome (Mod-x blah)

@@ -142,7 +142,6 @@
                           (mode . Info-mode)
                           (mode . help-mode)
                           ))
-                 ("Helm" (name . "\*helm"))
                  ("emacs" (or
                            (name . "^\\*[a-zA-Z+:#0-9 -]*\\*$")
                            (mode . debbugs-gnu-mode)
@@ -237,12 +236,12 @@
     "File where the list of aliases is defined.")
 
 
-  ;; add helm support to completion (TAB activates helm)
+  ;; add ivy support to completion (TAB activates ivy)
   (add-hook 'eshell-mode-hook
           (lambda ()
             (eshell-cmpl-initialize)
-            (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
-            (define-key eshell-mode-map (kbd "C-r") 'helm-eshell-history)
+            (define-key eshell-mode-map [remap eshell-pcomplete] 'completion-at-point)
+            (define-key eshell-mode-map (kbd "C-r") 'counsel-esh-history)
             (define-key eshell-mode-map (kbd "C-c r") 'isearch-backward)
             ))
 
@@ -424,6 +423,7 @@ Use: pdfview pattern [path]"
           (lambda ()
             (define-key shell-mode-map (kbd "C-d")
               'my/comint-delchar-or-maybe-eof)
+            (define-key shell-mode-map (kbd "C-r") 'counsel-shell-history)
             ))
 
   ;; Redefine M-p/M-n because old habits
@@ -1027,112 +1027,145 @@ Use: pdfview pattern [path]"
 ;;         '("~/tmp/bibjabref.bib"))
 ;;   )
 
-(use-package helm
+
+
+;; Required by Ivy
+;; to propose first the history as candidates when M-x
+(use-package smex
   :ensure t
   :defer t
-  :bind* (:map helm-map
-               ([tab] . helm-next-line)
-               ("/" . helm-execute-persistent-action)
-               ("C-j" . helm-select-action)
-               )
+  )
+
+(use-package counsel
+  :ensure t
+  :defer t
+  )
+
+(use-package swiper
+  :ensure t
+  :defer t
+  )
+
+
+(use-package ivy
+  :ensure t
+  :defer t
+  :bind* (:map ivy-minibuffer-map
+               ;; TAB is by default ivy-partial-or-done
+               ;; works only with X
+               (([tab] . ivy-next-line)))
   :init
-  (require 'helm-config)
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "C-x C-f") 'helm-find-files)
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-  (global-set-key (kbd "C-x b") 'helm-mini)
-  (global-set-key (kbd "C-x s") 'helm-occur)
-  (global-set-key (kbd "C-x c u SPC") 'helm-all-mark-rings)
-
-  (helm-mode 1)
-
-  :config
-  ;; from documentation
-  (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-        helm-move-to-line-cycle-in-source     t ; move to end/beginning of source when reaching top/bottom of source
-        helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-        helm-ff-file-name-history-use-recentf t
-        helm-echo-input-in-header-line        t
-        helm-show-completion-display-function #'helm-show-completion-default-display-function
-        helm-always-two-windows               nil
-        helm-display-buffer-default-height    23  ; 30 leads to bug for default graphical on my Desktop
-        helm-default-display-buffer-functions '(display-buffer-in-side-window)
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers      t
+        enable-recursive-minibuffers t
+        ivy-wrap                     t  ; cycle last->first and first->last
         )
+  ;(setq ivy-count-format "")
+  (global-set-key "\C-s" 'swiper-isearch)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "C-x b") 'counsel-switch-buffer)
+  (global-set-key (kbd "M-y") 'counsel-yank-pop)
+  (global-set-key (kbd "C-h f") 'counsel-describe-function)
+  (global-set-key (kbd "C-h v") 'counsel-describe-variable)
+  (global-set-key (kbd "C-c r") 'ivy-resume)
+  (global-set-key (kbd "C-c f") 'counsel-git)
+  (global-set-key (kbd "C-c g") 'counsel-git-grep)
+  (global-set-key (kbd "C-c s") 'counsel-ag)
+  (global-set-key (kbd "C-c o") 'counsel-outline)
+  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
-  (setq helm-autoresize-max-height 0
-	    helm-autoresize-min-height 30)
-  (helm-autoresize-mode 1)
 
-  ;; Fuzzy (approximative) search
-  (setq
-   helm-M-x-fuzzy-match        t
-   helm-buffers-fuzzy-matching t
-   helm-recentf-fuzzy-match    t)
+  (setq ivy-height 23)
 
-  (setq helm-locate-command
-        "locate %s -e -A --regex %s -d ~/.cache/locate.db")
+  (diminish 'ivy-mode)
 
-  (cl-defmethod helm-setup-user-source ((source helm-source-ffiles))
-    (helm-source-add-action-to-source-if
-     "Magit status"
-     (lambda (candidate)
-       (magit-status
-        (locate-dominating-file helm-ff-default-directory ".git")))
-     source
-     (lambda (candidate)
-       (and (not (string-match-p ffap-url-regexp candidate))
-            helm-ff-default-directory
-            (locate-dominating-file helm-ff-default-directory ".git")))
-     1))
-
-  (diminish 'helm-mode)
-  )
-
-(use-package helm-ag
-  :ensure t
-  :defer t
   :config
-  ;; See `helm-do-grep-ag' C-x c M-g a
-  (defalias 'ag-grep 'helm-ag)
+  ;; Improve the switch (path, mode, etc.)
+  (use-package ivy-rich
+    :ensure t
+    :defer t
+    :after counsel
+    :init
+    ;; see list-faces-display for :face
+    (setq ivy-rich-display-transformers-list
+          '(ivy-switch-buffer
+            (:columns
+             ((ivy-rich-candidate (:width 30))
+              (ivy-rich-switch-buffer-size (:width 7
+                                                   :face dired-ignored
+                                                   ))
+              ;(ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+              (ivy-rich-switch-buffer-major-mode (:width 12
+                                                         ;:face warning
+                                                         ))
+              ;(ivy-rich-switch-buffer-project (:width 15 :face success))
+              (ivy-rich-switch-buffer-path (:width
+                                            (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3)))
+                                            :face font-lock-doc-face
+                                            )))
+             :predicate
+             (lambda (cand) (get-buffer cand)))
+
+            ;; Unmodified
+            counsel-find-file
+            (:columns
+             ((ivy-read-file-transformer)
+              (ivy-rich-counsel-find-file-truename (:face font-lock-doc-face))))
+            counsel-M-x
+            (:columns
+             ((counsel-M-x-transformer (:width 40))
+              (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
+            counsel-describe-function
+            (:columns
+             ((counsel-describe-function-transformer (:width 40))
+              (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
+            counsel-describe-variable
+            (:columns
+             ((counsel-describe-variable-transformer (:width 40))
+              (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
+            counsel-recentf
+            (:columns
+             ((ivy-rich-candidate (:width 0.8))
+              (ivy-rich-file-last-modified-time (:face font-lock-comment-face))))
+            package-install
+            (:columns
+             ((ivy-rich-candidate (:width 30))
+              (ivy-rich-package-version (:width 16 :face font-lock-comment-face))
+              (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
+              (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+          )
+    (setq ivy-rich-path-style 'abbrev)
+    (ivy-rich-mode 1)                   ;turn on the mode after setq ivy-rich-display-transformers-list
+    )
   )
 
-(use-package helm-ls-git
-  :ensure t
-  :defer t
-  :bind ("C-x M-b" . helm-ls-git-ls)
-  )
 
-(use-package helm-bibtex
-  :ensure t
-  :defer t
-  :config
-  (setq bibtex-completion-bibliography
-        '("~/bib/bibjabref.bib"))
-  (setq bibtex-completion-library-path
-        (mapcar (lambda (x) (concat "~/bib/pdf/" x))
-                '("article/"
-                "book/"
-                "CO/"
-                "conf/"
-                "report/"
-                "TH/")))
-  ;; the special JabRef field File is not working
-  ;; because File stores relative path and helm-bibtex looks for full path
-  ;; even if bibtex-completion-library-path is set to "~/bib/pdf/"
-  ;; (setq bibtex-completion-pdf-field "File")
+;; (use-package ivy-bibtex
+;;   :ensure t
+;;   :defer t
+;;   :config
+;;   (setq bibtex-completion-bibliography
+;;         '("~/bib/bibjabref.bib"))
+;;   (setq bibtex-completion-library-path
+;;         (mapcar (lambda (x) (concat "~/bib/pdf/" x))
+;;                 '("article/"
+;;                 "book/"
+;;                 "CO/"
+;;                 "conf/"
+;;                 "report/"
+;;                 "TH/")))
+;;   ;; the special JabRef field File is not working
+;;   ;; because File stores relative path and ivy-bibtex looks for full path
+;;   ;; even if bibtex-completion-library-path is set to "~/bib/pdf/"
+;;   ;; (setq bibtex-completion-pdf-field "File")
 
-  (setq bibtex-completion-pdf-symbol "#")
+;;   (setq bibtex-completion-pdf-symbol "#")
 
-  ;; replace internal DocView-mode by external MuPDF
-  ;; (see package openwith somewhere there)
-  (openwith-mode t)
-
-  ;; useful for `helm-find-file': tab does completion
-  ;; but not for `helm-M-x': tab open stuff and does not complete
-  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-  (define-key helm-map (kbd "<backtab>") 'helm-select-action)
-)
+;;   ;; replace internal DocView-mode by external MuPDF
+;;   ;; (see package openwith somewhere there)
+;;   (openwith-mode t)
+;; )
 
 
 
@@ -1166,19 +1199,22 @@ Use: pdfview pattern [path]"
 
   ;; weird because the keymap variable is load at this time
   (with-eval-after-load "debbugs-gnu"
-    ;; deactivate Helm for the function `debbugs-gnu-search'
+    ;; deactivate Ivy for the function `debbugs-gnu-search'
     ;; Enter attribute indefinitively loops
-    ;; because Helm always suggests a completion
+    ;; because Ivy always suggests a completion
     ;; then it is impossible to enter an empty key
-    (eval-after-load 'helm-mode
-      '(add-to-list 'helm-completing-read-handlers-alist '(debbugs-gnu-search)))
+    ;;
+    ;; (eval-after-load 'ivy-mode          ; ouch! not work, use hook instead
+    ;;   (add-to-list 'ivy-completing-read-handlers-alist '(debbugs-gnu-search)))
+    (add-hook 'debbugs-gnu-mode-hook #'(lambda ()
+                                        (setq-local completing-read-function
+                                                    #'completing-read-default)))
 
     (setq debbugs-gnu-default-packages '("guix-patches" "guix"))
     (add-to-list 'debbugs-gnu-all-packages "guix-patches")
     (define-key debbugs-gnu-mode-map "N" 'debbugs-gnu-narrow-to-status)
     (define-key debbugs-gnu-mode-map "/" 'debbugs-gnu-search)
     (define-key debbugs-gnu-mode-map "#" 'debbugs-gnu-bugs))
-
 
   ;; inspired by Oleg Pykhalov from mailing list
   (defun my/debbugs-query-email (email-address)
