@@ -217,6 +217,11 @@
    eshell-destroy-buffer-when-process-dies t
    )
 
+  ;;; trick used by Guix
+  ;; because EShell does not support some special characters
+  ;; for example ]8;;
+  ;(setenv "INSIDE_EMACS" "1")
+
   :config
   (setq eshell-prompt-function
         (lambda nil
@@ -1057,14 +1062,18 @@ Use: pdfview pattern [path]"
   :init
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers      t
+        ivy-re-builders-alist     '(;(swiper-isearch . ivy--regex-plus)
+                                    (t . ivy--regex-ignore-order))
+        ivy-virtual-abbreviate   'full  ;switch-buffer with full path in recentf
         enable-recursive-minibuffers t
         ivy-wrap                     t  ; cycle last->first and first->last
+        recentf-max-saved-items    nil
         )
   ;(setq ivy-count-format "")
   (global-set-key "\C-s" 'swiper-isearch)
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "C-x b") 'counsel-switch-buffer)
+  (global-set-key (kbd "C-x b") 'ivy-switch-buffer)  ;because counsel-switch-buffer unlikely adds preview
   (global-set-key (kbd "M-y") 'counsel-yank-pop)
   (global-set-key (kbd "C-h f") 'counsel-describe-function)
   (global-set-key (kbd "C-h v") 'counsel-describe-variable)
