@@ -678,7 +678,11 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
     (message (format "%s yanked." str))))
 
 (defun my/guix-debbug (number)
-  (interactive "sBug number: ")
+  (interactive
+   (list
+    (read-string
+     (format "Bug number (%s): " debbugs-gnu-bug-number)
+     nil nil debbugs-gnu-bug-number)))
   (let ((str (format "https://debbugs.gnu.org/cgi/bugreport.cgi?bug=%s" number)))
     (kill-new str)
     (message (format "%s yanked." str))))
