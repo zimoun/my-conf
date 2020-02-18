@@ -1385,6 +1385,16 @@ Use: pdfview pattern [path]"
   (diminish 'ws-butler-mode)
   )
 
+(use-package whitespace
+  :defer t
+  :diminish t
+  :init
+  (setq whitespace-line-column nil
+        whitespace-style '(face trailing lines-tail space-before-tab newline
+                                indentation empty space-after-tab))
+)
+
+
 (use-package proced
   :defer t
   :init
