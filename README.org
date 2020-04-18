@@ -1,1 +1,142 @@
-todo: write this file
+
+* Debian
+
+  #+begin_src shell
+
+  apt install aptitude emacs-nox
+  emacs /etc/apt/sources.list # <name> -> stable + contrib non-free
+  aptitude update
+  aptitude install intel-microcode firmware-iwlwifi
+  aptitude install awesome xfce4-power-manager xscreensaver xterm
+  aptitude install vlc transmission-gtk pavucontrol blueman
+  dpkg-reconfigure tzdata
+
+  #+end_src
+
+  Be careful, the battery icon could be turned off, see =xfce4-power-manager-settings=.
+
+* Guix
+
+** As root
+
+   1. Binary install
+      #+begin_src shell
+
+      wget https://git.savannah.gnu.org/cgit/guix.git/plain/etc/guix-install.sh
+      bash guix-install.sh
+
+      #+end_src
+      Do not forget to add the =gpg= key as hinted by the helper script.
+
+   2. Update (could be long)
+      #+begin_src shell
+
+      guix pull
+
+      #+end_src
+
+   3. Install the locales used for the daemon
+      #+begin_src shell
+
+      guix install glibc-locales
+
+      #+end_src
+
+   4. Do not forget to restart the daemon:
+      #+begin_src shell
+
+      systemctl restart guix-daemon.service
+
+      #+end_src
+      and see the configuration file =/etc/systemd/system/guix-daemon.service=.
+
+** As regular user
+
+   1. Update
+      #+begin_src shell
+
+      guix pull
+      hash guix
+
+      #+end_src
+      Now =~/.config/guix/current= should be created.
+
+   2. Clone the configuraton files
+      #+begin_src shell
+
+      guix environment --ad-hoc git -- \
+           git clone https://github.com/zimoun/my-conf.git
+
+      #+end_src
+      Usually in =~/src/=.
+
+   3. Populate the profiles
+      1) Create the folder and track the origin
+	  #+begin_src shell
+
+      GUIX=~/.config/guix/current/bin/guix
+      GUIX_MYPROFILES=~/.config/guix/profiles
+
+      mkdir -p $GUIX_MYPROFILES
+
+      $GUIX describe -f channels \
+            > $GUIX_MYPROFILES/from-channels.scm
+
+	  #+end_src
+
+      2) Install for example the Emacs related packages
+	  #+begin_src shell
+
+      mkdir -p ${GUIX_MYPROFILES}/emacs/emacs
+      $GUIX package					\
+            -m .config/guix/manifests/emacs.scm	\
+            -p ${GUIX_MYPROFILES}/emacs/emacs		\
+            --fallback
+
+	  #+end_src
+
+      The file =my-dumb-manifest-installer.sh= should automatize this for all the manifests.
+      Note that the option =--fallback= is required because some substitutes should be missing.
+
+* Configuration
+
+  1. Propagate all the configurations files
+     #+begin_src shell
+
+     guix environment --ad-hoc stow \
+          -- stow -d $(pwd) -t $HOME . -R
+
+     #+end_src
+
+     Sometimes the folder does not exist yet and should be used by other applications,
+     so to avoid issues and mix files in =my-conf/= let create them before stowing them, e.g.,
+     =mkdir -p ~/.emacs.d/=
+
+
+  2. Optionally cleanup the store
+     #+begin_src shell
+
+     guix gc
+
+     #+end_src
+
+
+  Now logout and relog.
+
+** Tips
+*** Empty shell
+    #+begin_src shell
+
+    env -i $(which bash) --login --noprofile --norc
+    GUIX_PROFILE=path/to/project
+    . GUIX_PROFILE/etc/profile
+
+    #+end_src
+*** Enable guix environment --container
+    #+begin_src shell
+
+    # as root
+    echo "kernel.unprivileged_userns_clone = 1" > /etc/sysctl/local.conf
+    sysctl --system
+
+    #+end_src
