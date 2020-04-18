@@ -1,3 +1,7 @@
 \.git
-^/README.*
+^/.gitignore
+^/README.org
 ^/my-stow.sh
+^/my-dumb-manifest-installer.sh
+^/my-clone-guixies.sh
+
