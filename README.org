@@ -72,28 +72,28 @@
 
    3. Populate the profiles
       1) Create the folder and track the origin
-	  #+begin_src shell
+	     #+begin_src shell
 
-      GUIX=~/.config/guix/current/bin/guix
-      GUIX_MYPROFILES=~/.config/guix/profiles
+         GUIX=~/.config/guix/current/bin/guix
+         GUIX_MYPROFILES=~/.config/guix/profiles
 
-      mkdir -p $GUIX_MYPROFILES
+         mkdir -p $GUIX_MYPROFILES
 
-      $GUIX describe -f channels \
-            > $GUIX_MYPROFILES/from-channels.scm
+         $GUIX describe -f channels \
+               > $GUIX_MYPROFILES/from-channels.scm
 
-	  #+end_src
+	     #+end_src
 
       2) Install for example the Emacs related packages
-	  #+begin_src shell
+	     #+begin_src shell
 
-      mkdir -p ${GUIX_MYPROFILES}/emacs/emacs
-      $GUIX package					\
-            -m .config/guix/manifests/emacs.scm	\
-            -p ${GUIX_MYPROFILES}/emacs/emacs		\
-            --fallback
+         mkdir -p ${GUIX_MYPROFILES}/emacs/emacs
+         $GUIX package					\
+               -m .config/guix/manifests/emacs.scm	\
+               -p ${GUIX_MYPROFILES}/emacs/emacs		\
+               --fallback
 
-	  #+end_src
+	     #+end_src
 
       The file =my-dumb-manifest-installer.sh= should automatize this for all the manifests.
       Note that the option =--fallback= is required because some substitutes should be missing.
@@ -112,7 +112,6 @@
      so to avoid issues and mix files in =my-conf/= let create them before stowing them, e.g.,
      =mkdir -p ~/.emacs.d/=
 
-
   2. Optionally cleanup the store
      #+begin_src shell
 
@@ -129,10 +128,11 @@
 
     env -i $(which bash) --login --noprofile --norc
     GUIX_PROFILE=path/to/project
-    . GUIX_PROFILE/etc/profile
+    . $GUIX_PROFILE/etc/profile
 
     #+end_src
 *** Enable guix environment --container
+    Be careful !
     #+begin_src shell
 
     # as root
