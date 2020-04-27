@@ -1,6 +1,5 @@
 # -*- mode: org ; coding: utf-8 -*-
 
-
 * Invoke Info: C-h etc.
   - read a local info file: C-u C-h i
   - switch between plain-info text and Info-view:
@@ -92,6 +91,10 @@ Enjoy!
 
 * Misc
   - M-s h r hi-lock-mode Regexp
+  #+begin_src emacs-lisp
+  ;; hi-lock-mode: avoid to prompt the color
+  (setq hi-lock-auto-select-face t)
+  #+end_src
   - M-x ffap open file at point (or URL)
   - C-s then RET and magic when C-x C-x
     i.e., return back to the point where the search starts
