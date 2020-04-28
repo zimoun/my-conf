@@ -14,6 +14,10 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- Load Debian menu entries
 require("debian.menu")
 
+-- CPU info
+-- from https://github.com/streetturtle/awesome-wm-widgets/tree/master/cpu-widget
+local cpu_widget = require('cpu')
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -45,7 +49,7 @@ beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 --terminal = "xterm"
-eterminal = "emacsclient -c -e '(eshell)' -e '(rename-buffer (format \"*eshell-%s*\" (float-time)))'"
+eterminal = "emacsclient -c -e '(shell (generate-new-buffer-name \"*shell*\"))' -e '(delete-other-windows)'"
 terminal = "xterm"
 editor = os.getenv("EDITOR") or "emacs -nw"
 editor_cmd = terminal .. " -e " .. editor
@@ -126,12 +130,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
-
--- Broken with Awesome Update
--- Calendar widget to attach to the textclock
--- http://jasonmaur.com/awesome-wm-widgets-configuration/
--- calendar = require('calendar35')
--- calendar.addCalendarToWidget(mytextclock)
 
 calendar = require('calendar')
 -- attach it as popup to your text clock widget:
@@ -243,11 +241,13 @@ awful.screen.connect_for_each_screen(function(s)
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
-        { -- Right widgets
+        { -- Right widgets	
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
+	    -- CPU info (see atop)
+	    cpu_widget(),	    	    	    	    
             s.mylayoutbox,
         },
     }
@@ -611,5 +611,11 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Start with awesome
 awful.util.spawn_with_shell("nm-applet")
 awful.util.spawn_with_shell("xfce4-power-manager")
-awful.util.spawn_with_shell("emacs --daemon")
+awful.util.spawn_with_shell("source /home/simon/.bashrc && emacs --daemon")
 -- awful.util.spawn_with_shell("blueman-manager")
+
+
+-- Change the timezone from the command-line
+-- (need root access)
+-- $ timedatectl list-timezones
+-- $ timedatectl set-timezone Europe/Paris
