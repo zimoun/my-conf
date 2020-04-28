@@ -1,0 +1,21 @@
+#!/bin/env bash
+
+function pdfextract()
+{ # pdfextract myfile #first #last
+    if [ $# -eq 0 ]
+    then
+        echo "pdfextract -> $0"
+        echo "pdfextract myfile #first #last"
+    else
+        myfile=$1
+        first=$2
+        last=$3
+        gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER \
+	        -dFirstPage=$first \
+	        -dLastPage=$last \
+	        -sOutputFile=${myfile%.pdf}_p${first}-p${last}.pdf \
+	        ${myfile}
+    fi
+}
+
+pdfextract $@

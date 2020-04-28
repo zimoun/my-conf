@@ -1,0 +1,34 @@
+#!/bin/env bash
+
+function listen(){
+    vlc=$(which  vlc)
+    url=https://icecast.radiofrance.fr/
+    case $1 in
+	fip)
+            www=${url}/fip-midfi.mp3
+            # www=http://audio.scdn.arkena.com/11016/fip-midfi128.mp3
+            # www=http://www.tv-radio.com/station/fip_mp3/fip_mp3-128k.m3u
+	    ;;
+	inter)
+            www=${url}/franceinter-midfi.mp3
+	    # www=http://www.tv-radio.com/station/france_inter_mp3/france_inter_mp3-128k.m3u
+	    ;;
+	fcu)
+            www=${url}/franceculture-midfi.mp3
+	    # www=http://www.tv-radio.com/station/france_culture_mp3/france_culture_mp3-128k.m3u
+	    ;;
+	info)
+            www=${url}/franceinfo-midfi.mp3
+	    #www=http://www.tv-radio.com/station/france_musique_mp3/france_musique_mp3-128k.m3u
+	    ;;
+	*)
+	    www=--version
+	    printf "\n\n\n"
+	    printf "##### Error: $1 is not possible radio, try: fip, fcu, inter, info."
+	    printf "\n\n\n"
+	    ;;
+    esac
+    $vlc -q --intf rc $www
+}
+
+listen $1

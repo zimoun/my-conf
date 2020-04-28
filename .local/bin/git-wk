@@ -1,0 +1,54 @@
+#!/bin/env bash
+
+name=$1
+
+from="."
+to=../wk/${name}
+
+here=$(pwd)
+
+trap 'catch' ERR
+
+
+
+catch() {
+    >&2 echo "git wk TO_DIR # without trailing /"
+    builtin cd $here
+    exit 1
+}
+
+git worktree add -b $1 $to
+
+builtin cd $from
+from_branch=$(git branch --show-current)
+from_commit=$(git log --format="%h" -n1)
+echo "In branch: $from_branch at $(pwd)"
+make make-go
+builtin cd $here
+
+echo "RSync: $from -> $to"
+rsync -a \
+      --include='*.go' \
+      --exclude='.git' --include='*/' --exclude='*' \
+      ${from}/ ${to}
+
+builtin cd $to
+to_branch=$(git branch --show-current)
+to_commit=$(git log --format="%h" -n1)
+echo "In branch: $to_branch at $(pwd)"
+find . -name "*.go" -type f -exec touch {} \;
+if [ ! -f ./configure ]; then
+    ./bootstrap
+    ./configure --localstatedir=/var/
+fi
+make make-go
+echo "Should nothing to be done."
+#make -j4
+builtin cd $here
+
+
+echo ""
+echo "From: [$from_commit]" $from_branch "at $from"
+echo "To: ->[$to_commit]" $to_branch "at $to"
+
+echo "Warn: Be careful, this avoiding of recompilation is tricky!"

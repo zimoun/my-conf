@@ -1,0 +1,38 @@
+#!/bin/env bash
+
+function pdfcat()
+{
+    if [ $# -eq 0 ]
+    then
+        echo "pdfcat -> $0"
+	echo "pdfcat outfile infile1 infile2 foo*.pdf infile3 ..."
+    elif [ $# -eq 1 ]
+    then
+        echo "pdfcat -> $0"
+	echo "pdfcat needs more than only one files"
+	echo "pdfcat outfile infile1 infile2 foo*.pdf infile3 ..."
+    elif [ $# -eq 2 ]
+    then
+	outfile=$1
+	shift
+	infile=$1
+	echo "in : ${infile}"
+	echo "out: $outfile"
+	cp $infile $outfile
+    else
+	outfile=$1
+	infiles=()
+	for ii in $(seq 2 $#)
+	do
+	    shift
+	    infiles[ii]=$1
+	done
+	echo "in : ${infiles[*]}"
+	echo "out: $outfile"
+	gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+	   -sOutputFile=$outfile \
+	   ${infiles[*]}
+    fi
+}
+
+pdfcat $@

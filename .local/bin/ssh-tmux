@@ -1,0 +1,52 @@
+#!/bin/env bash
+
+# # kill all open sessions
+# tmux list-sessions | cut -d':' -f1 | xargs -n1 tmux kill-session -t
+
+
+function ssh-tmux(){
+    if [ $# -eq 0 ]
+    then
+        printf "automatically started sessions: oh, monitor\n"
+    fi
+    if [ $# -gt 0 ]
+    then
+        case $1 in
+            list)
+                ssh me -t tmux list-sessions
+                ;;
+            ls)
+                ssh me -t tmux list-sessions
+                ;;
+            run)
+                shift
+                cmd=" "
+                while test $# -gt 0
+                do
+                    cmd+=" $1 "
+                    shift
+                done
+                echo "$ tmux $cmd"
+                ssh me -t tmux ${cmd}
+                ;;
+            *)
+                printf "Connecting... "
+                ssh me -CX -t tmux attach-session -t $1
+                if [ $? -eq 1 ]
+                then
+                    printf "Opening session... "
+                    ssh me -t tmux new -s $1 -d
+                    if [ "$1" == 'monitor' ]
+                    then
+                        printf "Launching htop... "
+                        ssh me -t tmux send-keys -t monitor.0 "htop" C-m
+                    fi
+                    printf "Connecting... "
+                    ssh me -CX -t tmux attach-session -t $1
+                fi
+                ;;
+        esac
+    fi
+}
+
+ssh-tmux $@

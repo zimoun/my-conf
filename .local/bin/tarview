@@ -1,0 +1,17 @@
+#!/bin/env bash
+
+function tarview(){
+   case "${1##*.}" in
+       tar)
+	       tar tf $1
+       ;;
+       bz2)
+	       cat $1 | bzip2 -d | tar tvf -
+       ;;
+       *)
+	   echo "Error: $1 is not an archive."
+       ;;
+   esac
+}
+
+tarview $1
