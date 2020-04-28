@@ -47,7 +47,7 @@
 
 ;; easy Lisp manipulation with paredit
 (use-package paredit
-  :ensure t
+  ;; :ensure t
   :defer t
   ;; :diminish paredit-mode
   :init
@@ -460,7 +460,7 @@ Use: pdfview pattern [path]"
   )
 
 (use-package diminish
-  :ensure t
+  ;; :ensure t
   :defer t
   )
 
@@ -551,7 +551,7 @@ Use: pdfview pattern [path]"
 
 ;; python (which mode ?)
 (use-package python
-  :ensure t
+  ;; :ensure t
   :defer t
   :mode ("\\.pyx$" . python)
   ;; hum? not sure to understand init/config mechanism
@@ -605,7 +605,7 @@ Use: pdfview pattern [path]"
 ;; I do not used it but required by cdlatex
 ;;; because of texmathp
 (use-package auctex
-  :ensure t
+  ;; :ensure t
   :defer t)
 
 ;; mispell corrector using dictionary
@@ -622,7 +622,7 @@ Use: pdfview pattern [path]"
 )
 
 (use-package flycheck
-  :ensure t
+  ;; :ensure t
   :defer t
   :init
   (global-flycheck-mode)
@@ -631,10 +631,10 @@ Use: pdfview pattern [path]"
 
 ;; OCalm improved mode
 (use-package utop
-  :ensure t
+  ;; :ensure t
   :defer t)
 (use-package tuareg
-  :ensure t
+  ;; :ensure t
   :defer t
   :mode ("\\.ml[ily]?$" . tuareg-mode)
   :bind (:map tuareg-mode-map
@@ -650,14 +650,14 @@ Use: pdfview pattern [path]"
 
 ;; Lua used by Awesome
 (use-package lua-mode
-  :ensure t
+  ;; :ensure t
   :defer t
   :mode ("\\.lua$" . lua-mode)
 )
 
 ;; octave and so on
 (use-package octave
-  :ensure t
+  ;; :ensure t
   :defer t
   :mode ("\\.m\\'" . octave-mode)
   :config
@@ -668,7 +668,7 @@ Use: pdfview pattern [path]"
 )
 ;; Editing blog
 (use-package markdown-mode
-  :ensure t
+  ;; :ensure t
   :defer t
   :mode ("\\.md\\'" "\\.mkd\\'" "\\.markdown\\'")
   :config
@@ -681,7 +681,7 @@ Use: pdfview pattern [path]"
 
 ;; see if useful ?
 (use-package pandoc-mode
-  :ensure t
+  ;; :ensure t
   :defer t
   :config
   (add-hook 'markdown-mode-hook 'pandoc-mode)
@@ -692,7 +692,7 @@ Use: pdfview pattern [path]"
 
 ;; Org-anize my life
 (use-package org
-  :ensure org-plus-contrib		; ensure the last version of Org
+  ;; :ensure org-plus-contrib		; ensure the last version of Org
   :defer t
 
   :bind (("\C-ca"  . my/org-agenda)
@@ -858,7 +858,7 @@ Use: pdfview pattern [path]"
 
 ;; graphviz support
 (use-package graphviz-dot-mode
-  :ensure t
+  ;; :ensure t
   :defer t
 )
 
@@ -872,7 +872,7 @@ Use: pdfview pattern [path]"
 ;; )
 
 (use-package magit
-  :ensure t
+  ;; :ensure t
   :defer t
   :bind (("C-x g" . magit-status)
          ("C-x C-g b" . magit-blame)
@@ -889,7 +889,7 @@ Use: pdfview pattern [path]"
 
 
 (use-package yasnippet
-  :ensure t
+  ;; :ensure t
   :defer t
   :diminish t
   :init
@@ -905,7 +905,7 @@ Use: pdfview pattern [path]"
 ;;   (elpy-enable))
 
 (use-package pyvenv
-  :ensure t
+  ;; :ensure t
   :defer t
   :init
   ;; hum? is it possible to have alias per mode
@@ -921,7 +921,7 @@ Use: pdfview pattern [path]"
 
 (use-package ess
   :defer t
-  :ensure t
+  ;; :ensure t
   :init
   :defines ess-indent-offset
   :mode (
@@ -961,7 +961,7 @@ Use: pdfview pattern [path]"
 
 (use-package poly-markdown
   :defer t
-  :ensure t
+  ;; :ensure t
   :mode (("\\.md" . poly-markdown-mode)
 	 ("\\.Rmd" . poly-markdown-mode)
 	))
@@ -992,7 +992,7 @@ Use: pdfview pattern [path]"
 
 
 (use-package geiser
-  :ensure t
+  ;; :ensure t
   :defer t
   :init
   ;; scheme
@@ -1007,21 +1007,15 @@ Use: pdfview pattern [path]"
   ;;(setq geiser-guile-binary "/home/simon/.guix-profile/bin/guile")
   )
 
-(use-package openwith
-  :ensure t
-  :defer t
-  :config
-  ;; because Doc-View mode is not efficient enough for large PDF documents
-  (setq openwith-associations '(("\\.pdf\\'" "mupdf" (file))))
-)
 
 (use-package pdf-tools
-  :ensure t
+  ;; :ensure t
   :defer t
-  :config
+  :init
   ;; guix environment emacs-pdf-tools
   ;; ~/.emacs.d/elpa/pdf-tools-XXXX/build/server/autobuild -i ~/.emacs.d/elpa/pdf-tools-XXXX/
   (message "How to export Annotation to Org/PDF")
+  (pdf-tools-install)
   )
 
 ;; (use-package bibtex-completion
@@ -1037,23 +1031,23 @@ Use: pdfview pattern [path]"
 ;; Required by Ivy
 ;; to propose first the history as candidates when M-x
 (use-package smex
-  :ensure t
+  ;; :ensure t
   :defer t
   )
 
 (use-package counsel
-  :ensure t
+  ;; :ensure t
   :defer t
   )
 
 (use-package swiper
-  :ensure t
+  ;; :ensure t
   :defer t
   )
 
 
 (use-package ivy
-  :ensure t
+  ;; :ensure t
   :defer t
   :bind* (:map ivy-minibuffer-map
                ;; TAB is by default ivy-partial-or-done
@@ -1092,7 +1086,7 @@ Use: pdfview pattern [path]"
   :config
   ;; Improve the switch (path, mode, etc.)
   (use-package ivy-rich
-    :ensure t
+    ;; :ensure t
     :defer t
     :after counsel
     :init
@@ -1179,7 +1173,7 @@ Use: pdfview pattern [path]"
 
 
 (use-package haskell-mode
-  :ensure t
+  ;; :ensure t
   :defer t
   :config
   (require 'haskell-interactive-mode)
@@ -1202,7 +1196,7 @@ Use: pdfview pattern [path]"
 )
 
 (use-package debbugs
-  :ensure t
+  ;; :ensure t
   :defer t
   :config
 
@@ -1241,21 +1235,21 @@ Use: pdfview pattern [path]"
 
 ;; Not installed ? How to force install ?
 (use-package htmlize
-  :ensure t
+  ;; :ensure t
   :defer t)
 
 (use-package snakemake-mode
-  :ensure t
+  ;; :ensure t
   :defer t
   :mode ("\\.smk$" . snakemake-mode))
 
 (use-package rust-mode
-  :ensure t
+  ;; :ensure t
   :defer t)
 
 
 (use-package elfeed
-  :ensure t
+  ;; :ensure t
   :defer t
   :bind
   ;; C-c because C-c is one user shortcut (not a mode one)
@@ -1313,14 +1307,14 @@ Use: pdfview pattern [path]"
 ;;;; writegood-reading-ease -> Flesch-Kincaid reading ease score
 ;;;; https://en.wikipedia.org/wiki/Flesch–Kincaid_readability_tests
 (use-package writegood-mode
-  :ensure t
+  ;; :ensure t
   :defer t
   :init (defalias 'mode-writegood 'writegood-mode))
 
 
 ;; useful to demo
 (use-package command-log-mode
-  :ensure t
+  ;; :ensure t
   :defer t
   :init
   (defalias 'mode-command-log 'command-log-mode)
@@ -1348,14 +1342,14 @@ Use: pdfview pattern [path]"
   )
 
 (use-package fill-column-indicator
-  :ensure t
+  ;; :ensure t
   :defer t
   :init
   (defalias 'mode-fci 'fci-mode))
 
 
 (use-package guix
-  :ensure t
+  ;; :ensure t
   :defer t
   :init
   ;; For specific modes
@@ -1376,7 +1370,7 @@ Use: pdfview pattern [path]"
 ;;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;;; because clean up only the touched lines
 (use-package ws-butler
-  :ensure t
+  ;; :ensure t
   :defer t
   :diminish t
   :init
@@ -1404,7 +1398,7 @@ Use: pdfview pattern [path]"
 )
 
 (use-package erc
-  :ensure t
+  ;; :ensure t
   :disabled t
   :init
   (require 'tls)
@@ -1419,7 +1413,7 @@ Use: pdfview pattern [path]"
 
 ;;; convert ^L (C-q l) to pretty lines
 (use-package page-break-lines
-  :ensure t
+  ;; :ensure t
   :defer
   :init
   ;; (turn-on-page-break-lines-mode)
@@ -1430,7 +1424,7 @@ Use: pdfview pattern [path]"
 ;;; JavaScript utility
 ;;; https://github.com/skeeto/skewer-mode
 (use-package skewer-mode
-  :ensure t
+  ;; :ensure t
   :disabled t
   )
 
