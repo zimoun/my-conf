@@ -44,6 +44,8 @@ end
 beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
+--terminal = "xterm"
+eterminal = "emacsclient -c -e '(eshell)' -e '(rename-buffer (format \"*eshell-%s*\" (float-time)))'"
 terminal = "xterm"
 editor = os.getenv("EDITOR") or "emacs -nw"
 editor_cmd = terminal .. " -e " .. editor
@@ -131,9 +133,9 @@ mytextclock = wibox.widget.textclock()
 -- calendar = require('calendar35')
 -- calendar.addCalendarToWidget(mytextclock)
 
--- calendar = require('calendar')
--- -- attach it as popup to your text clock widget:
--- calendar({}):attach(mytextclock)
+calendar = require('calendar')
+-- attach it as popup to your text clock widget:
+calendar({}):attach(mytextclock)
 
 
 -- Create a wibox for each screen and add it
@@ -283,6 +285,12 @@ globalkeys = awful.util.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
+    awful.key({ modkey,           }, "o",
+        function ()
+            awful.client.focus.byidx(1)
+        end,
+        {description = "focus previous by index", group = "client"}
+    ),
     awful.key({ modkey,           }, "h", function () mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
 
@@ -316,6 +324,8 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+              {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn(eterminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
@@ -351,7 +361,19 @@ globalkeys = awful.util.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "x",     function () awful.screen.focused().mypromptbox:run() end,
+    awful.key({ modkey },            "x",
+       function ()
+          awful.screen.focused().mypromptbox:run()
+       end,
+
+       -- function ()
+       --    awful.prompt.run {
+       --       prompt       = "RunDash : ",
+       --       textbox      = awful.screen.focused().mypromptbox.widget,
+       --       exe_callback = function (cmd) awful.spawn.with_shell(cmd) end,
+       --       history_path = awful.util.get_cache_dir() .. "/history"
+       --    }
+       -- end,
               {description = "run prompt", group = "launcher"}),
 
     awful.key({ modkey }, "l",
@@ -382,7 +404,7 @@ clientkeys = awful.util.table.join(
               {description = "toggle floating", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
-    awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
+    awful.key({ modkey, "Shift"          }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"}),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
               {description = "toggle keep on top", group = "client"}),
@@ -587,6 +609,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 
 -- Start with awesome
--- awful.util.spawn_with_shell("nm-applet")
--- awful.util.spawn_with_shell("xfce4-power-manager")
--- awful.util.spawn_with_shell("emacs --daemon")
+awful.util.spawn_with_shell("nm-applet")
+awful.util.spawn_with_shell("xfce4-power-manager")
+awful.util.spawn_with_shell("emacs --daemon")
+-- awful.util.spawn_with_shell("blueman-manager")
