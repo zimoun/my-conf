@@ -1,0 +1,31 @@
+
+[user]
+        name = zimoun
+        email = zimon.toutoune@gmail.com
+
+[sendemail]
+	smtpEncryption = tls
+	smtpServer = smtp.gmail.com
+	smtpUser = zimon.toutoune@gmail.com
+	smtpServerPort = 587
+
+[color]
+        ui = auto
+
+[alias]
+        st-all = status --porcelain
+        st = status -uno
+        ci = commit
+        co = checkout
+        lg = log --pretty=oneline --abbrev-commit --decorate -10
+        glog = log --graph --pretty=format:'%Cred%h %Creset[%an] %Cblue%s %Cgreen%d' --topo-order --all
+        logg = log --stat --decorate
+        branches = branch -avv
+
+[pager]
+        lg = 0
+        stash = 0
+
+
+[credential]
+        helper = cache --timeout=3600

@@ -1,0 +1,20 @@
+! xrdb ~/.Xresources
+
+XTerm*termName: xterm-256color
+XTerm*eightBitInput: false
+XTerm*saveLines      : 2000
+
+xterm*faceName:           terminus:pixelsize=12
+!xterm*faceSize: 15
+xterm*dynamicColors:      true
+xterm*locale:             true
+xterm*utf8:               2
+xterm*scrollBar:          false
+xTerm*sessionMgt:         false
+xterm*background: white
+xterm*foreground: black
+
+XTerm*metaSendsEscape: true
+
+XTerm*fullscreen: never
+XTerm.omitTranslation: fullscreen
