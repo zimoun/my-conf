@@ -13,9 +13,6 @@
 (add-to-list 'auto-mode-alist '("\\.mkd$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
 
-;;; flyspell
-;; Error enabling Flyspell mode:
-;; (Error: No word lists can be found for the language "en_GB".)
 
 (with-eval-after-load 'org
   (diminish 'org-cdlatex-mode)
