@@ -24,6 +24,7 @@
 
             "flycheck"
             "auctex"
+            "auto-dictionary-mode"
             "ox-pandoc"
             "pandoc-mode"
             "htmlize"

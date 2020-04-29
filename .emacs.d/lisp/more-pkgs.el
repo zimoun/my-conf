@@ -24,6 +24,10 @@
 (with-eval-after-load 'tex-mode
   (add-hook 'tex-mode-hook 'flyspell-mode))
 
+(with-eval-after-load 'flyspell
+  (require 'auto-dictionary)
+  (add-hook 'flyspell-mode-hook 'auto-dictionary-mode))
+
 (with-eval-after-load 'eldoc
   (diminish 'eldoc-mode))
 
