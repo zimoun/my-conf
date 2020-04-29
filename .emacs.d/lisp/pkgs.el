@@ -92,11 +92,6 @@ the keybinding `=' through UNIVERSAL argument.
 
 
 (with-eval-after-load 'erc
-  (require 'tls)
-  (erc-tls
-   :server "irc.freenode.net"
-   :port 6667 ;6697
-   :nick "zimoun")
   (setq
    erc-nick "zimoun"
    erc-join-channels-alist '(("freenode.net" "#guix"))))
