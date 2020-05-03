@@ -117,3 +117,13 @@
       echo "kernel.unprivileged_userns_clone = 1" > /etc/sysctl/local.conf
       sysctl --system
     #+end_src
+*** Protect from GC 2.5GiB of input texlive-*-texmf.tar.xz
+    #+begin_src shell
+      guix build texlive -K
+      guix gc --list-dead | grep texmf
+      # As root
+      ln -s /gnu/store/<hash>-texlive-<date>-texmf.tar.xz \
+         /var/guix/gcroots/texlive-<date>-texmf.tar.xz
+      # As user
+      guix gc
+    #+end_src
