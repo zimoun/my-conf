@@ -13,7 +13,7 @@ fi
 # xmodmap ~/.Xmodmap
 
 alias e="emacsclient -t"
-alias o="emacsclient -c"
+alias E="emacsclient -n -c"
 alias ls="ls --color"
 alias ll="ls -l"
 alias sl="ls"
