@@ -145,7 +145,7 @@
 (pdf-tools-install)
 (ivy-mode)
 (ws-butler-global-mode)
-(page-break-lines-mode)                 ; Convert ^L (C-q l) to pretty lines
+(global-page-break-lines-mode)                 ; Convert ^L (C-q l) to pretty lines
 
 (global-set-key (kbd "C-s")      'swiper-isearch)
 (global-set-key (kbd "M-x")      'counsel-M-x)
@@ -156,7 +156,7 @@
 (global-set-key (kbd "C-h v")    'counsel-describe-variable)
 (global-set-key (kbd "C-c s")    'counsel-ag)
 
-(global-set-key (kbd "C-c g")    'magit-status)
+(global-set-key (kbd "C-c g")    'magit-status) ; See variabe magit-file-mode-map (C-x g)
 
 
 (setenv "PAGER" "cat")
