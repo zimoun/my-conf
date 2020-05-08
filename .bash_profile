@@ -1,6 +1,7 @@
 
 export GUIX_MYMANIFESTS=~/.config/guix/manifests
 export GUIX_MYPROFILES=~/.config/guix/profiles
+export GUIX_MYSRC=~/src/guix/guix
 
 for p in $(ls --color=no -1 $GUIX_MYPROFILES)
 do
