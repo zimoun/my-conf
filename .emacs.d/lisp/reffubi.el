@@ -36,6 +36,11 @@
                            (name . "\*magit")
                            (name . "^magit")))
                  ("Dired" (mode . dired-mode))
+                 ("Notmuch" (or
+                             (mode . notmuch-hello-mode)
+                             (mode . notmuch-search-mode)
+                             (mode . notmuch-show-mode)
+                             (mode . notmuch-tree-mode)))
                  ("Run" (or
                          (name . "^\*eshell.*\*$")
                          (mode . shell-mode)

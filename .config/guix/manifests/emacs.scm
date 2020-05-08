@@ -3,6 +3,7 @@
  (append '("aspell"
            "aspell-dict-en"
            "aspell-dict-fr"
+           "notmuch"
            "emacs")
          (map
           (lambda (pkg)

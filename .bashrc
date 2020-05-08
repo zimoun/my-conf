@@ -14,6 +14,9 @@ fi
 
 alias e="emacsclient -t"
 alias E="emacsclient -n -c"
+alias m="emacsclient -t -e '(notmuch)'"
+alias M="emacsclient -n -c -e '(notmuch)'"
+
 alias ls="ls --color"
 alias ll="ls -l"
 alias sl="ls"
