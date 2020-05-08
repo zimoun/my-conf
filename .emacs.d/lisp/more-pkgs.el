@@ -13,6 +13,11 @@
 (add-to-list 'auto-mode-alist '("\\.mkd$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
 
+(with-eval-after-load 'auto-revert-mode
+  (diminish 'auto-revert-mode))
+
+(with-eval-after-load 'whitespace-mode
+  (diminish 'whitespace-mode "WhSp"))
 
 (with-eval-after-load 'org
   (diminish 'org-cdlatex-mode)
