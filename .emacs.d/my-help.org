@@ -267,3 +267,10 @@ For example:
 
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
   https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
+
+* Git
+
+git merge-base --fork-point master
+git show-branch master feature
+
+git format-patch --cover-letter --base=$(git merge-base --fork-point master)

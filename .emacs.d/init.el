@@ -136,8 +136,6 @@
 
 (global-set-key (kbd "C-c a") 'my/org-agenda)
 
-
-
 
 (require 'more-pkgs)
 
