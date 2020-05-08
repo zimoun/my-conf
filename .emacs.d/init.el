@@ -23,7 +23,7 @@
 
  inhibit-startup-message t
  initial-scratch-message nil
- initial-major-mode 'emacs-lisp-mode    ; Mode of *scratch*
+ initial-major-mode 'fundamental-mode    ; Mode of *scratch*
  visible-bell t
 
  transient-mark-mode t                  ; Highlight region
