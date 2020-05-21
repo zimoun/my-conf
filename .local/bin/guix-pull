@@ -1,9 +1,19 @@
 #!/bin/bash
 
-guix pull --commit=$(git -C $GUIX_MYSRC                                  \
+# url-cache-directory from guix/git.scm
+# 7p2cvvc... = hash("https://git.savannah.gnu.org/git/guix.git")
+CACHE=~/.cache/guix/checkouts
+CHECKOUT=${CACHE}/7p2cvvc2hxbokjjq5iegufqfpayc4szf35jkvoflzadl7kdm6s6a
+
+printf "Updating local checkout:\n'$CHECKOUT'..."
+git -C $CHECKOUT pull -q
+echo " done."
+
+guix pull --commit=$(git -C $CHECKOUT                                    \
                          log                                             \
                          --before=$(date --date='2 weeks ago' +%Y-%m-%d) \
-                         --format="%h" | head -n1)
+                         --format="%h" | head -n1)                       \
+     $@
 
 echo "done."
 exit 0
