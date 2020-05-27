@@ -40,9 +40,6 @@
  require-final-newline t
  compilation-scroll-output 'first-error
 
- ;; Don't do jerky jump when the cursor reaches the end of the window
- scroll-conservatively 101              ; Scroll only one line per one line
-
  hippie-expand-try-functions-list '(try-expand-dabbrev
                                     try-expand-all-abbrevs
                                     try-expand-dabbrev-all-buffers
