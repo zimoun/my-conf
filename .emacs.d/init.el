@@ -35,7 +35,7 @@
  display-time-load-average nil
  display-time-default-load-average nil
 
- calendar-week-start-day t
+ calendar-week-start-day 1
 
  require-final-newline t
  compilation-scroll-output 'first-error
@@ -96,7 +96,7 @@
 (set-face-background 'mode-line-inactive "gray70")          ; More gray
 (add-to-list 'default-frame-alist       ; Change the default font
              '(font . "DejaVu Sans Mono-11"))
-                                        ; Should require fontconf and font-dejavu
+                                        ; Should require fontconf & font-dejavu
                                         ; then: fc-cache -rv eventually.
 (windmove-default-keybindings)          ; Shift-arrow to move
                                         ; (do not work with all the terminals)
