@@ -46,6 +46,16 @@
 (with-eval-after-load 'flycheck
   (setq flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 
+(with-eval-after-load 'ag
+  (setq ag-highlight-search t)
+  (custom-set-variables '(ag-arguments '("--smart-case"
+                                         "--stats"
+                                         "--hidden"
+                                         "--skip-vcs-ignores"
+                                         "--follow"
+                                         "--silent")))
+  (custom-set-variables '(ag-ignore-list '(".git"))))
+
 (with-eval-after-load 'magit
   (add-hook 'magit-status-sections-hook 'magit-insert-recent-commits)
   (setq magit-view-git-manual-method 'woman)
@@ -141,6 +151,9 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
         ivy-wrap                     t  ; cycle last->first and first->last
         recentf-max-saved-items    nil
         ivy-height 23)
+
+  (custom-set-variables '(counsel-ag-base-command
+                          "ag --nocolor --nogroup --hidden --ignore .git %s"))
 
   ;; Add richer information to the suggestions (docstring, etc.)
   (require 'ivy-rich)
