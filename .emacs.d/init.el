@@ -51,7 +51,15 @@
                                     try-complete-lisp-symbol-partially
                                     try-complete-lisp-symbol)
 
+ gnus-directory "/tmp/News/"
+ message-auto-save-directory "~/Mail/drafts/"
+ message-cite-reply-position 'below
+ message-citation-line-function 'message-insert-formatted-citation-line
+ message-citation-line-format "On %a, %d %b %Y at %R, %f wrote:"
+ ;; message-signature "" ;"GPG key = XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX"
+
  vc-follow-symlinks t
+ find-file-visit-truename t
 
  frame-title-format '(buffer-file-name "%f"))
 
@@ -140,18 +148,19 @@
 (pdf-tools-install)
 (ivy-mode)
 (ws-butler-global-mode)
-(global-page-break-lines-mode)                 ; Convert ^L (C-q l) to pretty lines
+(global-page-break-lines-mode)          ; Convert ^L (C-q l) to pretty lines
 
 (global-set-key (kbd "C-s")      'swiper-isearch)
 (global-set-key (kbd "M-x")      'counsel-M-x)
 (global-set-key (kbd "C-x C-f")  'counsel-find-file)
-(global-set-key (kbd "C-x b")    'ivy-switch-buffer) ; `counsel-switch-buffer' unlikely adds preview
+(global-set-key (kbd "C-x b")    'ivy-switch-buffer) ; `counsel-switch-buffer'
+                                                     ;  unlikely adds preview
 (global-set-key (kbd "M-y")      'counsel-yank-pop)
 (global-set-key (kbd "C-h f")    'counsel-describe-function)
 (global-set-key (kbd "C-h v")    'counsel-describe-variable)
 (global-set-key (kbd "C-c s")    'counsel-ag)
 
-(global-set-key (kbd "C-c g")    'magit-status) ; See variabe magit-file-mode-map (C-x g)
+(global-set-key (kbd "C-c g")    'magit-status) ; `magit-file-mode-map': (C-x g)
 
 
 (setenv "PAGER" "cat")
