@@ -48,8 +48,8 @@ end
 beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
---terminal = "xterm"
-eterminal = "emacsclient -c -e '(shell (generate-new-buffer-name \"*shell*\"))' -e '(delete-other-windows)'"
+--eterminal = "emacsclient -c -e '(shell (generate-new-buffer-name \"*shell*\"))' -e '(delete-other-windows)'"
+eterminal = "emacsclient -n -c -e '(switch-to-buffer \"*shell*\")'"
 terminal = "xterm"
 editor = os.getenv("EDITOR") or "emacs -nw"
 editor_cmd = terminal .. " -e " .. editor
@@ -611,7 +611,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Start with awesome
 awful.util.spawn_with_shell("nm-applet")
 awful.util.spawn_with_shell("xfce4-power-manager")
-awful.util.spawn_with_shell("source /home/simon/.bashrc && emacs --daemon")
+awful.util.spawn_with_shell("source /home/simon/.bashrc && emacs --daemon && emacsclient -e '(shell)'")
 -- awful.util.spawn_with_shell("blueman-manager")
 
 
