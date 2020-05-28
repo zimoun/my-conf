@@ -129,13 +129,6 @@
   (add-hook 'latex-mode-hook 'turn-on-auto-fill)
   (add-hook 'latex-mode-hook 'turn-on-reftex)
 
-  ;; be careful, not latex-mode-hook but tex-mode-hook !!
-  (add-hook 'tex-mode-hook
-            (lambda ()
-              (define-key tex-mode-map (kbd "C-c C-r") 'my/compile-or-recompile)
-              (define-key tex-mode-map (kbd "C-c C-S-R") 'tex-region)))
-
-  (setq revert-without-query '(".+pdf$"))
   (setq reftex-ref-macro-prompt nil))
 
 

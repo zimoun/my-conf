@@ -61,6 +61,8 @@
  vc-follow-symlinks t
  find-file-visit-truename t
 
+ revert-without-query '(".+pdf$")
+
  frame-title-format '(buffer-file-name "%f"))
 
 (setq-default
