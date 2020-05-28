@@ -162,5 +162,6 @@
 
 (global-set-key (kbd "C-c g")    'magit-status) ; `magit-file-mode-map': (C-x g)
 
+(global-set-key (kbd "C-c d")    'ag-dired)
 
 (setenv "PAGER" "cat")

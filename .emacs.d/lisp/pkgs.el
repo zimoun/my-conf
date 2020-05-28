@@ -6,71 +6,8 @@
 (with-eval-after-load 'dired
   (add-hook 'dired-mode-hook 'guix-prettify-mode)
 
-  (define-key dired-mode-map (kbd "r") 'my/dired-sort)
-  (define-key dired-mode-map (kbd "=") 'my/dired-ediff-or-diff)
-  (define-key dired-mode-map (kbd "E") 'dired-toggle-read-only)
-
   (setq dired-listing-switches "-alh"
-        dired-recursive-deletes 'always)
-
-  ;; the confirmation style is hard coded
-  (defalias 'dired--yes-no-all-quit-help 'y-or-n-p)
-
-  (defun my/dired-ediff-or-diff (universal)
-    "Improve diffing using `dired'.
-
-Improve Info node `(emacs) Dired' mode by adding `ediff-files' to
-the keybinding `=' through UNIVERSAL argument.
-
-`=' binds `dired-diff' at point.
-
-`C-u =' binds `ediff-files':
- - if no file is marked: use file at point and ask other file;
- - if one file is marked: use other file at point;
- - if two files are marked: use them."
-    ;; "P" to provide `current-prefix-arg' as UNIVERSAL argument
-    (interactive "P")
-
-    (let ((files (dired-get-marked-files))
-          file1 file2)
-
-      (if (> (length files) 2)
-          (error (format
-                  "Error: %d marked files, instead of 2. %s"
-                  (length files) (mapcar 'file-name-nondirectory files)))
-
-        (if (eq universal nil)
-            (progn
-              (setq file1 (dired-get-filename t))
-              (setq file2
-                    (read-file-name
-                     (format "[Diff] File B to compare (%s) : "
-                             (file-name-nondirectory file1))
-                     ;; (dired-dwim-target-directory))))
-                     (dired-current-directory)))
-              (dired-diff file2))
-
-          (progn
-            (when (= (length files) 1)
-              (progn
-                (setq file1 (car files))
-
-                (if (string= file1 (expand-file-name (dired-get-filename t)))
-                    (setq file2
-                          (read-file-name
-                           (format "[Ediff] File B to compare (%s) : "
-                                   (file-name-nondirectory file1))
-                           ;; (dired-dwim-target-directory))))
-                           (dired-current-directory)))
-                  (setq file2 (dired-get-filename t)))
-                ))
-
-            (when (= (length files) 2)
-              (progn
-                (setq file1 (car files))
-                (setq file2 (cadr files))))
-
-            (ediff-files file1 file2)))))))
+        dired-recursive-deletes 'always))
 
 
 (with-eval-after-load 'comint-mode
