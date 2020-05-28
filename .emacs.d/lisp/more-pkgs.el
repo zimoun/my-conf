@@ -152,7 +152,7 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
         ivy-height 23)
 
   (custom-set-variables '(counsel-ag-base-command
-                          "ag --nocolor --nogroup --hidden --ignore .git %s"))
+                          "ag --nocolor --nogroup --hidden %s"))
 
   ;; Add richer information to the suggestions (docstring, etc.)
   (require 'ivy-richer)
