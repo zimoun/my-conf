@@ -53,8 +53,7 @@
                                          "--hidden"
                                          "--skip-vcs-ignores"
                                          "--follow"
-                                         "--silent")))
-  (custom-set-variables '(ag-ignore-list '(".git"))))
+                                         "--silent"))))
 
 (with-eval-after-load 'magit
   (add-hook 'magit-status-sections-hook 'magit-insert-recent-commits)
