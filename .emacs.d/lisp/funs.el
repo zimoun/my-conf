@@ -235,27 +235,29 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
 
 
 
+(defmacro bug->url (name url &optional doc)
+  "Arf."
+  (let ((fun (intern (symbol-name name)))
+        (docstring (concat doc "\n\n"
+                           (format "Yankable result: `%sNUMBER'." url))))
+    `(defun ,fun (number)
+       ,docstring
+        (interactive
+         (list
+          (progn
+            (when (not (boundp 'debbugs-gnu-bug-number))
+              (setq debbugs-gnu-bug-number -2))
+            (read-string
+             (format "Bug number (%s): " debbugs-gnu-bug-number)
+             nil nil debbugs-gnu-bug-number))))
+      (let ((str (format "%s%s" ,url number)))
+        (kill-new str)
+        (message (format "%s killed." str))))))
 
-(defun my/guix-issue (number)
-  "Yank to `kill-ring' the url of the bug NUMBER."
-  (interactive "sBug number: ")
-  (let ((str (format "http://issues.guix.gnu.org/issue/%s" number)))
-    (kill-new str)
-    (message (format "%s yanked." str))))
-
-(defun my/guix-debbug (number)
-  "Yank to `kill-ring' the url of the bug NUMBER."
-  (interactive
-   (list
-    (progn
-      (when (not (boundp 'debbugs-gnu-bug-number))
-        (setq debbugs-gnu-bug-number -2))
-      (read-string
-       (format "Bug number (%s): " debbugs-gnu-bug-number)
-       nil nil debbugs-gnu-bug-number))))
-  (let ((str (format "https://debbugs.gnu.org/cgi/bugreport.cgi?bug=%s" number)))
-    (kill-new str)
-    (message (format "%s yanked." str))))
+(bug->url my/guix-issues "http://issues.guix.gnu.org/issue/"
+          "Add URL of bug NUMBER to `kill-ring'.")
+(bug->url my/guix-debbugs "https://debbugs.gnu.org/cgi/bugreport.cgi?bug="
+          "Add (old) URL of bug NUMBER to `kill-ring'.")
 
 
 (provide 'funs)
