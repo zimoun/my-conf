@@ -119,25 +119,6 @@ to these both."
 
 
 
-(defun my/save-buffer-as-pdf (my-file-name)
-  "My first ELisp function: save the buffer as a pdf file named MY-FILE-NAME.
-
-  Require that ps2pdf is in the path (not checked).
-  The temporary file at /tmp/tmp.ps is not removed."
-  (interactive "FSave as pdf: ")
-
-  (ps-spool-buffer-with-faces)
-  (switch-to-buffer "*PostScript*")
-  (write-file "/tmp/tmp.ps")
-
-  (let ((cmd (concat "ps2pdf /tmp/tmp.ps " my-file-name)))
-    (shell-command cmd))
-
-  (kill-buffer "tmp.ps")
-  (message (format "Saved: %s " my-file-name)))
-
-
-
 (defun my/align-ws (start end)
   "Align columns by whitespace.
 
