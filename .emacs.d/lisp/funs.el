@@ -146,8 +146,6 @@ START and END are used by `align-regexp'."
   (align-regexp start end
                 "\\(\\s-*\\)\\s-" 1 0 t))
 
-
-
 (defun my/align-& (start end)
   "Align columns by ampersand (&).
 
@@ -155,23 +153,6 @@ START and END are used by `align-regexp'."
   (interactive "r")
   (align-regexp start end
                 "\\(\\s-*\\)\\&" 1 1 t))
-
-
-
-(defun my/list-exported-files (&optional ext dir)
-  "List the files matching the extension EXT and with another one.
-
-By default the EXT is \"org\" and the directory DIR is the current one."
-  (let* ((there (or dir "."))
-         (extension (or ext "org"))
-         (regexp (concat "\." extension "$"))
-         (files (directory-files there))
-         (exts (seq-filter (lambda (x) (string-match regexp x)) files))
-         (names (mapcar (lambda (x) (file-name-sans-extension x)) exts))
-         (exts+exported (seq-filter
-                         (lambda (x) (member (file-name-sans-extension x) names))
-                         files)))
-    (seq-filter (lambda (x) (not (string-match regexp x))) exts+exported)))
 
 
 
@@ -184,41 +165,10 @@ This format is manipulable when `org-mode' is launched.
 
 If `org-mode' is not loaded, then link to `org-time-stamp' is blank."
   (interactive)
-  (insert (format-time-string "<%Y-%m-%d %a>"))
-  )
-
-(defun my/current-time ()
-  "Insert current time at point."
-  (interactive)
-  (insert (format-time-string "%H:%M")))
-
-(defun my/org-agenda (&optional ARG ORG-KEYS RESTRICTION)
-  "Ugly hack to remember how to enable the log mode with agenda view.
-
-ARG ORG-KEYS RESTRICTION.
-
-Because not found a way to do it automatically."
-  (interactive "P")
-  (org-agenda ARG ORG-KEYS RESTRICTION)
-  (message "Display all entries: v l (org-agenda-log-mode)"))
+  (insert (format-time-string "<%Y-%m-%d %a>")))
 
 
-(defun my/comment-dwim (ARG)
-  "Wrapper around `comment-dwim'.  Because `comment-kill' is not so much useful.
-
-If a prefix ARG is specified, then call `comment-line' (C-x C-;
-By default (C-u M-;) comment the current line.
-C-u n M-; comments the n lines, starting at the current line.
-Negative integer comments topward.
-
-Note: M-2 M-; is equivalent to C-u 2 M-; see `universal-argument'."
-  (interactive "*P")
-  (if ARG
-      (if (integerp ARG)
-          (comment-line ARG)
-        (comment-line 1))
-    (comment-dwim ARG)))
-
+
 ;;; https://www.emacswiki.org/emacs/ParEdit
 (defvar my/ilectrify-return-match
   "[\]}\)\"]"
@@ -242,38 +192,7 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
     (indent-according-to-mode)))
 
 
-(defun my/git-grep (regexp)
-  "Mimick the command line `git-grep'.  REGEXP."
-  (interactive "sGit grep (regexp): ")
-  (grep
-   (format
-    "git --no-pager grep -nH --color=auto -i \"%s\" -- $(git rev-parse --show-toplevel)"
-    regexp)))
-
-(defun my/git-grep--all (regexp)
-  "Mimick the command line `git-grep'.  REGEXP."
-  (interactive "sGit grep (regexp): ")
-  (grep
-   (format
-    "git rev-list --all | xargs git --no-pager grep -nH --color=auto -i \"%s\" "
-    regexp)))
-
-(defun my/find-grep (regexp &optional dir)
-  "Mimick the command line `find-grep'.  REGEXP and DIR."
-  (interactive "sFind grep (regexp): ")
-  (let ((there (if dir
-                   dir
-                 default-directory)))
-    (if (file-directory-p there)
-        (progn
-          (grep
-           (format
-            "find %s -type f -exec grep --color -nH --null -e \"%s\" \{\} +"
-            there regexp))
-          (switch-to-buffer "*grep*"))
-      (message "Error: %s is not a directory." there))))
-
-
+
 (defun my/Info-reload ()
   "Info reload."
   (interactive)
@@ -286,8 +205,8 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
 
 
 
-(defun my/setup ()
-  "Arf."
+(defun my/theme ()
+  "Theme based on `misterioso'."
   (interactive)
   (progn
     (menu-bar-mode 1)
@@ -297,16 +216,16 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
     (set-face-background 'mode-line-inactive "gray70")
     (set-face-attribute 'region nil :background "black")))
 
-(defun my/setup-blue ()
-  "Arf."
+(defun my/theme-blue ()
+  "Theme with `LightCyan3' background-color."
   (interactive)
   (progn
     (menu-bar-mode 1)
     (disable-theme 'misterioso)
     (set-background-color "LightCyan3")))
 
-(defun my/setup-gold ()
-  "Arf."
+(defun my/theme-gold ()
+    "Theme with `LightGoldenrod3' background-color."
   (interactive)
   (progn
     (menu-bar-mode 1)
@@ -316,12 +235,6 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
 
 
 
-(defun my/apply-patch ()
-  "C-| then cd <path/to/guix> && git am."
-  (interactive)
-  (let ((gnus-summary-pipe-output-default-command
-         "cd ~/src/guix/guix/ && git am"))
-    (gnus-summary-pipe-output)))
 
 (defun my/guix-issue (number)
   "Yank to `kill-ring' the url of the bug NUMBER."
@@ -343,37 +256,6 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
   (let ((str (format "https://debbugs.gnu.org/cgi/bugreport.cgi?bug=%s" number)))
     (kill-new str)
     (message (format "%s yanked." str))))
-
-
-
-(defun my/buffer-file-name ()
-  "Display the variable `buffer-file-name'."
-  (interactive)
-  (message (buffer-file-name)))
-
-
-
-(defun my/copy-buffer-file-name (choice)
-  "Copy the variable `buffer-file-name' to the `kill-ring'.
-
-The argument CHOICE selects the full path (f), directory (d) or name (n).
-
-From URL `http://stackoverflow.com/a/18814469/519736'"
-  (interactive "cCopy buffer-name (f) Full, (d) Directory, (n) Name? ")
-  (let ((new-kill-string)
-        (name (if (eq major-mode 'dired-mode)
-                  (dired-get-filename)
-                (or (buffer-file-name) ""))))
-    (cond ((eq choice ?f)
-           (setq new-kill-string name))
-          ((eq choice ?d)
-           (setq new-kill-string (file-name-directory name)))
-          ((eq choice ?n)
-           (setq new-kill-string (file-name-nondirectory name)))
-          (t (message "Quit")))
-    (when new-kill-string
-      (message "%s yanked." new-kill-string)
-      (kill-new new-kill-string))))
 
 
 (provide 'funs)
