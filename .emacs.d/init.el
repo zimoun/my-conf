@@ -142,7 +142,12 @@
 
 (require 'pkgs)
 
-(global-set-key (kbd "C-c a") 'my/org-agenda)
+(global-set-key (kbd "C-c a")
+                (lambda (&optional ARG ORG-KEYS RESTRICTION)
+                  (interactive)
+                  (org-agenda ARG ORG-KEYS RESTRICTION)
+                  (message
+                   "Display all entries: v l (org-agenda-log-mode)")))
 
 
 (require 'more-pkgs)

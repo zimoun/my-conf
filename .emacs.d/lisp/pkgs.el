@@ -113,6 +113,7 @@
   (setq reftex-ref-macro-prompt nil))
 
 
+
 (setq org-enforce-todo-dependencies t)	; Need to be initialized before Org is loaded
 (with-eval-after-load 'org
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
@@ -120,74 +121,29 @@
 
   (add-hook 'org-mode-hook 'org-display-inline-images)
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-
   (add-hook 'org-mode-hook 'org-babel-result-hide-all)
 
-  (define-key org-mode-map (kbd "C-c l")  'org-store-link)
+  (setq
+   org-directory      "~/org/"
+   org-agenda-files '("~/org/")
+   org-export-backends '(ascii html latex)
+   org-special-ctrl-a/e t               ; More "intuitive"
+   org-tag-faces
+   '(;;("@meet" . (:foreground "Chartreuse4" :weight bold :underline t))
+     ("@meet" . (:foreground "mediumseagreen" :weight bold :underline t))
+     ("URGENT" . (:foreground "Red" :underline t)))
+   org-confirm-babel-evaluate nil       ; Org 9: #+PROPERTY: header-args :eval never-export
+   org-log-done (quote time)            ; Store time when TODO -> DONE
+   org-src-fontify-natively t
+   org-src-tab-acts-natively t
+   org-src-window-setup 'current-window
+   ;; org-edit-src-content-indentation 0   ; C-c ' no indent when leaves (Makefiles)
+   ;; org-hide-emphasis-markers t
+   org-link-search-must-match-exact-headline nil ; C-c C-l file:foo::Key1 Key2
+                                                 ; then C-c C-o open and fuzzy search Key1 Key2
+   org-log-into-drawer t                ; C-c C-z add note in LOGBOOK
 
-  (setq org-special-ctrl-a/e t)		; More "intuitive" beginning of line
-
-  ;; My prefered and used backends
-  ;;;; need to be set up before loading org.el
-  ;; (or not, depending on Emacs's version ?)
-  (setq org-export-backends '(ascii html latex texinfo))
-
-  (setq org-agenda-files (list
-                          "~/org/"
-                          ))
-  (setq org-agenda-include-diary nil)
-
-  (setq org-tag-faces
-        '(
-          ;;("@meet" . (:foreground "Chartreuse4" :weight bold :underline t))
-          ("@meet" . (:foreground "mediumseagreen" :weight bold :underline t))
-          ("URGENT" . (:foreground "Red" :underline t))
-          ))
-
-  (put 'narrow-to-region 'disabled nil)
-  (org-babel-do-load-languages
-   'org-babel-load-languages '((python . t)
-                               (R . t)
-                               (C . t)
-                               (shell . t)
-                               (org . t)
-                               (makefile . t)
-                               (scheme . t)
-                               ))
-                                        ;(bash . t)))
-  ;; do not ask before eval code blocks
-  (setq org-confirm-babel-evaluate nil)
-  ;; In org-mode 9 you need to have #+PROPERTY: header-args :eval never-export
-  ;; in the beginning or your document to tell org-mode not to evaluate every
-  ;; code block every time you export.
-
-  ;; C-c ' do not indent when leaves
-                                        ;(setq org-edit-src-content-indentation 0)
-
-  ;; store time when TODO is DONE
-  (setq org-log-done (quote time))
-
-  (setq org-src-fontify-natively t)     ; coloring   inside blocks
-  (setq org-src-tab-acts-natively t)	; completion inside blocks)
-  (setq org-src-window-setup 'current-window)
-  ;; (setq org-hide-emphasis-markers t)    ; hide the *,=, or / markers
-  (setq org-cycle-separator-lines 1)    ; number of empty lines
-                                        ; needed to keep empty
-                                        ; between collapsed trees
-
-  ;; Follow internal link C-c C-l
-  ;;;; file:stuff.org::Key1 key2
-  ;;;; then C-c C-o open the link searching with the keywords Key1 key2
-  ;;;; The search is fuzzy. Otherwise, by default 'query-replace-to it is strict.
-  (setq org-link-search-must-match-exact-headline nil)
-
-
-  ;; Add notes (C-c C-z) in LOGBOOK
-  (setq org-log-into-drawer t)
-
-  ;; Set quick capture
-  (defalias 'orgadd 'org-capture)
-  (setq org-capture-templates
+   org-capture-templates
         (quote
          (("t" "Todo")
           ("tt" "TODO entry" entry
@@ -204,24 +160,30 @@
            "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1))
          ))
 
-  (if (not (version-list-< '(9 2) (version-to-list org-version)))
-      (progn
-        (warn "Please update Org-mode.\ne.g., by installing `org-plus-contrib'.\nKeybindings <s need `(require 'org-tempo)' to work again.")
-        ;; Try <el TAB
-        (add-to-list 'org-structure-template-alist
-                     '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC")))
-    (progn
-      ;; With 9.2 the keybindings <s does not work anymore
-      ;; The Org Tempo allow the previous mechanism
-      ;; https://orgmode.org/Changes.html#org1b5e967
-      (require 'org-tempo)
-      ;; see org-structure-template-alist
-      (add-to-list 'org-structure-template-alist
-                   '("sel" . "src emacs-lisp")))
-    )
 
+  (put 'narrow-to-region 'disabled nil)
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((python . t)
+                               (R . t)
+                               (C . t)
+                               (shell . t)
+                               (org . t)
+                               (makefile . t)
+                               (scheme . t)
+                               ))
+
+
+  ;; https://orgmode.org/Changes.html#org1b5e967
+  (require 'org-tempo)                  ; <s TAB instead of C-c C-,
+  (mapc (lambda (elem) (add-to-list 'org-structure-template-alist elem))
+        (list
+         '("ss" . "src")
+         '("sl" . "src latex-macro")
+         '("sel" . "src emacs-lisp")))
+
+
   ;; Add the support of LaTeX macro when exporting (pdf or html)
-  ;;;; Write your LaTeX macros in source block latex-macro1
+  ;; Write your LaTeX macros in source block latex-macro
   (add-to-list 'org-src-lang-modes '("latex-macro" . latex))
 
   (defvar org-babel-default-header-args:latex-macro
@@ -238,19 +200,7 @@
      (prefix-all-lines "#+LATEX_HEADER: " body)
      "\n#+HTML_HEAD_EXTRA: <div style=\"display: none\"> \\(\n"
      (prefix-all-lines "#+HTML_HEAD_EXTRA: " body)
-     "\n#+HTML_HEAD_EXTRA: \\)</div>\n"))
-
-
-  (defun org-latex-export-as-latex-only ()
-    "How to customize `org-export-dispatch'?"
-    (interactive)
-    (org-latex-export-as-latex nil nil nil t nil))
-
-  (defun org-latex-export-to-latex-only ()
-    "How to customize `org-export-dispatch'?"
-    (interactive)
-    (org-latex-export-to-latex nil nil nil t nil))
-  )
+     "\n#+HTML_HEAD_EXTRA: \\)</div>\n")))
 
 
 (provide 'pkgs)
