@@ -77,30 +77,11 @@
 (with-eval-after-load 'shell
   (add-hook 'shell-mode-hook
             (lambda ()
-              (define-key shell-mode-map (kbd "C-d")
-                'my/comint-delchar-or-maybe-eof)
-              (define-key shell-mode-map (kbd "C-r") 'counsel-shell-history)
-              ))
+              (define-key shell-mode-map (kbd "C-r") 'counsel-shell-history)))
 
   ;; Redefine M-p/M-n because old habits
   (define-key shell-mode-map (kbd "<up>") 'comint-previous-input)
-  (define-key shell-mode-map (kbd "<down>") 'comint-next-input)
-
-  (defun my/comint-delchar-or-maybe-eof (arg)
-    "See `comint-delchar-or-maybe-eof' with `kill-current-buffer'."
-    (interactive "p")
-    (let ((proc (get-buffer-process (current-buffer))))
-      (if (and (eobp) proc (= (point) (marker-position (process-mark proc))))
-          (progn
-            (comint-send-eof)
-            (kill-current-buffer)
-            )
-        (delete-char arg))))
-
-  (defun my/shell ()
-    "Open new shell with new buffer name."
-    (interactive)
-    (shell (generate-new-buffer-name "*shell*"))))
+  (define-key shell-mode-map (kbd "<down>") 'comint-next-input))
 
 
 

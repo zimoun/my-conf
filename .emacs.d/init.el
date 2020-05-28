@@ -136,7 +136,9 @@
 (global-set-key (kbd "M-u") 'my/upcase-word)
 (global-set-key (kbd "M-l") 'my/downcase-word)
 (global-set-key (kbd "M-;") 'my/comment-dwim)
-(global-set-key (kbd "C-!") 'my/shell)
+(global-set-key (kbd "C-!") (lambda ()
+                              (interactive)
+                              (shell (generate-new-buffer-name "*shell*"))))
 
 
 (require 'pkgs)
