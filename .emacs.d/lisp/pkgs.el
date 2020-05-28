@@ -84,7 +84,6 @@
   (define-key shell-mode-map (kbd "<down>") 'comint-next-input))
 
 
-
 (with-eval-after-load 'cc-vars
   (setf (cdr (assoc 'other c-default-style)) "linux")
   (add-hook 'c-mode-common-hook 'whitespace-mode)
@@ -96,7 +95,6 @@
 
 (with-eval-after-load 'python
   (add-hook 'python-mode-hook 'eldoc-mode)
-  (add-hook 'python-mode-hook 'my/return-newline-with-indent)
 
   (define-key inferior-python-mode-map (kbd "<up>") 'comint-previous-input)
   (define-key inferior-python-mode-map (kbd "<down>") 'comint-next-input)
@@ -106,7 +104,6 @@
 
 
 (with-eval-after-load 'tex-mode
-  (add-hook 'latex-mode-hook 'my/return-newline-with-indent)
   (add-hook 'latex-mode-hook 'turn-on-auto-fill)
   (add-hook 'latex-mode-hook 'turn-on-reftex)
 
