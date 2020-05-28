@@ -71,20 +71,7 @@
   (define-key debbugs-gnu-mode-map "#" 'debbugs-gnu-bugs)
 
   (setq debbugs-gnu-default-packages '("guix-patches" "guix"))
-  (add-to-list 'debbugs-gnu-all-packages "guix-patches")
-
-  ;; inspired by Oleg Pykhalov from mailing list
-  (defun my/debbugs-query-email (email-address)
-    "List all the bug report that EMAIL-ADDRESS has opened."
-    (interactive
-     (let* ((default "zimon.toutoune@gmail.com")
-            (string (read-string (format "Email address (%s): " default))))
-       (when (not (equal string ""))
-         (setq default string))
-       (list default)))
-    (let ((debbugs-gnu-current-query `((submitter . ,email-address))))
-      (debbugs-gnu nil))
-    (message (format "Debbugs current-query: submitter=%s" email-address))))
+  (add-to-list 'debbugs-gnu-all-packages "guix-patches"))
 
 
 (with-eval-after-load 'shell
