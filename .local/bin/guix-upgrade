@@ -11,25 +11,27 @@ mkdir -p $GUIX_MYPROFILES
 
 
 $GUIX describe -f channels \
-     > $GUIX_MYPROFILES/from-channels.scm
+    | tee $GUIX_MYPROFILES/from.scm
 
 for m in $(ls --color=no -1 $GUIX_MYMANIFESTS)
 do
     p=$(basename $m .scm)
-    if [ ! -d ${GUIX_MYPROFILES}/${p} ]
+    if [ $p != default ]
     then
-	if [ $p != default ]
-	then
-	    echo "Processing $m ..."
-	    mkdir -p ${GUIX_MYPROFILES}/${p}
+	echo "Processing $m ..."
+	mkdir -p ${GUIX_MYPROFILES}/${p}
 
-	    $GUIX package				\
-		 -m  ${GUIX_MYMANIFESTS}/${m}		\
-		 -p  ${GUIX_MYPROFILES}/${p}/${p}	\
-		 --fallback
+	$GUIX package				\
+	      -m  ${GUIX_MYMANIFESTS}/${m}      \
+	      -p  ${GUIX_MYPROFILES}/${p}/${p}	\
+	      --fallback
 
-	    printf "Profile $p done.\n\n"
-	fi
+        echo "Upgrade $p..."
+	$GUIX package				\
+	      -p  ${GUIX_MYPROFILES}/${p}/${p}	\
+              --upgrade
+
+	printf "Profile $p done.\n\n"
     fi
 done
 $GUIX package -m ${GUIX_MYMANIFESTS}/default.scm --fallback
