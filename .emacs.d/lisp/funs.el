@@ -240,6 +240,22 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
 (bug->url my/guix-debbugs "https://debbugs.gnu.org/cgi/bugreport.cgi?bug="
           "Add (old) URL of bug NUMBER to `kill-ring'.")
 
+
+(defun my/guix-data (package)
+  "Add URL of PACKAGE to `kill-ring'.
+
+Yankable result:
+`https://data.guix.gnu.org/repository/1/branch/master/package/PACKAGE/output-history'.
+
+With `universal-argument', load URL using `browse-url'."
+  (interactive "sPackage: ")
+  (let ((url
+         (format
+          "https://data.guix.gnu.org/repository/1/branch/master/package/%s/output-history" package)))
+    (kill-new url)
+    (when current-prefix-arg
+      (browse-url url))))
+
 
 (provide 'funs)
 
