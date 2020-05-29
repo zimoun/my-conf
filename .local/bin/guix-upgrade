@@ -2,7 +2,7 @@
 
 GUIX=~/.config/guix/current/bin/guix
 
-GUIX_MYMANIFESTS=$(pwd)/.config/guix/manifests
+GUIX_MYMANIFESTS=~/.config/guix/manifests
 
 # WARN: defines here and in ~/.bash_profile (exported there).
 GUIX_MYPROFILES=~/.config/guix/profiles
