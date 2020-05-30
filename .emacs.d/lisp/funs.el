@@ -216,13 +216,17 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
 
 
 
-(defmacro bug->url (name url &optional doc)
-  "Arf."
+(defmacro bug->url (name url &optional docstring)
+  "Macro returning yankage #bug URL.
+
+The `interactive' function that the macro returns is then referred by NAME.
+
+Please provide a DOCSTRING."
   (let ((fun (intern (symbol-name name)))
-        (docstring (concat doc "\n\n"
+        (doc (concat docstring "\n\n"
                            (format "Yankable result: `%sNUMBER'." url))))
     `(defun ,fun (number)
-       ,docstring
+       ,doc
         (interactive
          (list
           (progn
@@ -254,7 +258,8 @@ With `universal-argument', load URL using `browse-url'."
           "https://data.guix.gnu.org/repository/1/branch/master/package/%s/output-history" package)))
     (kill-new url)
     (when current-prefix-arg
-      (browse-url url))))
+      (browse-url url))
+    (message (format "%s killed." url))))
 
 
 (provide 'funs)
