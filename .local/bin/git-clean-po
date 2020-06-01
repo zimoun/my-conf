@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+git restore po/{guix,packages}/??.po
+git restore po/{guix,packages}/??_??.po
