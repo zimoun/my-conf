@@ -106,17 +106,20 @@
 
 
 (with-eval-after-load 'tex-mode
-  (add-hook 'latex-mode-hook 'turn-on-auto-fill)
-  (add-hook 'latex-mode-hook 'turn-on-reftex)
+  ;; latex-mode: core Emacs
+  ;; LaTeX-mode: AucTeX
+  (dolist (hook (list 'latex-mode-hook 'LaTeX-mode-hook))
+    (add-hook hook 'turn-on-auto-fill)
+    (add-hook hook 'turn-on-reftex))
 
-  (setq reftex-ref-macro-prompt nil))
+  (setq font-latex-fontify-script nil   ; because of AucTeX
+        reftex-ref-macro-prompt nil))
 
 
 
 (setq org-enforce-todo-dependencies t)	; Need to be initialized before Org is loaded
 (with-eval-after-load 'org
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
-  (add-hook 'org-mode-hook 'turn-on-org-cdlatex) ; Dependency to AucTeX because texmathp
 
   (add-hook 'org-mode-hook 'org-display-inline-images)
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
