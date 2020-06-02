@@ -41,6 +41,10 @@
                              (mode . notmuch-search-mode)
                              (mode . notmuch-show-mode)
                              (mode . notmuch-tree-mode)))
+                 ("Debbugs" (or
+                             (mode . debbugs-gnu-mode)
+                             (mode . gnus-summary-mode)
+                             (mode . gnus-article-mode)))
                  ("Run" (or
                          (name . "^\*eshell.*\*$")
                          (mode . shell-mode)
