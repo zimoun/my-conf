@@ -70,7 +70,9 @@
   (define-key debbugs-gnu-mode-map "/" 'debbugs-gnu-search)
   (define-key debbugs-gnu-mode-map "#" 'debbugs-gnu-bugs)
 
-  (setq debbugs-gnu-default-packages '("guix-patches" "guix"))
+  (setq
+   debbugs-gnu-default-packages '("guix-patches" "guix")
+   gnus-summary-line-format "%I%(%[ %n%]%) %s\n")
   (add-to-list 'debbugs-gnu-all-packages "guix-patches"))
 
 
