@@ -50,7 +50,7 @@ beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
 -- This is used later as the default terminal and editor to run.
 --eterminal = "emacsclient -c -e '(shell (generate-new-buffer-name \"*shell*\"))' -e '(delete-other-windows)'"
 eterminal = "emacsclient -n -c -e '(ibuffer)'"
-terminal = "xterm"
+terminal = "env -i - DISPLAY=:0 HOME=/home/simon LANG=en_GB.UTF-8 xterm"
 editor = os.getenv("EDITOR") or "emacs -nw"
 editor_cmd = terminal .. " -e " .. editor
 
