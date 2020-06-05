@@ -127,3 +127,18 @@
       # As user
       guix gc
     #+end_src
+*** =guix system *-image= and KVM
+    1. Check if =/dev/kvm= is there: =ls -l /dev/kvm=
+    2. Add the user to the KVM group
+       #+begin_src shell
+         sudo usermod -a -G kvm <user>
+         newgrp kvm
+       #+end_src
+    3. If it does not work, then try:
+       #+begin_src shell
+         sudo chmod 777 /dev/kvm
+       #+end_src
+    4. Verify with e.g.
+       #+begin_src shell
+         guix system docker-image gnu/system/examples/docker-image.scm
+       #+end_src
