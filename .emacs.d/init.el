@@ -51,6 +51,9 @@
                                     try-complete-lisp-symbol-partially
                                     try-complete-lisp-symbol)
 
+ copyright-names-regexp
+ (format "%s <%s>" "Simon Tournier" "zimon.toutoune@gmail.com")
+
  gnus-directory "/tmp/News/"
  message-auto-save-directory "~/Mail/drafts/"
  message-cite-reply-position 'below
