@@ -53,8 +53,8 @@
                  ("Info" (or
                           (mode . Info-mode)
                           (mode . help-mode)))
-                 ("emacs" (or
-                           (name . "^\\*[a-zA-Z+:#0-9 -]*\\*$")
+                 ("Emacs" (or
+                           (name . "^\\*[a-zA-Z+:#0-9 -/]*\\*$")
                            (mode . debbugs-gnu-mode)
                            (mode . erc-mode)))
 
