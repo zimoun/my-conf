@@ -35,6 +35,9 @@
 (with-eval-after-load 'eldoc
   (diminish 'eldoc-mode))
 
+(with-eval-after-load 'info
+  (require 'info+))
+
 (with-eval-after-load 'scheme
   (add-hook 'scheme-mode-hook 'whitespace-mode)
   (add-hook 'scheme-mode-hook 'enable-paredit-mode)

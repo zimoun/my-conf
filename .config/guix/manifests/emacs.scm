@@ -58,6 +58,7 @@
             "ws-butler"
             "fill-column-indicator"
             "page-break-lines"
+            "info-plus"
 
             "elfeed"
 
