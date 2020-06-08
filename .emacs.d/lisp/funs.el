@@ -197,13 +197,26 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
     (set-face-background 'mode-line-inactive "gray70")
     (set-face-attribute 'region nil :background "black")))
 
+(defun my/theme-default ()
+  "Default theme."
+  (interactive)
+  (progn
+    (menu-bar-mode 1)
+    (disable-theme 'misterioso)
+    (set-face-background 'cursor "black")
+    (set-face-background 'mode-line "grey")
+    (set-face-background 'mode-line-inactive "white smoke")
+    (set-face-attribute 'region nil :background "yellow")))
+
 (defun my/theme-blue ()
   "Theme with `LightCyan3' background-color."
   (interactive)
   (progn
     (menu-bar-mode 1)
     (disable-theme 'misterioso)
-    (set-background-color "LightCyan3")))
+    (set-face-background 'cursor "black")
+    (set-background-color "LightCyan3")
+    (set-face-attribute 'region nil :background "yellow")))
 
 (defun my/theme-gold ()
     "Theme with `LightGoldenrod3' background-color."
@@ -211,7 +224,9 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
   (progn
     (menu-bar-mode 1)
     (disable-theme 'misterioso)
+    (set-face-background 'cursor "black")
     (set-background-color "LightGoldenrod3")
+    (set-face-background 'mode-line "DarkGoldenrod3")
     (set-face-attribute 'region nil :background "yellow")))
 
 

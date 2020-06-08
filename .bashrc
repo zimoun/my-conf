@@ -12,6 +12,8 @@ fi
 # setxkbmap -option ctrl:nocaps
 # xmodmap ~/.Xmodmap
 
+alias em="emacs -e my/theme-default"
+alias emx="emacs -nw -e my/theme-default"
 alias e="emacsclient -t"
 alias E="emacsclient -n -c"
 alias m="emacsclient -t -e '(notmuch)'"
@@ -54,6 +56,7 @@ xset b off
 # unset GNOME_KEYRING_PID
 # unset GNOME_KEYRING_CONTROL
 
+export PATH="$HOME/.local/bin:$PATH"
 
 if [ -n "$GUIX_ENVIRONMENT" ]
 then
