@@ -4,7 +4,12 @@
            "aspell-dict-en"
            "aspell-dict-fr"
            "notmuch"
-           "emacs")
+           "emacs"
+
+           ;; both required by emacs-guix
+           "guix"
+           "guile"
+           )
          (map
           (lambda (pkg)
             (string-append "emacs-" pkg))

@@ -15,7 +15,7 @@
    "rsync"
 
    ;; "guile-next" ;; guix repl ;-)
-   "guile3.0-readline"
+   "guile-readline"
    "readline"
 
    ;; see X11 fonts; especially for Emacs
