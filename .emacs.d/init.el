@@ -9,7 +9,7 @@
  gc-cons-threshold (* 10 1024 1024)     ; Reduce garbage collection
  load-prefer-newer t                    ; Load .el instead of .elc
 
- lisp-path (expand-file-name "lisp" user-emacs-directory)
+ lisp-path   (expand-file-name "lisp" user-emacs-directory)
  custom-file (expand-file-name "custom.el" user-emacs-directory)
 
  kill-buffer-query-functions nil        ; Simplify question-answer process
@@ -89,6 +89,8 @@
 (defalias 'cc 'recompile)
 
 (add-to-list 'load-path lisp-path)
+(let ((default-directory lisp-path))
+  (normal-top-level-add-subdirs-to-load-path))
 (load custom-file t)           ; Report no error if `custom-file' does not exist
 
 (display-time-mode t)
