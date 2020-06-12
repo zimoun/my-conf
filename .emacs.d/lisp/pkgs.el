@@ -4,8 +4,6 @@
 
 
 (with-eval-after-load 'dired
-  (add-hook 'dired-mode-hook 'guix-prettify-mode)
-
   (setq dired-listing-switches "-alh"
         dired-recursive-deletes 'always))
 

@@ -91,8 +91,10 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
   (setq geiser-active-implementations '(guile)))
 
 (with-eval-after-load 'guix
+  (require 'guix-prettify)              ; otherwise prettify breaks
   (add-hook 'shell-mode-hook 'guix-prettify-mode)
   (add-hook 'shell-mode-hook 'guix-build-log-minor-mode)
+  (add-hook 'dired-mode-hook 'guix-prettify-mode)
   (add-to-list 'guix-prettify-special-modes 'help-mode))
 
 (with-eval-after-load 'markdown-mode
