@@ -231,7 +231,7 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
 
 
 
-(defmacro bug->url (name url &optional docstring)
+(defmacro defun-bug->url (name url &optional docstring)
   "Macro returning yankage #bug URL.
 
 The `interactive' function that the macro returns is then referred by NAME.
@@ -254,9 +254,9 @@ Please provide a DOCSTRING."
         (kill-new str)
         (message (format "%s killed." str))))))
 
-(bug->url my/guix-issues "http://issues.guix.gnu.org/issue/"
+(defun-bug->url my/guix-issues "http://issues.guix.gnu.org/issue/"
           "Add URL of bug NUMBER to `kill-ring'.")
-(bug->url my/guix-debbugs "https://debbugs.gnu.org/cgi/bugreport.cgi?bug="
+(defun-bug->url my/guix-debbugs "https://debbugs.gnu.org/cgi/bugreport.cgi?bug="
           "Add (old) URL of bug NUMBER to `kill-ring'.")
 
 

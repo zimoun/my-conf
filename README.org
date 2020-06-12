@@ -9,6 +9,7 @@
     aptitude install intel-microcode firmware-iwlwifi
     aptitude install awesome xfce4-power-manager xscreensaver xterm
     aptitude install vlc transmission-gtk pavucontrol blueman
+    aptitude install network-manager-openvpn
     dpkg-reconfigure tzdata
 
   #+end_src

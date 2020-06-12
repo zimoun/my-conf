@@ -177,9 +177,10 @@
 (global-set-key (kbd "C-h f")    'counsel-describe-function)
 (global-set-key (kbd "C-h v")    'counsel-describe-variable)
 (global-set-key (kbd "C-c s")    'counsel-ag)
+(global-set-key (kbd "C-c d")    'ag-dired)
 
 (global-set-key (kbd "C-c g")    'magit-status) ; `magit-file-mode-map': (C-x g)
 
-(global-set-key (kbd "C-c d")    'ag-dired)
+(define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
 
 (setenv "PAGER" "cat")
