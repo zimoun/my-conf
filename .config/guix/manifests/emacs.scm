@@ -65,7 +65,7 @@
             "page-break-lines"
             "info-plus"
 
-            "elfeed"
+            "keyfreq"
 
             ;; "command-log-mode" ?
             ))))

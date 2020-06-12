@@ -66,6 +66,9 @@
 
  revert-without-query '(".+pdf$")
 
+ keyfreq-file      (expand-file-name "keyfreq.keyfreq" user-emacs-directory)
+ keyfreq-file-lock (expand-file-name "keyfreq.lock"    user-emacs-directory)
+
  frame-title-format '(buffer-file-name "%f"))
 
 (setq-default
@@ -162,6 +165,8 @@
 (ivy-mode)
 (ws-butler-global-mode)
 (global-page-break-lines-mode)          ; Convert ^L (C-q l) to pretty lines
+(keyfreq-mode)                          ; Track frequencies for bottleneck
+(keyfreq-autosave-mode)
 
 (global-set-key (kbd "C-s")      'swiper-isearch)
 (global-set-key (kbd "M-x")      'counsel-M-x)
