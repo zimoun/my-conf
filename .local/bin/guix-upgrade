@@ -24,12 +24,14 @@ do
 	$GUIX package				\
 	      -m  ${GUIX_MYMANIFESTS}/${m}      \
 	      -p  ${GUIX_MYPROFILES}/${p}/${p}	\
+              --keep-going                      \
 	      --fallback
 
         echo "Upgrade $p..."
-	$GUIX package				\
-	      -p  ${GUIX_MYPROFILES}/${p}/${p}	\
-              --upgrade
+	$GUIX upgrade                          \
+	      -p  ${GUIX_MYPROFILES}/${p}/${p} \
+              --keep-going                     \
+              --fallback
 
 	printf "Profile $p done.\n\n"
     fi
