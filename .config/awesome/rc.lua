@@ -612,6 +612,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 awful.util.spawn_with_shell("nm-applet")
 awful.util.spawn_with_shell("xfce4-power-manager")
 awful.util.spawn_with_shell("source /home/simon/.bashrc && emacs --daemon")
+awful.util.spawn_with_shell("source /home/simon/.bashrc && unclutter -idle 1.0 -root")
 -- awful.util.spawn_with_shell("blueman-manager")
 
 

@@ -21,4 +21,6 @@
    ;; see X11 fonts; especially for Emacs
    "fontconfig"
    "font-dejavu"
+
+   "unclutter"
    ))
