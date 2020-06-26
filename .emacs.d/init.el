@@ -116,8 +116,6 @@
              '(font . "DejaVu Sans Mono-11"))
                                         ; Should require fontconf & font-dejavu
                                         ; then: fc-cache -rv eventually.
-(windmove-default-keybindings)          ; Shift-arrow to move
-                                        ; (do not work with all the terminals)
 (show-paren-mode)
 (electric-pair-mode)
 (electric-indent-mode)
