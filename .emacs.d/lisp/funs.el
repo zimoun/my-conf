@@ -252,6 +252,8 @@ Please provide a DOCSTRING."
              nil nil debbugs-gnu-bug-number))))
       (let ((str (format "%s%s" ,url number)))
         (kill-new str)
+        (when current-prefix-arg
+          (browse-url str))
         (message (format "%s killed." str))))))
 
 (defun-bug->url my/guix-issues "http://issues.guix.gnu.org/issue/"
