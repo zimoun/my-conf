@@ -79,13 +79,7 @@
 (defalias 'list-buffers        'ibuffer)
 (defalias 'list-directory      'dired)
 
-(defalias 'mode-whitespace     'whitespace-mode)
-(defalias 'mode-linum          'display-line-numbers-mode)
-(defalias 'mode-glasses        'glasses-mode)
 (defalias 'mode-follow         'follow-mode)
-(defalias 'mode-which-function 'which-function-mode)
-(defalias 'mode-subword        'subword-mode)
-(defalias 'mode-flycheck       'flycheck-mode)
 (defalias 'mode-fci            'fci-mode)
 
 (defalias 'run-elisp 'ielm)
