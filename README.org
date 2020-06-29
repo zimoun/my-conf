@@ -115,7 +115,7 @@
     Be careful !
     #+begin_src shell
       # as root
-      echo "kernel.unprivileged_userns_clone = 1" > /etc/sysctl/local.conf
+      echo "kernel.unprivileged_userns_clone = 1" > /etc/sysctl.d/local.conf
       sysctl --system
     #+end_src
 *** Protect from GC 2.5GiB of input texlive-*-texmf.tar.xz
