@@ -11,4 +11,8 @@
  ;;  (name 'bimsb)
  ;;  (url "https://github.com/BIMSBbioinfo/guix-bimsb.git")
  ;;  (branch "master"))
+ (channel
+  (name 'past)
+  (url "https://gitlab.inria.fr/guix-hpc/guix-past.git")
+  (branch "master"))
  %default-channels)
