@@ -15,4 +15,8 @@
   (name 'past)
   (url "https://gitlab.inria.fr/guix-hpc/guix-past.git")
   (branch "master"))
+  (channel
+  (name 'genenet)
+  (url "https://gitlab.com/genenetwork/guix-bioinformatics.git")
+  (branch "master"))
  %default-channels)
