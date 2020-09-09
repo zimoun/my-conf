@@ -40,12 +40,16 @@
                              (mode . notmuch-hello-mode)
                              (mode . notmuch-search-mode)
                              (mode . notmuch-show-mode)
-                             (mode . notmuch-tree-mode)))
-                 ("Message" (mode . message-mode))
+                             (mode . notmuch-tree-mode)
+                             (mode . notmuch-message-mode)))
+                 ("Message" (or
+
+                             ))
                  ("Debbugs" (or
                              (mode . debbugs-gnu-mode)
                              (mode . gnus-summary-mode)
-                             (mode . gnus-article-mode)))
+                             (mode . gnus-article-mode)
+                             (mode . message-mode)))
                  ("Run" (or
                          (name . "^\*eshell.*\*$")
                          (mode . shell-mode)

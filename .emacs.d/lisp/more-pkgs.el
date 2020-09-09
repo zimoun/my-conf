@@ -167,10 +167,88 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
 
 
 
-
 (with-eval-after-load 'notmuch
+  (add-hook 'notmuch-show-mode-hook
+            (lambda ()
+              (font-lock-add-keywords
+               nil
+               `((,message-mark-insert-begin
+                  . 'font-lock-warning-face)
+                 (,message-mark-insert-end
+                  . 'font-lock-warning-face)))))
 
-  )
+  ;; These hooks should go to their own
+  ;; because they are not applied if notmuch is not launched before debbug, for example.
+  (add-hook 'message-mode-hook 'turn-on-flyspell)
+  (add-hook 'message-mode-hook 'typo-mode)
+
+  (custom-set-faces
+   '(notmuch-message-summary-face ((t (:background "dim gray")))))
+
+  (defun my/notmuch-search-toogle-deleted ()
+    "Toogle +/-deleted tag in `notmuch-search-mode'."
+    (interactive)
+    (if (member "deleted" (notmuch-search-get-tags))
+        (notmuch-search-tag (list "-deleted"))
+      (notmuch-search-tag (list "+deleted")))
+    (notmuch-search-next-thread))
+
+  (define-key notmuch-search-mode-map (kbd "d")
+    'my/notmuch-search-toogle-deleted)
+
+  (defvar my/notmuch-big-query
+    " ( tag:unread or tag:to-classify or date:-32d.. or (tag:old  and not tag:flagged  and not thread:{tag:todo} and not thread:{tag:workon} ) )"
+    "Complex notmuch search query.")
+
+  (setq
+   notmuch-show-all-tags-list t
+   notmuch-show-indent-messages-width 3
+
+   notmuch-draft-tags '("+draft" "-unread")
+
+   my/notmuch-query-guix-ml
+   (concat "tag:guix-ml and " my/notmuch-big-query)
+   my/notmuch-query-guix-bug/patch
+   (concat "tag:guix-bug/patch and " my/notmuch-big-query)
+   my/notmuch-query-lists
+   (concat "tag:list and " my/notmuch-big-query)
+
+   notmuch-saved-searches
+   `((:name "unread"  :key "u" :query "tag:unread and not tag:delete"
+            :sort-order newest-first)
+     (:name "to-me"   :key "p" :query "tag:unread and tag:to-me"
+            :sort-order newest-first)
+
+     (:name "to-classify"  :key "i" :query "tag:to-classify")
+     (:name "workon"  :key "w" :query "tag:workon"
+            :search-type tree)
+     (:name "todo"    :key "t" :query "tag:todo")
+
+     (:name "guix-ml"        :key "l"
+            :query ,my/notmuch-query-guix-ml)
+     (:name "guix-bug/patch" :key "b"
+            :query ,my/notmuch-query-guix-bug/patch)
+     (:name "lists"          :key "L"
+            :query ,my/notmuch-query-lists)
+
+     (:name "scirep"   :key "as" :query "tag:scirep")
+     (:name "misc-bio" :key "ab" :query "tag:misc-bio")
+
+     (:name "old"     :key "O" :query "tag:old")
+     (:name "flagged" :key "f" :query "tag:flagged")
+     (:name "me"      :key "m"   :query "tag:sent or tag:to-me"
+            :sort-order newest-first)
+     (:name "draft"      :key "D"   :query "tag:draft"
+            :sort-order newest-first))
+
+   notmuch-tagging-keys
+   `((,(kbd "i")  ("+to-classify") "to-classify")
+     (,(kbd "t")  ("+todo")         "todo")
+     (,(kbd "w")  ("+workon")       "workon")
+     (,(kbd "f")  ("+flagged")      "Flag/starred")
+     (,(kbd "as") ("+scirep")       "scirep")
+     (,(kbd "ab") ("+misc-bio")     "misc-bio")
+     (,(kbd "d")  ("+deleted" "-inbox" "-unread" "-flagged") "Delete"))))
 
 
 (provide 'more-pkgs)

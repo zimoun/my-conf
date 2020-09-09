@@ -27,9 +27,20 @@
 
 
 (with-eval-after-load 'erc
+  (add-hook 'erc-mode-hook 'typo-mode)
   (setq
    erc-nick "zimoun"
    erc-join-channels-alist '(("freenode.net" "#guix"))))
+
+
+(with-eval-after-load 'sendmail
+  (setq send-mail-function 'smtpmail-send-it))
+
+
+(with-eval-after-load 'smtpmail
+  (setq smtpmail-stream-type 'starttls
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587))
 
 
 (with-eval-after-load 'tramp
@@ -65,8 +76,13 @@
                                                    #'completing-read-default)))
 
   (define-key debbugs-gnu-mode-map "N" 'debbugs-gnu-narrow-to-status)
-  (define-key debbugs-gnu-mode-map "/" 'debbugs-gnu-search)
+  (define-key debbugs-gnu-mode-map "s" 'debbugs-gnu-search)
   (define-key debbugs-gnu-mode-map "#" 'debbugs-gnu-bugs)
+
+  (require 'gnus-sum)
+  (require 'gnus-art)
+  (define-key gnus-summary-mode-map "R" 'gnus-summary-wide-reply-with-original)
+  (define-key gnus-article-mode-map "R" 'gnus-summary-wide-reply-with-original)
 
   (setq
    debbugs-gnu-default-packages '("guix-patches" "guix")

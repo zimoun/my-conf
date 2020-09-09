@@ -3,7 +3,7 @@
  (append '("aspell"
            "aspell-dict-en"
            "aspell-dict-fr"
-           "notmuch"
+           "notmuch"                    ; here otherwise broken
            "emacs"
 
            ;; both required by emacs-guix
@@ -35,6 +35,7 @@
             "pandoc-mode"
             "htmlize"
             "org-re-reveal"
+            "typo"
 
             "pdf-tools"
 

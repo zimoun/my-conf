@@ -281,4 +281,32 @@ With `universal-argument', load URL using `browse-url'."
 
 (provide 'funs)
 
+
+(defun my/add-gpg-key-from (from)
+  "Insert the GPG key FROM the email address.
+
+This interactive function spawns a new `shell' and insert commands inside.
+Far from perfect but does the trick.
+
+It works only if once Notmuch is loaded."
+  (interactive
+   (list
+    (read-string
+     (format "From (%s): " (notmuch-show-get-from))
+     nil nil (notmuch-show-get-from))))
+  (let* ((gpg "gpg")
+        (keyserver "--keyserver hkp://pool.sks-keyservers.net")
+        (search "--search-keys")
+        (who (format "\"%s\"" from))
+        (cmd (concat
+              gpg " " keyserver " " search " " who))
+        (local-buffer "*gpg:add-key-from*"))
+    (shell local-buffer)
+    (insert "builtin cd ~/")
+    (comint-send-input)
+    (insert cmd)
+    (comint-send-input)
+    (message (format "Add GPG key of %s done." from))))
+
+
 ;;; funs.el ends here

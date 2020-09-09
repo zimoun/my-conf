@@ -52,7 +52,7 @@
       #+end_src
       Now =~/.config/guix/current= should be created.
 
-   2. Clone the configuraton files
+   2. Clone the configuration files
       #+begin_src shell
         guix environment --ad-hoc git -- \
              git clone https://github.com/zimoun/my-conf.git
@@ -100,8 +100,19 @@
        guix gc
      #+end_src
 
+  3. Create email encrypted password
+     #+begin_src shell
+       gpg -o ~/mail/pass-kikoo.gpg -c -
+     #+end_src
 
-  Now logout and relog.
+  4. Enable sync of Emails
+     #+begin_src shell
+       export XDG_RUNTIME_DIR=/run/user/$(id -u)
+       systemctl --user mbsync.service mbsync.timer
+     #+end_src
+
+
+  Now logout and relog (or maybe reboot).
 
 ** Tips
 *** Empty shell
@@ -143,3 +154,31 @@
        #+begin_src shell
          guix system docker-image gnu/system/examples/docker-image.scm
        #+end_src
+*** Email: =mbsync+notmuch= = hard time with Gmail
+    One of the issue is that Gmail holds forever *all* the emails in /All Mails/ and it is then hard to definitively remove them.  They claim it works with some IMAP settings but I have failed.  The solution I came up is:
+
+    1. Add the tag =+deleted= to messages.
+    2. Remove them:
+       #+begin_src shell
+         notmuch tag -unread tag:deleted
+         notmuch search --output=files --format=text0 tag:deleted \
+                 | xargs -0 --no-run-if-empty rm
+       #+end_src
+    3. Sync: =mbsync -Va=
+    4. Remove them time to time by hand using the WebApp interface, using the query:
+       #+begin_src text
+         -in:inbox -from:me -label:protected -label:starred
+       #+end_src
+       Be careful, it seems not working as expected, since Gmail outputs all the thread.  Aside, the /label/ =protected= is to skip the archived emails.
+
+    Last, do not forget to allow IMAP for some folders, e.g., =[Gmail]/Bin=.
+
+    Example of query -- size the detached GPG signatures:
+    #+begin_src shell
+      guix environment --ad-hoc pv
+      notmuch search --output=messages tag:signed \
+          | xargs -I{} notmuch show --part=3 {}   \
+          | pv -b 1> /dev/nul
+      # Assumption!
+      # Part: 1 all message, 2 body, 3 first attachment
+    #+end_src

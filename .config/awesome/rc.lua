@@ -48,7 +48,7 @@ end
 beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
---eterminal = "emacsclient -c -e '(shell (generate-new-buffer-name \"*shell*\"))' -e '(delete-other-windows)'"
+email = "emacsclient -n -c -e '(notmuch)'"
 eterminal = "emacsclient -n -c -e '(ibuffer)'"
 terminal = "env -i - DISPLAY=:0 HOME=/home/simon LANG=en_GB.UTF-8 xterm"
 editor = os.getenv("EDITOR") or "emacs -nw"
@@ -325,6 +325,8 @@ globalkeys = awful.util.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "m", function () awful.spawn(email) end,
+              {description = "open email", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn(eterminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,

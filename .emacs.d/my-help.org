@@ -274,3 +274,8 @@ git merge-base --fork-point master
 git show-branch master feature
 
 git format-patch --cover-letter --base=$(git merge-base --fork-point master)
+
+* Notmuch
+
+  - C-x 3 and then M-x mode-follow
+  - Compose: M-x mode-fci

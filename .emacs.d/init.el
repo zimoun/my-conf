@@ -54,9 +54,13 @@
  copyright-names-regexp
  (format "%s <%s>" "Simon Tournier" "zimon.toutoune@gmail.com")
 
+ user-full-name "zimoun"
+ user-mail-address "zimon.toutoune@gmail.com"
+
  gnus-directory "/tmp/News/"
- message-auto-save-directory "~/Mail/drafts/"
- message-cite-reply-position 'below
+ message-auto-save-directory "/tmp/News/"
+ message-kill-buffer-on-exit t
+ message-cite-reply-position 'above
  message-citation-line-function 'message-insert-formatted-citation-line
  message-citation-line-format "On %a, %d %b %Y at %R, %f wrote:"
  ;; message-signature "" ;"GPG key = XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX"
@@ -174,5 +178,7 @@
 (global-set-key (kbd "C-c g")    'magit-status) ; `magit-file-mode-map': (C-x g)
 
 (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
+
+(global-set-key (kbd "C-x m") 'notmuch)
 
 (setenv "PAGER" "cat")
