@@ -19,6 +19,7 @@
 
             "smex"
             "ivy"
+	    "counsel"
             "ivy-rich"
 
             "magit"
@@ -44,7 +45,7 @@
 
             "guix"
 
-            "ess"
+            ;; "ess"
             "julia-mode"
             ;; octave ?
             "pyvenv"
