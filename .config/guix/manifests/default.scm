@@ -7,6 +7,7 @@
    "git"
    "git:send-email"
    "patch"
+   "myrepos"
 
    "the-silver-searcher"
    "htop"
