@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Avoid issues
-mkdir -p ~/.config/guix
-mkdir -p ~/.emacs.d
+mkdir -p $XDG_CONFIG_HOME/guix
+mkdir -p $XDG_CONFIG_HOME/emacs
 mkdir -p ~/.local/bin
 mkdir -p ~/mail/.notmuch
 mkdir -p ~/mail/gmail/inbox

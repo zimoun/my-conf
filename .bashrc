@@ -55,6 +55,10 @@ xset b off
 # systemctl --user stop mbsync.service mbsync.timer
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
+# is it not normalized?
+# used by emacs
+export XDG_CONFIG_HOME="$HOME/.config/"
+
 export PATH="$HOME/.local/bin:$PATH"
 
 if [ -n "$GUIX_ENVIRONMENT" ]
