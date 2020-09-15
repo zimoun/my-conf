@@ -32,19 +32,17 @@
                                (name . "^\*R.*\*$")))
                  ("Org" (mode . org-mode))
                  ("PDF" (name . "^[a-zA-Z0-9. ]*\.pdf$"))
-                 ("Magit" (or
+                 ("Dired" (mode . dired-mode))
+                 ("Magit" (mode . magit-status-mode))
+                 ("Misc magit" (or
                            (name . "\*magit")
                            (name . "^magit")))
-                 ("Dired" (mode . dired-mode))
                  ("Notmuch" (or
                              (mode . notmuch-hello-mode)
                              (mode . notmuch-search-mode)
                              (mode . notmuch-show-mode)
                              (mode . notmuch-tree-mode)
                              (mode . notmuch-message-mode)))
-                 ("Message" (or
-
-                             ))
                  ("Debbugs" (or
                              (mode . debbugs-gnu-mode)
                              (mode . gnus-summary-mode)
@@ -54,13 +52,13 @@
                          (name . "^\*eshell.*\*$")
                          (mode . shell-mode)
                          (name . "^\\*compilation\\*$")))
+                 ("IRC" (mode . erc-mode))
                  ("Info" (or
                           (mode . Info-mode)
                           (mode . help-mode)))
                  ("Emacs" (or
                            (name . "^\\*[a-zA-Z+:#0-9 -/]*\\*$")
-                           (mode . debbugs-gnu-mode)
-                           (mode . erc-mode)))
+                           ))
 
                  ;; Match any string not containing any uppercase letter
                  ;; ("lower" (name . "\\`[^[:upper:]]*\\'"))
