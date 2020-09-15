@@ -51,7 +51,7 @@ alias calk="python -i -c 'from cmath import * ; import sys ; print \"Python\" , 
 #setterm --blength
 xset b off
 
-# used systemd, e.g., stop fetching email
+# used by systemd, e.g., stop fetching email
 # systemctl --user stop mbsync.service mbsync.timer
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
