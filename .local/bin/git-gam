@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git -C ~/src/guix/wk/$1 am -3 --reject
