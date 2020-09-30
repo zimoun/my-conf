@@ -1,0 +1,102 @@
+#!/bin/sh
+
+~/src/guix/wk/graph-list-nodes/pre-inst-env guix graph $@
+
+#
+# http://issues.guix.gnu.org/issue/43477
+#
+
+#####
+##
+## Updated patch, change the default
+##
+#
+# From 4591f4237a613483298d034cfcdb51f595f0bbb5 Mon Sep 17 00:00:00 2001
+# From: zimoun <zimon.toutoune@gmail.com>
+# Date: Thu, 17 Sep 2020 21:40:32 +0200
+# Subject: [PATCH] guix: graph: Add 'plain' backend.
+
+# * guix/graph.scm: (emit-plain-prologue, emit-plain-epilogue, emit-plain-node,
+# emit-plain-edge): New procedures.
+# (%plain-backend): New variable.
+# (%graph-backends): Update variable.
+# ---
+#  guix/graph.scm         | 26 +++++++++++++++++++++++++-
+#  guix/scripts/graph.scm |  2 +-
+#  2 files changed, 26 insertions(+), 2 deletions(-)
+
+# diff --git a/guix/graph.scm b/guix/graph.scm
+# index b695ca4306..773fc9616c 100644
+# --- a/guix/graph.scm
+# +++ b/guix/graph.scm
+# @@ -1,6 +1,7 @@
+#  ;;; GNU Guix --- Functional package management for GNU
+#  ;;; Copyright © 2015, 2016, 2020 Ludovic Courtès <ludo@gnu.org>
+#  ;;; Copyright © 2016 Ricardo Wurmus <rekado@elephly.net>
+# +;;; Copyright © 2020 Simon Tournier <zimon.toutoune@gmail.com>
+#  ;;;
+#  ;;; This file is part of GNU Guix.
+#  ;;;
+# @@ -47,6 +48,7 @@
+#              %graph-backends
+#              %d3js-backend
+#              %graphviz-backend
+# +            %plain-backend
+#              graph-backend?
+#              graph-backend
+#              graph-backend-name
+# @@ -324,6 +326,28 @@ nodeArray.push(nodes[\"~a\"]);~%"
+#                   emit-cypher-prologue emit-cypher-epilogue
+#                   emit-cypher-node emit-cypher-edge))
+
+# +
+# +;;;
+# +;;; Plain export
+# +;;;
+# +
+# +(define (emit-plain-prologue name port)
+# +  (format port ""))
+# +
+# +(define (emit-plain-epilogue port)
+# +  (format port ""))
+# +
+# +(define (emit-plain-node id label port)
+# +  (format port "~a~%" label))
+# +
+# +(define (emit-plain-edge id1 id2 port)
+# +  (format port ""))
+# +
+# +(define %plain-backend
+# +  (graph-backend "plain"
+# +                 "Generate Plain queries."
+# +                 emit-plain-prologue emit-plain-epilogue
+# +                 emit-plain-node emit-plain-edge))
+
+#  
+#  ;;;
+# @@ -338,7 +362,7 @@ nodeArray.push(nodes[\"~a\"]);~%"
+#  (define* (export-graph sinks port
+#                         #:key
+#                         reverse-edges? node-type
+# -                       (backend %graphviz-backend))
+# +                       (backend %plain-backend))
+#    "Write to PORT the representation of the DAG with the given SINKS, using the
+#  given BACKEND.  Use NODE-TYPE to traverse the DAG.  When REVERSE-EDGES? is
+#  true, draw reverse arrows."
+# diff --git a/guix/scripts/graph.scm b/guix/scripts/graph.scm
+# index d7a08a4fe1..c1d2ea5050 100644
+# --- a/guix/scripts/graph.scm
+# +++ b/guix/scripts/graph.scm
+# @@ -557,7 +557,7 @@ Emit a representation of the dependency graph of PACKAGE...\n"))
+
+#  (define %default-options
+#    `((node-type . ,%package-node-type)
+# -    (backend   . ,%graphviz-backend)
+# +    (backend   . ,%plain-backend)
+#      (system    . ,(%current-system))))
+
+#  
+
+# base-commit: 04a459a069155a6b676b6b93d7dbddb426dd0679
+# --
+# 2.28.0
