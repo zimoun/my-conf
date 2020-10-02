@@ -130,6 +130,7 @@
 (require 'reffubi)			; Set ibuffer
 (require 'funs)
 
+(advice-add 'split-window-right :after #'balance-windows) ; Resize after C-x 3
 (global-set-key [remap move-beginning-of-line]
                 'my/move-beginning-of-line) ; Fix C-a when indent
 (global-set-key [remap goto-line]
