@@ -31,7 +31,7 @@
                                (mode . ess-julia-mode)
                                (name . "^\*R.*\*$")))
                  ("Org" (mode . org-mode))
-                 ("PDF" (name . "^[a-zA-Z0-9. ]*\.pdf$"))
+                 ("PDF" (name . "^[a-zA-Z0-9. -_]*\.pdf$"))
                  ("Dired" (mode . dired-mode))
                  ("Magit" (mode . magit-status-mode))
                  ("Misc magit" (or
