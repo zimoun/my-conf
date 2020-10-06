@@ -100,6 +100,15 @@
   (define-key shell-mode-map (kbd "<down>") 'comint-next-input))
 
 
+(with-eval-after-load 'bookmark
+  (define-key bookmark-bmenu-mode-map "L" 'bookmark-bmenu-load)
+  (define-key bookmark-bmenu-mode-map "l" 'bookmark-bmenu-list)
+  (define-key bookmark-bmenu-mode-map "S" 'bookmark-bmenu-save)
+  (define-key bookmark-bmenu-mode-map "s" 'bookmark-bmenu-search)
+  ;; C-x r b everywhere
+  (define-key bookmark-bmenu-mode-map "b" 'bookmark-jump))
+
+
 (with-eval-after-load 'cc-vars
   (setf (cdr (assoc 'other c-default-style)) "linux")
   (add-hook 'c-mode-common-hook 'whitespace-mode)
