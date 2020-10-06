@@ -103,9 +103,9 @@
 (with-eval-after-load 'cc-vars
   (setf (cdr (assoc 'other c-default-style)) "linux")
   (add-hook 'c-mode-common-hook 'whitespace-mode)
-  (add-hook 'c-mode-common-hook 'dtrt-indent-mode)
+  ;(add-hook 'c-mode-common-hook 'dtrt-indent-mode)
   (add-hook 'c-mode-common-hook (lambda () (setq indent-tabs-mode t)))
-  (add-hook 'c-mode-hook 'ggtags-mode)
+  ;(add-hook 'c-mode-hook 'ggtags-mode)
   (add-hook 'c++-mode-hook 'google-set-c-style))
 
 
