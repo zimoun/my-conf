@@ -68,5 +68,7 @@ else
     source ~/.bash_profile
 fi
 
-
+# Used on my main Desktop
 alias mupdf=mupdf-x11
+alias printer-rectoverso='lp -o media=A4 -o sides=two-sided-long-edge'
+alias printer='lp -o media=A4 -o sides=two-sided-long-edge -o number-up=2'
