@@ -230,13 +230,25 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
     (set-face-attribute 'region nil :background "yellow")))
 
 
-(defun my/size ()
+(defun my/size (width height)
   "Resize easily."
+  (when window-system
+    (set-frame-size (selected-frame) width height)))
+
+(defun my/desktop-screen-resize ()
+  "Resize height-er for Desktop screen"
   (interactive)
-  (let ((width 100)
-        (height 75))
-    (when window-system
-      (set-frame-size (selected-frame) width height))))
+  (my/size 100 75))
+
+(defun my/laptop-screen-resize ()
+  "Resize height-er for Laptop screen"
+  (interactive)
+  (my/size 100 55))
+
+(defun my/normal-size ()
+  "Resize large easily."
+  (interactive)
+  (my/size 80 36))                      ;TODO: check with desktop
 
 
 (defmacro defun-bug->url (name url &optional docstring)
