@@ -251,6 +251,15 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
   (my/size 80 36))                      ;TODO: check with desktop
 
 
+(defun my/bookmark-bmenu-list ()
+  "Work around `bookmark-bmenu-list'.
+The list is displayed in a buffer named `bookmark-bmenu-buffer'."
+  (bookmark-bmenu-list)
+  (switch-to-buffer
+   (get-buffer-create bookmark-bmenu-buffer)))
+
+
+
 (defmacro defun-bug->url (name url &optional docstring)
   "Macro returning yankage #bug URL.
 

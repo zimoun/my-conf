@@ -50,7 +50,7 @@ beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
 -- This is used later as the default terminal and editor to run.
 path_emacs = "/home/simon/.config/guix/profiles/emacs/emacs/bin/"
 email = path_emacs .. "emacsclient -n -c -e '(notmuch)'"
-eterminal = path_emacs .. "emacsclient -n -c -e '(ibuffer)'"
+eterminal = path_emacs .. "emacsclient -ncu -e '(my/bookmark-bmenu-list)'"
 terminal = "env -i - DISPLAY=:0 HOME=/home/simon LANG=en_GB.UTF-8 xterm"
 editor = os.getenv("EDITOR") or "emacs -nw"
 editor_cmd = terminal .. " -e " .. editor
