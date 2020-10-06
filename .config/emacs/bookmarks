@@ -1,0 +1,35 @@
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("2-tmp"
+ (filename . "/tmp/")
+ (front-context-string . "  /tmp:\n  total ")
+ (rear-context-string)
+ (position . 1))
+("10-my-conf"
+ (filename . "~/src/my-conf/")
+ (front-context-string . "  /home/simon/sr")
+ (rear-context-string)
+ (position . 1))
+("worktree"
+ (filename . "~/src/guix/wk/")
+ (front-context-string . "  /home/simon/sr")
+ (rear-context-string)
+ (position . 1))
+("1-emacs"
+ (filename . "~/src/my-conf/.config/emacs/")
+ (front-context-string . "init.el\n  drwxr-")
+ (rear-context-string . "7K Oct  6 21:43 ")
+ (position . 289))
+("all-repos"
+ (filename . "~/src/guix/")
+ (front-context-string . ".\n  drwxr-xr-x  ")
+ (rear-context-string . "0K Apr 25 15:28 ")
+ (position . 121))
+("0-guix"
+ (filename . "~/src/guix/guix/")
+ (front-context-string . "  /home/simon/sr")
+ (rear-context-string)
+ (position . 1))
+)
