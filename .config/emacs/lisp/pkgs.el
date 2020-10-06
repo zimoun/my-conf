@@ -105,6 +105,11 @@
   (define-key bookmark-bmenu-mode-map "l" 'bookmark-bmenu-list)
   (define-key bookmark-bmenu-mode-map "S" 'bookmark-bmenu-save)
   (define-key bookmark-bmenu-mode-map "s" 'bookmark-bmenu-search)
+  (define-key bookmark-bmenu-mode-map (kbd "TAB") #'(lambda ()
+                                                      (interactive)
+                                                      (forward-line)
+                                                      (when (= (point) (point-max))
+                                                        (goto-char (point-min)))))
   ;; C-x r b everywhere
   (define-key bookmark-bmenu-mode-map "b" 'bookmark-jump))
 
