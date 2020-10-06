@@ -229,6 +229,14 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
     (set-face-background 'mode-line "DarkGoldenrod3")
     (set-face-attribute 'region nil :background "yellow")))
 
+
+(defun my/size ()
+  "Resize easily."
+  (interactive)
+  (let ((width 100)
+        (height 75))
+    (when window-system
+      (set-frame-size (selected-frame) width height))))
 
 
 (defmacro defun-bug->url (name url &optional docstring)
