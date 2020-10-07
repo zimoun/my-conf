@@ -248,7 +248,7 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
 (defun my/normal-size ()
   "Resize large easily."
   (interactive)
-  (my/size 80 36))                      ;TODO: check with desktop
+  (my/size 80 36))
 
 
 (defun my/bookmark-bmenu-list ()
