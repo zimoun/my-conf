@@ -154,6 +154,8 @@
                   (message
                    "Display all entries: v l (org-agenda-log-mode)")))
 
+(global-set-key (kbd "C-c l") 'bookmark-bmenu-list)
+
 
 (require 'more-pkgs)
 
