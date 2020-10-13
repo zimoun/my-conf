@@ -144,6 +144,16 @@
                               (interactive)
                               (shell (generate-new-buffer-name "*shell*"))))
 
+(global-set-key (kbd "C-x o") (lambda ()
+                              (interactive)
+                              (my/repeat 'other-window)))
+(global-set-key (kbd "C-x [") (lambda ()
+                              (interactive)
+                              (my/repeat 'backward-page)))
+(global-set-key (kbd "C-x ]") (lambda ()
+                              (interactive)
+                              (my/repeat 'forward-page)))
+
 
 (require 'pkgs)
 

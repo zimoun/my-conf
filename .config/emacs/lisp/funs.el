@@ -258,6 +258,14 @@ The list is displayed in a buffer named `bookmark-bmenu-buffer'."
   (switch-to-buffer
    (get-buffer-create bookmark-bmenu-buffer)))
 
+
+(defun my/repeat (command)
+  "Extend `repeat'.  E.g., C-x o C-x z becomes C-x o o."
+  (require 'repeat)
+  (let ((repeat-previous-repeated-command command)
+        (repeat-message-function        #'ignore)
+        (last-repeatable-command        #'repeat))
+    (repeat nil)))
 
 
 (defmacro defun-bug->url (name url &optional docstring)
