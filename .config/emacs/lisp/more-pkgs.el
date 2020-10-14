@@ -147,6 +147,9 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
 (with-eval-after-load 'ivy
   (diminish 'ivy-mode)
 
+  ;; Turn on actions in minibuffer: M-o
+  (require 'ivy-hydra)
+
   (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-next-line)
   (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 

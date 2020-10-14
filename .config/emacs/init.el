@@ -189,6 +189,7 @@
 (global-set-key (kbd "C-c d")    'ag-dired)
 
 (global-set-key (kbd "C-c g")    'magit-status) ; `magit-file-mode-map': (C-x g)
+(global-set-key (kbd "C-c f")    'counsel-git)
 
 (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
 
