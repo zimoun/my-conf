@@ -34,7 +34,7 @@ export EDITOR="emacsclient -t"
 
 
 function cd(){
-    builtin cd $1 ; ls -artl
+    builtin cd $1 ; ls -artlh
 }
 
 
