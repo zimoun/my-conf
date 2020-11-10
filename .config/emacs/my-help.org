@@ -279,3 +279,28 @@ git format-patch --cover-letter --base=$(git merge-base --fork-point master)
 
   - C-x 3 and then M-x mode-follow
   - Compose: M-x mode-fci
+* IRC
+
+#+begin_src text
+  /nick zimoun
+  /msg nickserv ghost zimoun <passwd>
+  /msg NickServ IDENTIFY zimoun <passwd>
+#+end_src
+
+***** login
+You can login with the following command:
+/msg nickserv identify EMAIL PASSWORD
+
+***** Change username
+/nick $Username
+
+***** Authenticate to Nickserv
+/msg NickServ identify $Password
+
+***** Authenticate to server
+You can authenticate to the server with the following:
+/msg nickserv identify PASSWORD
+
+***** reclaim username
+If it happens that someone else has claimed your registered nickname while you are offline, you can claim your nickname by force, with the following command:
+/msg nickserv ghost USERNAME PASSWORD
