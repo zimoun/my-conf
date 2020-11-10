@@ -184,6 +184,10 @@
 
 (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
 
-(global-set-key (kbd "C-x m") 'notmuch)
+(global-set-key (kbd "C-c m") 'notmuch)
+(global-set-key (kbd "C-x m") (lambda ()
+                                (interactive)
+                                (require 'notmuch)
+                                (notmuch-mua-new-mail)))
 
 (setenv "PAGER" "cat")

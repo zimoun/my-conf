@@ -1,0 +1,6 @@
+[Unit]
+Description=Mailbox send service
+
+[Service]
+Type=oneshot
+ExecStart=/home/simon/.config/guix/profiles/emacs/emacs/bin/emacs -q --batch -l ~/.config/emacs/lisp/pkgs.el -f smtpmail-send-queued-mail

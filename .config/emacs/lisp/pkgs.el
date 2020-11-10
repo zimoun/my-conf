@@ -40,7 +40,9 @@
 (with-eval-after-load 'smtpmail
   (setq smtpmail-stream-type 'starttls
         smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 587))
+        smtpmail-smtp-service 587
+        smtpmail-queue-mail t
+        smtpmail-queue-dir "~/mail/queue/"))
 
 
 (with-eval-after-load 'tramp

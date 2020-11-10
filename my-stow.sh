@@ -8,6 +8,7 @@ mkdir -p ~/mail/.notmuch
 mkdir -p ~/mail/gmail/inbox
 mkdir -p ~/mail/gmail/sent
 mkdir -p ~/mail/drafts
+mkdir -p ~/mail/queue
 
 if [ -f ~/.bashrc ]
 then

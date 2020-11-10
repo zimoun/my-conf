@@ -187,7 +187,9 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
   (add-hook 'message-mode-hook 'typo-mode)
 
   (custom-set-faces
-   '(notmuch-message-summary-face ((t (:background "dim gray")))))
+   '(notmuch-message-summary-face    ((t (:background "dim gray"))))
+   '(notmuch-search-matching-authors ((t (:foreground "OliveDrab1"))))
+   '(notmuch-search-unread-face      ((t (:weight normal)))))
 
   (defun my/notmuch-search-toogle-deleted ()
     "Toogle +/-deleted tag in `notmuch-search-mode'."
@@ -204,9 +206,30 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
     " ( tag:unread or tag:to-classify or date:-32d.. or (tag:old  and not tag:flagged  and not thread:{tag:todo} and not thread:{tag:workon} ) )"
     "Complex notmuch search query.")
 
+  ;; c l stashes a hyperlink using Message-ID instead of numbering, e.g.:
+  ;; https://yhetil.org/guix-user/acba4413-a4ca-d7e5-08f7-24ac9839b830@posteo.de
+  ;; vs https://lists.gnu.org/archive/html/help-guix/2020-10/msg00177.html
+  (mapcar (lambda (what)
+            (add-to-list 'notmuch-show-stash-mlarchive-link-alist
+                         `(,what . ,(concat "https://yhetil.org/" what "/"))))
+          (reverse'("guix-devel"
+                    "guix-user"
+                    "guix-science"
+                    "gwl"
+                    "guix-bugs"
+                    "guix-patches")))
+
   (setq
    notmuch-show-all-tags-list t
-   notmuch-show-indent-messages-width 3
+   notmuch-show-indent-messages-width 1
+   notmuch-search-oldest-first nil
+   notmuch-show-stash-mlarchive-link-default "guix-devel"
+
+   notmuch-search-result-format `(("date"    . "%12s ")
+                                  ("count"   . "%-7s ")
+                                  ("authors" . "%-20s ")
+                                  ("subject" . " %-70s ")
+                                  ("tags"    . "(%s)"))
 
    notmuch-draft-tags '("+draft" "-unread")
 
