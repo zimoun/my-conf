@@ -159,6 +159,7 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
         enable-recursive-minibuffers t
         ivy-wrap                     t  ; cycle last->first and first->last
         recentf-max-saved-items    nil
+        counsel-find-file-ignore-regexp "\\.go\\'"
         ivy-height 23)
 
   (custom-set-variables '(counsel-ag-base-command
