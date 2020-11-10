@@ -21,7 +21,6 @@
  kept-new-versions   5
  kept-old-versions   5
 
- inhibit-startup-message t
  initial-scratch-message nil
  initial-major-mode 'fundamental-mode    ; Mode of *scratch*
  visible-bell t
@@ -95,9 +94,6 @@
 (load custom-file t)           ; Report no error if `custom-file' does not exist
 
 (display-time-mode t)
-(menu-bar-mode 0)                       ; 0 and not nil
-(tool-bar-mode 0)
-(scroll-bar-mode 0)
 (column-number-mode t)
 (abbrev-mode t)                ; Completion
 (global-font-lock-mode t)      ; See the life in colours
