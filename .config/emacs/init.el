@@ -29,11 +29,6 @@
 
  column-number-indicator-zero-based nil
 
- display-time-24hr-format t
- display-time-mail-string ""
- display-time-load-average nil
- display-time-default-load-average nil
-
  calendar-week-start-day 1
 
  require-final-newline t
@@ -93,7 +88,6 @@
   (normal-top-level-add-subdirs-to-load-path))
 (load custom-file t)           ; Report no error if `custom-file' does not exist
 
-(display-time-mode t)
 (column-number-mode t)
 (abbrev-mode t)                ; Completion
 (global-font-lock-mode t)      ; See the life in colours

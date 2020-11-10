@@ -345,5 +345,11 @@ It works only if once Notmuch is loaded."
     (comint-send-input)
     (message (format "Add GPG key of %s done." from))))
 
+
+(defun my/current-time ()
+  "Display humam readable `current-time' other than `current-time-string'."
+  (interactive)
+  (message (format-time-string "%a %b %d, %H:%M" (current-time))))
+
 
 ;;; funs.el ends here
