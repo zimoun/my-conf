@@ -108,7 +108,7 @@
   4. Enable sync of Emails
      #+begin_src shell
        export XDG_RUNTIME_DIR=/run/user/$(id -u)
-       systemctl --user mbsync.service mbsync.timer
+       systemctl --user start mbsync.service mbsync.timer
      #+end_src
 
 
