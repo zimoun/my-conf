@@ -109,12 +109,13 @@
 (electric-indent-mode)
 (savehist-mode)
 
-(global-set-key (kbd "C-h C-f") 'find-function) ; rebind (view-emacs-FAQ)
-(global-set-key (kbd "M-o") 'other-window) ; warning with `ibuffer-visit-buffer-1-window'
-(global-set-key (kbd "C-k") 'kill-whole-line)
+(global-set-key (kbd "C-h C-f") 'find-function) ; Rebind (view-emacs-FAQ)
+(global-set-key (kbd "M-o")     'other-window)  ; Warning with
+                                                ;`ibuffer-visit-buffer-1-window'
+(global-set-key (kbd "C-k")     'kill-whole-line)
 (global-set-key (kbd "C-x c s") 'isearch-forward)
-(global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-$") 'ispell-region)
+(global-set-key (kbd "M-/")     'hippie-expand)
+(global-set-key (kbd "C-$")     'ispell-region)
 
 
 (require 'reffubi)			; Set ibuffer

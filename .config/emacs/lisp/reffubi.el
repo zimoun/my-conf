@@ -6,6 +6,10 @@
 (with-eval-after-load 'ibuffer
   (setq ibuffer-saved-filter-groups
         (quote (("default"
+                 ("Run" (or
+                         (name . "^\*eshell.*\*$")
+                         (mode . shell-mode)
+                         (name . "^\\*compilation\\*$")))
                  ("C/C++" (or
                            (mode . c-mode)
                            (mode . c++-mode)))
@@ -35,8 +39,9 @@
                  ("Dired" (mode . dired-mode))
                  ("Magit" (mode . magit-status-mode))
                  ("Misc magit" (or
-                           (name . "\*magit")
-                           (name . "^magit")))
+                                (name . "\*magit")
+                                (name . "^magit")
+                                (mode . diff)))
                  ("Notmuch" (or
                              (mode . notmuch-hello-mode)
                              (mode . notmuch-search-mode)
@@ -48,10 +53,6 @@
                              (mode . gnus-summary-mode)
                              (mode . gnus-article-mode)
                              (mode . message-mode)))
-                 ("Run" (or
-                         (name . "^\*eshell.*\*$")
-                         (mode . shell-mode)
-                         (name . "^\\*compilation\\*$")))
                  ("IRC" (mode . erc-mode))
                  ("Info" (or
                           (mode . Info-mode)

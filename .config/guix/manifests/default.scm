@@ -3,6 +3,7 @@
  '("glibc-locales"
    "nss-certs"
    "recutils"
+   "graphviz"
 
    "git"
    "git:send-email"
