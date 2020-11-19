@@ -1,0 +1,25 @@
+#!/bin/sh
+
+notmuch=/home/simon/.config/guix/profiles/emacs/emacs/bin/notmuch
+mbsync=/home/simon/.config/guix/profiles/apps/apps/bin/mbsync
+
+echo "o Pre..."
+echo "  * physical remove all deleted"
+$notmuch search --output=files --format=text0 tag:deleted \
+    | xargs -0 --no-run-if-empty rm
+
+# echo "  * read my sent"
+# $notmuch tag -unread from:zimon.toutoune@gmail.com \
+#          and tag:unread
+
+echo "  * update (new --no-hooks)"
+$notmuch new --no-hooks
+echo "  -> done."
+
+echo "o Sync..."
+echo "  * mbsync -Va"
+$mbsync -Va
+echo "  -> done."
+
+
+echo "o Done pre."

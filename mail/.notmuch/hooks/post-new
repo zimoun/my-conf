@@ -1,0 +1,78 @@
+#!/bin/sh
+
+echo "o Tagging..."
+
+notmuch=/home/simon/.config/guix/profiles/emacs/emacs/bin/notmuch
+
+echo "  * Guix"
+$notmuch tag +guix-devel  to:guix-devel@gnu.org and not tag:guix-devel
+$notmuch tag +help-guix   to:help-guix@gnu.org and not tag:help-guix
+$notmuch tag +guix-hpc    to:guix-hpc@gnu.org and not tag:guix-hpc
+$notmuch tag +gwl         to:gwl-devel@gnu.org and not tag:gwl
+$notmuch tag +guix-europe to:guix-europe@gnu.org and not tag:guix-europe
+$notmuch tag +guix-bug/patch \
+         '( to:guix-patches@gnu.org or to:debbugs.gnu.org )' \
+         and not tag:guix-bug/patch
+
+$notmuch tag +guix-ml \
+         '( tag:guix-devel or tag:help-guix or tag:gwl or tag:guix-hpc or tag:guix-europe )' \
+         and not tag:guix-ml
+$notmuch tag +guix '( tag:guix-ml or tag:guix-bug/patch )' and not tag:guix
+
+echo "  * Various lists"
+$notmuch tag +list-fr to:listes.math.cnrs.fr and not tag:list-fr
+$notmuch tag +list-fr to:services.cnrs.fr and not tag:list-fr
+$notmuch tag +list-fr to:listes.univ-orleans.fr and not tag:list-fr
+$notmuch tag +list-fr to:societe-informatique-de-france.fr and not tag:list-fr
+$notmuch tag +list-fr to:groupes.renater.fr and not tag:list-fr
+# $notmuch tag +list-fr to:cines.fr and not tag:list-fr
+
+echo "  * Misc FOSS lists"
+$notmuch tag +misc to:lists.debian.org and not tag:misc
+$notmuch tag +misc to:bugs.debian.org and not tag:misc
+$notmuch tag +misc to:r-project.org and not tag:misc
+$notmuch tag +misc to:scipy-user@python.org and not tag:misc
+$notmuch tag +misc to:guile-user@gnu.org and not tag:misc
+
+echo "  * Misc FOSS announce"
+$notmuch tag +misc from:info@fsf.org and not tag:misc
+$notmuch tag +misc from:info@haskellweekly.news and not tag:misc
+$notmuch tag +misc from:rahul@pythonweekly.com and not tag:misc
+
+echo "  * Mark public"
+$notmuch tag +lists '( tag:list-fr or tag:misc )' and not tag:lists
+$notmuch tag +public '( tag:guix or tag:lists )'  and not tag:public
+$notmuch tag -public tag:guix-hpc and tag:public
+
+echo "  * To me"
+$notmuch tag +to-me '(' to:zimon.toutoune@gmail.com and not tag:to-me ')' \
+         and not tag:public and not tag:guix-hpc
+
+echo "  * From me"
+$notmuch tag +sent '(' from:zimon.toutoune@gmail.com and not tag:sent ')' \
+         and not tag:public
+
+echo "  * Mark old public as unread"
+$notmuch tag -unread tag:public \
+         and tag:unread \
+         and not date:-32d..
+$notmuch tag +old tag:public \
+         and not tag:flagged \
+         and not date:-32d..
+
+echo "  * Protect/archive old interesting public"
+$notmuch tag +flagged tag:old  \
+         and '(' thread:{tag:scirep} or thread:{tag:misc-bio} or thread:{tag:todo} or thread:{tag:workon} ')' \
+         and not date:-63d..
+
+echo "  * Mark very old public as deleted"
+# flagged means here protected (reuse of Gmail label)
+$notmuch tag +deleted  tag:old \
+         and not '( tag:flagged or tag:todo or tag:workon )' \
+         and not date:-96d..
+
+echo "o Done post."
+
+echo "hint: clean Gmail with the query:"
+echo "  -in:inbox -from:me -label:protected -label:starred"
+echo "   is:unread in:all before:"$(date +%Y-%m-%d --date="4 months ago")
