@@ -243,7 +243,7 @@ See URL `https://www.emacswiki.org/emacs/ParEdit'"
 (defun my/laptop-screen-resize ()
   "Resize height-er for Laptop screen"
   (interactive)
-  (my/size 100 55))
+  (my/size 115 55))
 
 (defun my/normal-size ()
   "Resize large easily."
