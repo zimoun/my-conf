@@ -30,7 +30,14 @@
   (add-hook 'erc-mode-hook 'typo-mode)
   (setq
    erc-nick "zimoun"
-   erc-join-channels-alist '(("freenode.net" "#guix"))))
+   erc-autojoin-channels-alist '(("freenode.net"
+                                  "#swh-devel"
+                                  "#guix-hpc" "#guix"))
+   erc-hide-list '("JOIN" "PART" "QUIT" "NICK" "MODE")
+   erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE")
+   erc-track-priority-faces-only 'all
+   erc-track-faces-priority-list '(erc-current-nick-face erc-keyword-face))
+  (define-key erc-mode-map (kbd "C-c C-s") 'erc-cmd-Q))
 
 
 (with-eval-after-load 'sendmail
