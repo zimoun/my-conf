@@ -109,7 +109,9 @@
      #+begin_src shell
        export XDG_RUNTIME_DIR=/run/user/$(id -u)
        systemctl --user start mbsync.service mbsync.timer
+       systemctl --user enable mbsync.timer
        systemctl --user start smtp.service smtp.timer
+       systemctl --user enable smtp.timer
      #+end_src
 
 
