@@ -49,7 +49,10 @@ beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 path_emacs = "/home/simon/.config/guix/profiles/emacs/emacs/bin/"
-email = path_emacs .. "emacsclient -n -c -e '(notmuch)'"
+email = path_emacs .. "emacsclient -ncu -e \"(progn (require 'notmuch) (notmuch-mua-new-mail))\""
+unread = path_emacs .. [[emacsclient -ncu -e "(progn (require 'notmuch) (notmuch-search \"tag:unread\" nil))"]]
+-- guix = path_emacs .. [[emacsclient -ncu -e "(progn (require 'magit) (magit-status-setup-buffer \"~/src/guix/guix\"))"]]
+guix = path_emacs .. [[emacsclient -ncu -e "(progn (require 'magit) (magit-display-buffer-fullframe-status-topleft-v1 (magit-status-setup-buffer \"~/src/guix/guix\")))"]]
 eterminal = path_emacs .. "emacsclient -ncu -e '(my/bookmark-bmenu-list)'"
 terminal = "env -i - DISPLAY=:0 HOME=/home/simon LANG=en_GB.UTF-8 xterm"
 editor = os.getenv("EDITOR") or "emacs -nw"
@@ -328,6 +331,10 @@ globalkeys = awful.util.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "m", function () awful.spawn(email) end,
               {description = "open email", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "u", function () awful.spawn(unread) end,
+              {description = "open unread", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "g", function () awful.spawn(guix) end,
+              {description = "open unread", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn(eterminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
