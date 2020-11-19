@@ -182,7 +182,8 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
                   . 'font-lock-warning-face)))))
 
   ;; These hooks should go to their own
-  ;; because they are not applied if notmuch is not launched before debbug, for example.
+  ;; because they are not applied
+  ;; if notmuch is not launched before debbug, for example.
   (add-hook 'message-mode-hook 'turn-on-flyspell)
   (add-hook 'message-mode-hook 'typo-mode)
 
@@ -190,6 +191,8 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
    '(notmuch-message-summary-face    ((t (:background "dim gray"))))
    '(notmuch-search-matching-authors ((t (:foreground "OliveDrab1"))))
    '(notmuch-search-unread-face      ((t (:weight normal)))))
+
+  (define-key notmuch-show-mode-map (kbd "o") 'browse-url-at-point)
 
   (defun my/notmuch-search-toogle-deleted ()
     "Toogle +/-deleted tag in `notmuch-search-mode'."
