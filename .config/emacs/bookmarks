@@ -3,16 +3,20 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("0-guix"
- (front-context-string . "Recent commits\n4")
+ (front-context-string . "Recent commits\nc")
  (rear-context-string)
  (position . 1)
  (handler . magit--handle-bookmark)
  (mode . magit-status-mode)
- (filename . "/home/simon/src/guix/guix/")
+ (filename . "~/src/guix/guix/")
  (magit-hidden-sections
   (stashes . "refs/stash")
-  (unpushed . "@{upstream}.."))
- (annotation . ""))
+  (unpushed . "@{upstream}..")))
+("org-capture-last-stored"
+ (filename . "~/org/todo.org")
+ (front-context-string . "** TODO 1234\n   ")
+ (rear-context-string . "am.com\n   :END:\n")
+ (position . 1875))
 ("2-tmp"
  (filename . "/tmp/")
  (front-context-string . "  /tmp:\n  total ")
@@ -24,7 +28,7 @@
  (position . 1)
  (handler . magit--handle-bookmark)
  (mode . magit-status-mode)
- (filename . "/home/simon/src/my-conf/")
+ (filename . "~/src/my-conf/")
  (magit-hidden-sections
   (stashes . "refs/stash")
   (unpushed . "@{upstream}..")))
@@ -38,7 +42,7 @@
  (front-context-string . "init.el\n  drwxr-")
  (rear-context-string . "7K Oct  6 21:43 ")
  (position . 289))
-("all-repos"
+("01-all-repos"
  (filename . "~/src/guix/")
  (front-context-string . ".\n  drwxr-xr-x  ")
  (rear-context-string . "0K Apr 25 15:28 ")
