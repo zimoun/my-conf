@@ -156,11 +156,17 @@
 
 (setq org-enforce-todo-dependencies t)	; Need to be initialized before Org is loaded
 (with-eval-after-load 'org
+  (require 'ol-notmuch)                 ;add notmuch: as source C-c C-l
+
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
   (add-hook 'org-mode-hook 'org-display-inline-images)
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
   (add-hook 'org-mode-hook 'org-babel-result-hide-all)
+
+  (defun my/org-templates-file (filename)
+    ;; Locations of templates; path used below (diary)
+    `(file ,(concat "~/.config/emacs/org-tmpl/" filename)))
 
   (setq
    org-directory      "~/org/"
@@ -180,24 +186,68 @@
    ;; org-hide-emphasis-markers t
    org-link-search-must-match-exact-headline nil ; C-c C-l file:foo::Key1 Key2
                                                  ; then C-c C-o open and fuzzy search Key1 Key2
-   org-log-into-drawer t                ; C-c C-z add note in LOGBOOK
 
    org-capture-templates
-        (quote
-         (("t" "Todo")
-          ("tt" "TODO entry" entry
-           (file+headline "~/org/todo.org" "Capture")
-           (file "~/.emacs.d/org-templates/todo.org"))
-          ("tm" "Misc and URGENT" entry
-           (file+headline "~/org/todo.org" "Misc")
-           (file "~/.emacs.d/org-templates/urgent.org"))
-          ("d" "Diary" entry
-           (file+headline "~/org/diary.org" "Capture")
-           (file "~/.emacs.d/org-templates/done.org"))
-          ("b" "Bookmark" entry
-           (file+headline "~/org/bookmarks.org" "Bookmarks")
-           "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1))
-         ))
+   (backquote
+    (("t" "Todo")
+     ("tt" "TODO Guix" entry
+      (file+headline "~/org/todo.org" "Guix")
+      ,(my/org-templates-file "todo.org"))
+     ("tr" "Release" entry
+      (file+headline "~/org/todo.org" "Release")
+      ,(my/org-templates-file "todo.org"))
+     ("th" "Hunt" entry
+      (file+headline "~/org/todo.org" "Bug Hunt")
+      ,(my/org-templates-file "todo-bug.org"))
+     ("ts" "Simple" entry
+      (file+headline "~/org/todo.org" "Inbox")
+      ,(my/org-templates-file "todo-simple.org") :prepend t)
+     ("tw" "Work" entry
+      (file+headline "~/org/work.org" "Inbox")
+      ,(my/org-templates-file "todo-simple.org"))
+
+     ("d" "Done" entry
+      (file+datetree "~/org/extra-log.org")
+      "* DONE %?\nCLOSED: %U")
+     ("m" "Email" entry
+      (file+datetree "~/org/extra-log.org")
+      "* Emails" :clock-in t :clock-keep t)
+
+     ("M" "Meeting")
+     ("Mw" "Work" entry
+      (file+headline "~/org/work.org" "Inbox")
+      "* TODO %?   :@meet:\n SCHEDULED: %^t")
+     ("Mt" "Misc" entry
+      (file+headline "~/org/todo.org" "Inbox")
+      "* TODO %?   :@meet:\n SCHEDULED: %^t")
+
+     ("o" "Other")
+     ("ob" "Bookmark" entry
+      (file+headline "~/org/future.org" "Bookmarks")
+      ,(my/org-templates-file "bookmark.org") :prepend t)
+     ("oi" "Ideas" entry
+      (file+headline "~/org/future.org" "Ideas")
+      ,(my/org-templates-file "idea.org") :prepend t)))
+
+  org-capture-templates-contexts
+  '(("tt" ((in-mode . "notmuch-show-mode")))
+    ("tr" ((in-mode . "notmuch-show-mode")))
+    ("tt" ((in-mode . "notmuch-show-mode")))
+    ("th" ((in-mode . "gnus-summary-mode")))
+    ("th" ((in-mode . "gnus-article-mode"))))
+
+  org-refile-targets '((nil . (:maxlevel . 1)))
+
+  org-agenda-custom-commands
+  '(("R" "Review"
+     ((agenda "" ((org-agenda-span 7)))
+      (tags-todo "URGENT" )
+      (tags "-URGENT-@meet+TODO=\"TODO\"")
+      (tags-todo "@meet"))
+     ((org-agenda-overriding-header "Tasks")))
+    ("n" "All TODOs"
+     ((agenda "")
+      (alltodo "")))))
 
 
   (put 'narrow-to-region 'disabled nil)

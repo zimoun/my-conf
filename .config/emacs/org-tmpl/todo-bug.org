@@ -1,0 +1,12 @@
+* TODO  [#C] Bug %?
+  SCHEDULED:  %(org-insert-time-stamp (org-read-date nil t "+3w"))
+  :LOGBOOK:
+  CLOCK: %U--%U =>  0:00
+  :OPEN: %U
+  :END:
+  :PROPERTIES:
+  :Open: %U
+  :Subject: %:subject
+  :Date: %:date
+  :MessageID: %:message-id
+  :END:

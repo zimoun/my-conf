@@ -1,0 +1,5 @@
+#+STARTUP: content
+
+* Inbox                                                               :inbox:
+* Bookmarks                                                        :bookmark:
+* Ideas

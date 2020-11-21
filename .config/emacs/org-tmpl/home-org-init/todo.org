@@ -1,0 +1,7 @@
+#+STARTUP: content
+#+TAGS: URGENT @meet
+
+* Inbox                                                               :inbox:
+* Guix
+* Release                                                           :release:
+* Bug Hunt                                                             :hunt:

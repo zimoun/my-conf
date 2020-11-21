@@ -154,6 +154,7 @@
                   (org-agenda ARG ORG-KEYS RESTRICTION)
                   (message
                    "Display all entries: v l (org-agenda-log-mode)")))
+(global-set-key (kbd "C-c t") 'org-capture)
 
 (global-set-key (kbd "C-c l") 'bookmark-bmenu-list)
 

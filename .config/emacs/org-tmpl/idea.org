@@ -1,0 +1,7 @@
+* %^{Synopsis}
+  :LOGBOOK:
+  CLOCK: %U--%U =>  0:00
+  :OPEN: %U
+  :END:
+
+  %?

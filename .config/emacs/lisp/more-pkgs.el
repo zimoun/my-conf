@@ -22,7 +22,7 @@
 (with-eval-after-load 'org
   (diminish 'org-cdlatex-mode)
   (add-hook 'org-mode-hook 'turn-on-org-cdlatex) ; Dependency to AucTeX because texmathp
-  (add-hook 'org-mode-hook 'turn-on-flyspell))
+  )
 
 (with-eval-after-load 'tex-mode
   (dolist (hook (list 'latex-mode-hook 'LaTeX-mode-hook))

@@ -1,0 +1,13 @@
+* TODO %?
+  :LOGBOOK:
+  CLOCK: %U--%U =>  0:00
+  :OPEN: %U
+  :END:
+  :PROPERTIES:
+  :Open: %U
+  :Subject: %:subject
+  :Date: %:date
+  :MessageID: %:message-id
+  :Link: [[notmuch-tree:id:%:message-id]]
+  :URL: [[https://yhetil.org/%^{prompt|guix-devel|patches|bug}/%:message-id]]
+  :END:

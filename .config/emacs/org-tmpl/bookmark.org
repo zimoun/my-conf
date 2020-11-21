@@ -1,0 +1,6 @@
+* %?
+  :LOGBOOK:
+  :OPEN: %U
+  :END:
+
+  [[%c]]

@@ -53,6 +53,7 @@ email = path_emacs .. "emacsclient -ncu -e \"(progn (require 'notmuch) (notmuch-
 unread = path_emacs .. [[emacsclient -ncu -e "(progn (require 'notmuch) (notmuch-search \"tag:unread\" nil))"]]
 -- guix = path_emacs .. [[emacsclient -ncu -e "(progn (require 'magit) (magit-status-setup-buffer \"~/src/guix/guix\"))"]]
 guix = path_emacs .. [[emacsclient -ncu -e "(progn (require 'magit) (magit-display-buffer-fullframe-status-topleft-v1 (magit-status-setup-buffer \"~/src/guix/guix\")))"]]
+bookmark = path_emacs .. [[emacsclient -ncu -e "(progn (require 'org) (org-capture nil \"b\"))"]]
 eterminal = path_emacs .. "emacsclient -ncu -e '(my/bookmark-bmenu-list)'"
 terminal = "env -i - DISPLAY=:0 HOME=/home/simon LANG=en_GB.UTF-8 xterm"
 editor = os.getenv("EDITOR") or "emacs -nw"
@@ -334,7 +335,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "u", function () awful.spawn(unread) end,
               {description = "open unread", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "g", function () awful.spawn(guix) end,
-              {description = "open unread", group = "launcher"}),
+              {description = "open guix", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "b", function () awful.spawn(bookmark) end,
+              {description = "open bookmark", group = "launcher"}),
+
     awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn(eterminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
