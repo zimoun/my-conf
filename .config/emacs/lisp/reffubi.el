@@ -33,8 +33,20 @@
                                (mode . ess-mode)
                                (mode . ess-r-mode)
                                (mode . ess-julia-mode)
-                               (name . "^\*R.*\*$")))
-                 ("Org" (mode . org-mode))
+                               (name . "^\*R.*\*$"))) ;FIXME: buffer *Reviving Emacs* falls here
+                                                      ; even if notmuch-show-mode
+                 ("Org" (and
+                         (mode . org-mode)
+                         (not (name . "^extra-log.org$"))
+                         (not (name . "^future.org$"))
+                         (not (name . "^todo.org$"))
+                         (not (name . "^work.org$"))))
+                 ("Todo &co"
+                  (or
+                   (name . "^extra-log.org$")
+                   (name . "^future.org$")
+                   (name . "^todo.org$")
+                   (name . "^work.org$")))
                  ("PDF" (name . "^[a-zA-Z0-9. -_]*\.pdf$"))
                  ("Dired" (mode . dired-mode))
                  ("Magit" (mode . magit-status-mode))
