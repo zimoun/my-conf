@@ -205,28 +205,56 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
   (define-key notmuch-search-mode-map (kbd "d")
     'my/notmuch-search-toogle-deleted)
 
-  (defvar my/notmuch-big-query
-    " ( tag:unread or tag:to-classify or date:-32d.. or (tag:old  and not tag:flagged  and not thread:{tag:todo} and not thread:{tag:workon} ) )"
-    "Complex notmuch search query.")
-
   ;; c l stashes a hyperlink using Message-ID instead of numbering, e.g.:
   ;; https://yhetil.org/guix-user/acba4413-a4ca-d7e5-08f7-24ac9839b830@posteo.de
   ;; vs https://lists.gnu.org/archive/html/help-guix/2020-10/msg00177.html
-  (mapcar (lambda (what)
-            (add-to-list 'notmuch-show-stash-mlarchive-link-alist
-                         `(,what . ,(concat "https://yhetil.org/" what "/"))))
-          (reverse'("guix-devel"
-                    "guix-user"
-                    "guix-science"
-                    "gwl"
-                    "guix-bugs"
-                    "guix-patches")))
+  ;; Improvement from id:87k0u9x075.fsf@ambrevar.xyz
+  ;; Improvement bis from: id:874kl5dh7j.fsf@ambrevar.xyz
+  (defvar my/known-mailing-list-archives
+    '(("help-guix@gnu.org" . "guix")
+      ("guix-devel@gnu.org" . "guix")
+      ("debbugs.gnu.org" . "guix"))
+    "Alist of mail adresses and their Yhetil name.
+ Alternatively the key may just be a host name against which a recipient will
+be matched.")
+
+  (defun my/guess-yhetil-link (message-id)
+    (let* ((all-addresses (mapcar #'second
+                                  (mail-extract-address-components
+                                   (mapconcat #'identity
+                                              (list
+                                               (notmuch-show-get-header :To)
+                                               (notmuch-show-get-header :Cc))
+                                              ", ")
+                                   'all)))
+           (match-address (lambda (address-or-host)
+                            (if (string-match "@" address-or-host)
+                                (member address-or-host all-addresses)
+                              (seq-find (lambda (address)
+                                          (string-match address-or-host address))
+                                        all-addresses))))
+           (mailing-list (alist-get
+                          (seq-find match-address
+                                    (mapcar #'car my/known-mailing-list-archives))
+                          my/known-mailing-list-archives
+                          nil nil #'string=)))
+      (when mailing-list
+        (concat "https://yhetil.org/"
+                mailing-list "/" message-id))))
+
+  (add-to-list 'notmuch-show-stash-mlarchive-link-alist
+               (cons "yhetil" #'my/guess-yhetil-link))
+
+
+  (defvar my/notmuch-big-query
+    " ( tag:unread or tag:to-classify or date:-32d.. or (tag:old  and not tag:flagged  and not thread:{tag:todo} and not thread:{tag:workon} ) )"
+    "Complex notmuch search query.")
 
   (setq
    notmuch-show-all-tags-list t
    notmuch-show-indent-messages-width 1
    notmuch-search-oldest-first nil
-   notmuch-show-stash-mlarchive-link-default "guix-devel"
+   notmuch-show-stash-mlarchive-link-default "yhetil"
 
    notmuch-search-result-format `(("date"    . "%12s ")
                                   ("count"   . "%-7s ")
@@ -236,10 +264,6 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
 
    notmuch-draft-tags '("+draft" "-unread")
 
-   my/notmuch-query-guix-ml
-   (concat "tag:guix-ml and " my/notmuch-big-query)
-   my/notmuch-query-guix-bug/patch
-   (concat "tag:guix-bug/patch and " my/notmuch-big-query)
    my/notmuch-query-lists
    (concat "tag:list and " my/notmuch-big-query)
 
@@ -254,15 +278,8 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
             :search-type tree)
      (:name "todo"    :key "t" :query "tag:todo")
 
-     (:name "guix-ml"        :key "l"
-            :query ,my/notmuch-query-guix-ml)
-     (:name "guix-bug/patch" :key "b"
-            :query ,my/notmuch-query-guix-bug/patch)
      (:name "lists"          :key "L"
             :query ,my/notmuch-query-lists)
-
-     (:name "scirep"   :key "as" :query "tag:scirep")
-     (:name "misc-bio" :key "ab" :query "tag:misc-bio")
 
      (:name "old"     :key "O" :query "tag:old")
      (:name "flagged" :key "f" :query "tag:flagged")
@@ -276,8 +293,6 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
      (,(kbd "t")  ("+todo")         "todo")
      (,(kbd "w")  ("+workon")       "workon")
      (,(kbd "f")  ("+flagged")      "Flag/starred")
-     (,(kbd "as") ("+scirep")       "scirep")
-     (,(kbd "ab") ("+misc-bio")     "misc-bio")
      (,(kbd "d")  ("+deleted" "-inbox" "-unread" "-flagged") "Delete"))))
 
 
