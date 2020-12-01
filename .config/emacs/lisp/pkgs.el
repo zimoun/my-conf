@@ -159,6 +159,7 @@
   (require 'ol-notmuch)                 ;add notmuch: as source C-c C-l
 
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
+  (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
   (add-hook 'org-mode-hook 'org-display-inline-images)
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
@@ -199,6 +200,9 @@
      ("th" "Hunt" entry
       (file+headline "~/org/todo.org" "Bug Hunt")
       ,(my/org-templates-file "todo-bug.org"))
+     ("ts" "Guix" entry
+      (file+headline "~/org/todo.org" "Guix")
+      ,(my/org-templates-file "todo-simple.org"))
      ("ts" "Simple" entry
       (file+headline "~/org/todo.org" "Inbox")
       ,(my/org-templates-file "todo-simple.org") :prepend t)
@@ -211,7 +215,7 @@
       "* DONE %?\nCLOSED: %U")
      ("m" "Email" entry
       (file+datetree "~/org/extra-log.org")
-      "* Emails" :clock-in t :clock-keep t)
+      "* Emails  :emails:" :clock-in t :clock-keep t)
 
      ("M" "Meeting")
      ("Mw" "Work" entry
@@ -239,16 +243,24 @@
   org-refile-targets '((nil . (:maxlevel . 1)))
 
   org-agenda-custom-commands
-  '(("R" "Review"
+  '(("r" "Review"
      ((agenda "" ((org-agenda-span 7)))
-      (tags-todo "URGENT" )
-      (tags "-URGENT-@meet+TODO=\"TODO\"")
-      (tags-todo "@meet"))
-     ((org-agenda-overriding-header "Tasks")))
+      (tags-todo "URGENT"
+                 ((org-agenda-overriding-header "Urgent")))
+      (tags-todo "@meet"
+                 ((org-agenda-max-entries 2)
+                  (org-agenda-sorting-strategy '(deadline-up scheduled-up))
+                  (org-agenda-overriding-header "Meeting")))
+      (todo "" ; -URGENT-@meet+TODO=\"TODO\"
+            ((org-agenda-overriding-header "Tasks")))
+      (tags "inbox"
+            ((org-agenda-sorting-strategy '(deadline-up scheduled-up))
+             (org-agenda-overriding-header "Unclassified"))))
+     ((org-deadline-warning-days 7)
+      (org-agenda-overriding-header "Review")))
     ("n" "All TODOs"
      ((agenda "")
       (alltodo "")))))
-
 
   (put 'narrow-to-region 'disabled nil)
   (org-babel-do-load-languages
