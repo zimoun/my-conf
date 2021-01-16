@@ -200,7 +200,7 @@
      ("th" "Hunt" entry
       (file+headline "~/org/todo.org" "Bug Hunt")
       ,(my/org-templates-file "todo-bug.org"))
-     ("ts" "Guix" entry
+     ("tg" "Guix" entry
       (file+headline "~/org/todo.org" "Guix")
       ,(my/org-templates-file "todo-simple.org"))
      ("ts" "Simple" entry
