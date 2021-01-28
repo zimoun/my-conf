@@ -54,7 +54,7 @@
 
    2. Clone the configuration files
       #+begin_src shell
-        guix environment --ad-hoc git -- \
+        guix environment --ad-hoc git nss-certs -- \
              git clone https://github.com/zimoun/my-conf.git
       #+end_src
       Usually in =~/src/=.
@@ -81,7 +81,10 @@
 	 #+end_src
 
       The file =my-dumb-manifest-installer.sh= should automatize this for all the manifests.
-      Note that the option =--fallback= is required because some substitutes should be missing.
+      Note that the option =--fallback= is required because some substitutes
+      should be missing.
+
+      Maybe create =~/.config/emacs=.
 
 * Configuration
 
