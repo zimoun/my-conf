@@ -351,5 +351,16 @@ It works only if once Notmuch is loaded."
   (interactive)
   (message (format-time-string "%a %b %d, %H:%M" (current-time))))
 
+
+(defun my/debugs-gnu (fun-debbugs-gnu &rest args)
+  "List all Guix related bugs and pending patches."
+  (interactive)
+  (let ((debbugs-guix "*Guix Bugs*"))
+    (if (get-buffer debbugs-guix)
+        (switch-to-buffer debbugs-guix)
+      ;; args seems empty
+      (apply fun-debbugs-gnu
+             `(,debbugs-gnu-default-severities
+               ,debbugs-gnu-default-packages nil t)))))
 
 ;;; funs.el ends here
