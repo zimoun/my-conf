@@ -96,9 +96,7 @@
   (setq
    debbugs-gnu-default-packages '("guix-patches" "guix")
    gnus-summary-line-format "%I%(%[ %n%]%) %s\n")
-  (add-to-list 'debbugs-gnu-all-packages "guix-patches")
-
-  (advice-add 'debbugs-gnu :around #'my/debugs-gnu))
+  (add-to-list 'debbugs-gnu-all-packages "guix-patches"))
 
 
 (with-eval-after-load 'shell
