@@ -40,7 +40,8 @@
                          (not (name . "^extra-log.org$"))
                          (not (name . "^future.org$"))
                          (not (name . "^todo.org$"))
-                         (not (name . "^work.org$"))))
+                         (not (name . "^work.org$"))
+                         (not (name . "^z-colombbus.org$"))))
                  ("Todo &co"
                   (or
                    (name . "^extra-log.org$")
