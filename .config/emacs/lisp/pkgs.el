@@ -30,7 +30,8 @@
   (add-hook 'erc-mode-hook 'typo-mode)
   (setq
    erc-nick "zimoun"
-   erc-autojoin-channels-alist '(("freenode.net"
+   erc-default-server "irc.libera.chat"
+   erc-autojoin-channels-alist '(("libera.chat"
                                   "#swh-devel"
                                   "#guix-hpc" "#guix"))
    erc-hide-list '("JOIN" "PART" "QUIT" "NICK" "MODE")
