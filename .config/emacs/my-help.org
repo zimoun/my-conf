@@ -88,6 +88,8 @@ Enjoy!
   - then rename any file
   - save these changes C-c C-c
     or C-c ESC to disgard them
+  - list only files ending by 'org' and 'html':
+    % m org$ RET % m html$ RET t k.
 
 * Misc
   - M-s h r hi-lock-mode Regexp
