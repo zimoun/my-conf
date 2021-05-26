@@ -187,6 +187,24 @@ From URL `https://emacs.stackexchange.com/questions/20754/change-the-default-vis
   (add-hook 'message-mode-hook 'turn-on-flyspell)
   (add-hook 'message-mode-hook 'typo-mode)
 
+  (defadvice notmuch-show-reply
+      (after message-cite-reply-position-above activate)
+    "Get the behaviour of `message-cite-reply-position'.
+
+`notmuch-message-mode' always `notmuch-show-reply' above without
+inserting a newline, contrary to the `message-mode' configuration,
+which works with `gnus-summary-wide-reply-with-original'."
+    (pcase message-cite-reply-position
+      ('above
+       (progn
+         (insert "\n")
+         (forward-line -1)))
+      ('below
+       (goto-char (point-max)))
+      ('traditional
+       (forward-line 1))
+      (_ (forward-line 0))))
+
   (custom-set-faces
    '(notmuch-message-summary-face    ((t (:background "dim gray"))))
    '(notmuch-search-matching-authors ((t (:foreground "OliveDrab1"))))
