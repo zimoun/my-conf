@@ -21,6 +21,7 @@
             "ivy"
 	    "counsel"
             "ivy-rich"
+	    "ivy-hydra"
 
             "magit"
             "debbugs"
