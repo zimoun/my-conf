@@ -315,6 +315,58 @@ With `universal-argument', load URL using `browse-url'."
       (browse-url url))
     (message (format "%s killed." url))))
 
+
+(defvar my/timer-instance nil
+  "The `timer' used by `my/timer-start' and `my/timer-stop'.")
+
+(defvar my/timer-counter 0
+  "Internal counter to restore `mode-line' after `invert-face'.")
+
+(defvar my/timer-time-default "30 min"
+  "Default time for `my/timer-instance'.
+
+See `my/timer-start' for recognized forms.")
+
+(defun my/timer-func ()
+  "Default function to raise the end of `my/timer-instance.'"
+  (invert-face #'mode-line))
+
+(defun my/timer-start (time)
+  "Start `my/timer-instance'.
+
+The recognized forms for TIME are 'xxxx', 'x:xx', or
+'xx:xx' (military time), and 'xxam', 'xxAM', 'xxpm', 'xxPM',
+'xx:xxam', 'xx:xxAM', 'xx:xxpm', or 'xx:xxPM'.
+
+The repeat is set to one second.  Default function to apply is
+set by `my/timer-func'."
+  (interactive
+   (list
+    (progn
+      (when (not (boundp 'my/timer-time-default))
+        (setq my/timer-timer-default "30 min"))
+      (read-string
+       (format "Timer start (%s): " my/timer-time-default)
+       nil nil my/timer-time-default))))
+  (when (timerp my/timer-instance)
+    (progn
+      (my/timer-stop)
+      (message "Timer restarted.")))
+  (setq my/timer-instance
+        (run-at-time time 1 #'(lambda ()
+                                (apply 'my/timer-func nil)
+                                (setq my/timer-counter
+                                      (1+ my/timer-counter))))))
+
+(defun my/timer-stop ()
+  "Stop `my/timer-instance'."
+  (interactive)
+  (unless (eql (% my/timer-counter 2) 0)
+      (apply 'my/timer-func nil))
+  (when (timerp my/timer-instance)
+    (cancel-timer my/timer-instance))
+  (setq my/timer-instance nil)
+  (setq my/timer-counter 0))
 
 (provide 'funs)
 
