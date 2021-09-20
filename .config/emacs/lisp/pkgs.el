@@ -84,6 +84,7 @@
   (add-hook 'debbugs-gnu-mode-hook #'(lambda ()
                                        (setq-local completing-read-function
                                                    #'completing-read-default)))
+  (add-hook 'debbugs-gnu-mode-hook #'hl-line-mode)
 
   (define-key debbugs-gnu-mode-map "N" 'debbugs-gnu-narrow-to-status)
   (define-key debbugs-gnu-mode-map "s" 'debbugs-gnu-search)
