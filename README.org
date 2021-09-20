@@ -188,3 +188,10 @@
       # Assumption!
       # Part: 1 all message, 2 body, 3 first attachment
     #+end_src
+*** GitHub token
+    #+begin_src shell
+      git remote add origin https://<token>@github.com/<username/<repo>
+    #+end_src
+    where =<token>= has to be generated from their WebUI: User settings ->
+    Developer Settings -> Personal access tokens; uniquely defined, thus
+    redefined for each repo =.git/config=.
