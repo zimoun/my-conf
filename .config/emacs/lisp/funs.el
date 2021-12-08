@@ -415,4 +415,49 @@ It works only if once Notmuch is loaded."
              `(,debbugs-gnu-default-severities
                ,debbugs-gnu-default-packages nil t)))))
 
+
+(defvar my/presentation-mode nil
+  "Internal for `my/toggle-presentation-mode'.")
+
+(defvar my/mode-line-format nil
+  "Store the state of `mode-line-format'.")
+(defvar my/scroll-bar-mode nil
+  "Store the state of `scroll-bar-mode'.")
+(defvar my/menu-bar-mode nil
+  "Store the state of `menu-bar-mode'.")
+(defvar my/tool-bar-mode nil
+  "Store the state of `tool-bar-mode'.")
+
+(defun my/toggle-presentation-mode ()
+  "Switch to presentation mode."
+  (interactive)
+  (if my/presentation-mode
+      (progn
+       (setq
+        my/presentation-mode nil
+        mode-line-format my/mode-line-format)
+       (set-scroll-bar-mode my/scroll-bar-mode)
+       (if my/menu-bar-mode
+           (menu-bar-mode 1)
+         (menu-bar-mode 0))
+       (if my/tool-bar-mode
+           (tool-bar-mode 1)
+         (tool-bar-mode 0))
+       (message "Quit presentation mode: restore previous sate."))
+    (progn
+      (my/theme-default)
+      (setq
+       my/presentation-mode t
+       my/mode-line-format mode-line-format
+       my/scroll-bar-mode scroll-bar-mode
+       my/menu-bar-mode menu-bar-mode
+       my/tool-bar-mode tool-bar-mode
+       mode-line-format nil)
+      (set-scroll-bar-mode nil)
+      (menu-bar-mode 0)
+      (tool-bar-mode 0)
+      (message "Presentation mode.")))
+  (force-mode-line-update)
+  (redraw-display))
+
 ;;; funs.el ends here
