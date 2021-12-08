@@ -167,6 +167,8 @@
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
   (add-hook 'org-mode-hook 'org-babel-result-hide-all)
 
+  (add-to-list 'org-file-apps '("\\.pdf" . emacs))
+
   (defun my/org-templates-file (filename)
     ;; Locations of templates; path used below (diary)
     `(file ,(concat "~/.config/emacs/org-tmpl/" filename)))
