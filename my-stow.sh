@@ -15,5 +15,5 @@ then
     mv ~/.bashrc ~/.bashrc.bak
 fi
 
-guix environment --ad-hoc stow \
+guix shell stow \
      -- stow -t $HOME . -R -v

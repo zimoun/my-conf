@@ -54,7 +54,7 @@
 
    2. Clone the configuration files
       #+begin_src shell
-        guix environment --ad-hoc git nss-certs -- \
+        guix shell git nss-certs -- \
              git clone https://github.com/zimoun/my-conf.git
       #+end_src
       Usually in =~/src/=.
