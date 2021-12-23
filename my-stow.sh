@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Avoid issues
+XDG_CONFIG_HOME="$HOME/.config/"
 mkdir -p $XDG_CONFIG_HOME/guix
 mkdir -p $XDG_CONFIG_HOME/emacs
 mkdir -p ~/.local/bin
