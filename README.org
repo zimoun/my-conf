@@ -90,7 +90,7 @@
 
   1. Propagate all the configurations files
      #+begin_src shell
-       guix environment --ad-hoc stow \
+       guix shell stow \
             -- stow -d $(pwd) -t $HOME . -R
      #+end_src
 
@@ -128,13 +128,14 @@
       GUIX_PROFILE=path/to/project
       . $GUIX_PROFILE/etc/profile
     #+end_src
-*** Enable guix environment --container
+*** Enable guix shell --container
     Be careful !
     #+begin_src shell
       # as root
       echo "kernel.unprivileged_userns_clone = 1" > /etc/sysctl.d/local.conf
       sysctl --system
     #+end_src
+    Trick for Debian.
 *** Protect from GC 2.5GiB of input texlive-*-texmf.tar.xz
     #+begin_src shell
       guix build texlive -K
@@ -158,7 +159,7 @@
        #+end_src
     4. Verify with e.g.
        #+begin_src shell
-         guix system docker-image gnu/system/examples/docker-image.scm
+         guix system image -t docker gnu/system/examples/docker-image.scm
        #+end_src
 *** Email: =mbsync+notmuch= = hard time with Gmail
     One of the issue is that Gmail holds forever *all* the emails in /All Mails/ and it is then hard to definitively remove them.  They claim it works with some IMAP settings but I have failed.  The solution I came up is:
@@ -181,7 +182,7 @@
 
     Example of query -- size the detached GPG signatures:
     #+begin_src shell
-      guix environment --ad-hoc pv
+      guix shell pv
       notmuch search --output=messages tag:signed \
           | xargs -I{} notmuch show --part=3 {}   \
           | pv -b 1> /dev/nul
