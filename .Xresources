@@ -18,3 +18,5 @@ XTerm*metaSendsEscape: true
 
 XTerm*fullscreen: never
 XTerm.omitTranslation: fullscreen
+
+Xft.dpi: 90
