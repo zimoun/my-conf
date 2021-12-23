@@ -55,7 +55,7 @@ unread = path_emacs .. [[emacsclient -ncu -e "(progn (require 'notmuch) (notmuch
 guix = path_emacs .. [[emacsclient -ncu -e "(progn (require 'magit) (magit-display-buffer-fullframe-status-topleft-v1 (magit-status-setup-buffer \"~/src/guix/guix\")))"]]
 bookmark = path_emacs .. [[emacsclient -ncu -e "(progn (require 'org) (org-capture nil \"b\"))"]]
 eterminal = path_emacs .. "emacsclient -ncu -e '(my/bookmark-bmenu-list)'"
-terminal = "env -i - DISPLAY=:0 HOME=/home/simon LANG=en_GB.UTF-8 xterm"
+terminal = "env -i - DISPLAY=:1 HOME=/home/simon LANG=en_GB.UTF-8 xterm"
 editor = os.getenv("EDITOR") or "emacs -nw"
 editor_cmd = terminal .. " -e " .. editor
 
