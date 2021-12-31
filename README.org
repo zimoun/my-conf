@@ -201,3 +201,8 @@
     where =<token>= has to be generated from their WebUI: User settings ->
     Developer Settings -> Personal access tokens; uniquely defined, thus
     redefined for each repo =.git/config=.
+*** Date/hour
+
+    #+begin_src shell
+       date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
+    #+end_src
