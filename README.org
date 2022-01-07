@@ -1,3 +1,4 @@
+
 #+STARTUP: showall
 * Debian
 
@@ -161,6 +162,10 @@
        #+begin_src shell
          guix system image -t docker gnu/system/examples/docker-image.scm
        #+end_src
+**** Docker
+    #+begin_src shell
+       sudo chmod 666 /var/run/docker.sock
+    #+end_src
 *** Email: =mbsync+notmuch= = hard time with Gmail
     One of the issue is that Gmail holds forever *all* the emails in /All Mails/ and it is then hard to definitively remove them.  They claim it works with some IMAP settings but I have failed.  The solution I came up is:
 
