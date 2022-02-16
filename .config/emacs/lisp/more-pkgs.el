@@ -24,10 +24,6 @@
   (add-hook 'org-mode-hook 'turn-on-org-cdlatex) ; Dependency to AucTeX because texmathp
   )
 
-(with-eval-after-load 'tex-mode
-  (dolist (hook (list 'latex-mode-hook 'LaTeX-mode-hook))
-    (add-hook hook 'turn-on-flyspell)))
-
 (with-eval-after-load 'flyspell
   (require 'auto-dictionary)
   (add-hook 'flyspell-mode-hook 'auto-dictionary-mode))
