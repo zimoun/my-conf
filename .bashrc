@@ -59,7 +59,6 @@ export XDG_RUNTIME_DIR=/run/user/$(id -u)
 # used by emacs
 export XDG_CONFIG_HOME="$HOME/.config/"
 
-export PATH="$HOME/.local/bin:$PATH"
 
 if [ -n "$GUIX_ENVIRONMENT" ]
 then

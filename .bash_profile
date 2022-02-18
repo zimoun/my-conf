@@ -43,4 +43,4 @@ export GUILE_LOAD_PATH="$HOME/.guix-profile/share/guile/site/3.0${GUILE_LOAD_PAT
 # lastest info manual
 export INFOPATH="$HOME/.config/guix/current/share/info${INFOPATH:+:}$INFOPATH"
 
-
+export PATH="$HOME/.local/bin${PATH:+:}$PATH"
