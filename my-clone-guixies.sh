@@ -36,4 +36,10 @@ else
     echo "Fetch manually!"
 fi
 
+project=website-hpc
+    if [ ! -d $project ]
+    then
+        git clone https://gitlab.inria.fr/guix-hpc/website $project
+    fi
+
 cd $HERE
