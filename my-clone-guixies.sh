@@ -37,9 +37,15 @@ else
 fi
 
 project=website-hpc
-    if [ ! -d $project ]
-    then
-        git clone https://gitlab.inria.fr/guix-hpc/website $project
-    fi
+if [ ! -d $project ]
+then
+    git clone https://gitlab.inria.fr/guix-hpc/website $project
+fi
+
+project=gwl
+if [ ! -d $project ]
+then
+    git clone https://git.savannah.gnu.org/git/gwl.git $project
+fi
 
 cd $HERE
